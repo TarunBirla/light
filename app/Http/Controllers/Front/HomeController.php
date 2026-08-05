@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Http\Controllers\Controller;
+use App\Models\Banner;
+use App\Models\Category;
+use App\Models\Item;
+use App\Models\GeneratorBanner;
+use App\Models\RequestLead;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RequestLeadMail;
+
+
+class HomeController extends Controller
+{
+
+
+public function guestRequest(Request $request)
+{
+    $request->validate([
+        'items' => 'required|array|min:1',
+        'name'  => 'required',
+        'email' => 'required|email',
+        'phone' => 'required'
+    ]);
+
+    $items = [];
+    $itemsText = '';
+    $productType = $request->product_type ?? 'rental';
+
+    foreach ($request->items as $item)
+    {
+        $itemType = $item['product_type'] ?? $productType;
+        if (in_array(strtolower($itemType), ['sell', 'selling', 'selling request'])) {
+            $itemTypeFormatted = 'Sell';
+        } else {
+            $itemTypeFormatted = 'Rental';
+        }
+
+        RequestLead::create([
+            'item_id'      => $item['id'],
+            'item_name'    => $item['title'],
+            'product_type' => $itemTypeFormatted,
+            'name'         => $request->name,
+            'email'        => $request->email,
+            'phone'        => $request->phone,
+            'message'      => $request->message
+        ]);
+
+        $items[] = $item['title'] . " (" . $itemTypeFormatted . ")";
+
+        $itemsText .= "• " . $item['title'] . " [" . $itemTypeFormatted . "]\n";
+    }
+
+    $requestTypeTitle = in_array(strtolower($productType), ['sell', 'selling', 'selling request']) ? 'Selling Request' : 'Rental Request';
+
+    $mailData = [
+        'items'        => $items,
+        'product_type' => $requestTypeTitle,
+        'name'         => $request->name,
+        'email'        => $request->email,
+        'phone'        => $request->phone,
+        'message'      => $request->message,
+    ];
+
+    try {
+        Mail::to('tbirla120@gmail.com')
+            ->send(new RequestLeadMail($mailData));
+    } catch (\Exception $e) {
+        \Log::error($e->getMessage());
+    }
+
+    return response()->json([
+        'status'       => true,
+        'items'        => $itemsText,
+        'product_type' => $requestTypeTitle,
+        'name'         => $request->name,
+        'email'        => $request->email,
+        'phone'        => $request->phone,
+        'message'      => $request->message
+    ]);
+}
+public function index()
+{
+    $banners = Banner::where('status','active')
+        ->get();
+
+    $generatorbanners = GeneratorBanner::where('status',1)
+        ->get();
+
+    $categories = Category::where('status','active')
+        ->orderBy('number','asc')
+        ->take(8)
+        ->get();
+
+    $items = Item::where('status','active')
+        ->orderBy('category_id','asc')
+        ->orderBy('sort_order','asc')
+        ->take(8)
+        ->get();
+
+    return view(
+        'front.home',
+        compact(
+            'banners',
+            'categories',
+            'items',
+            'generatorbanners'
+        )
+    );
+}
+
+    public function itemDetail($id)
+{
+    $item = Item::findOrFail($id);
+
+    return view(
+        'front.item-detail',
+        compact('item')
+    );
+}
+}

@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Http\Controllers\Controller;
+use App\Models\Item;
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class ItemController extends Controller
+{
+   public function index(Request $request)
+{
+    $categories = Category::where('status', 'active')
+        ->orderBy('number', 'asc')
+        ->get();
+
+
+    $items = Item::where('status', 'active')
+        ->orderBy('category_id', 'asc')
+        ->orderBy('sort_order', 'asc');
+
+
+    // Product Type Filter (Sell / Rental)
+    $productType = $request->query('type', 'sell');
+    if ($productType === 'rental') {
+        $items->where('is_rental', 1);
+    } else {
+        $productType = 'sell';
+        $items->where('is_sell', 1);
+    }
+
+    // Category Filter
+    if ($request->filled('category')) {
+        $items->where(
+            'category_id',
+            $request->category
+        );
+    }
+
+// Title Search
+    if ($request->filled('search')) {
+        $items->where('title', 'LIKE', '%' . $request->search . '%');
+    }
+    $items = $items->paginate(12);
+
+
+    return view(
+        'front.items',
+        compact(
+            'items',
+            'categories',
+            'productType'
+        )
+    );
+}
+}

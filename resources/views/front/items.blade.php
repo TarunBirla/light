@@ -1,0 +1,1008 @@
+@extends('front.layouts.app')
+
+@section('content')
+    <style>
+        /* ── HERO CAROUSEL ── */
+        .hero-section {
+            position: relative;
+        }
+
+        .carousel-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 580px;
+            object-fit: cover;
+            filter: brightness(.55);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, .65) 0%, rgba(0, 0, 0, .3) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: var(--brand);
+            color: var(--dark);
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: .35rem .9rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            color: var(--brand);
+        }
+
+        .hero-sub {
+            color: rgba(255, 255, 255, .8);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            max-width: 520px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-hero-primary {
+            background: var(--brand);
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 2rem;
+            padding: .75rem 2rem;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--brand-dk);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 199, 0, .4);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: .75rem 2rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, .4);
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .btn-hero-secondary:hover {
+            border-color: var(--brand);
+            color: var(--brand);
+        }
+
+        /* carousel controls */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, .15);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, .2);
+            margin: 0 1.5rem;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background: var(--brand);
+        }
+
+        .carousel-indicators [data-bs-target] {
+            background: rgba(255, 255, 255, .5);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .carousel-indicators .active {
+            background: var(--brand);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* ── STATS STRIP ── */
+        .stats-strip {
+            background: var(--brand);
+            padding: 1.5rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, .6);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        /* ── CATEGORIES ── */
+        .cat-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform .25s, box-shadow .25s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--brand);
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform .35s;
+        }
+
+        .cat-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .cat-card-body {
+            padding: 1rem 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cat-card-body h6 {
+            font-weight: 700;
+            font-size: .93rem;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .cat-arrow {
+            width: 30px;
+            height: 30px;
+            background: var(--brand-lt);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: .75rem;
+            transition: background .2s;
+        }
+
+        .cat-card:hover .cat-arrow {
+            background: var(--brand);
+        }
+
+        /* ── ITEM CARDS ── */
+        .item-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform .25s, box-shadow .25s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .item-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .item-card .img-wrap {
+            height: 250px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .item-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform .4s;
+        }
+
+        .item-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .item-badge {
+            position: absolute;
+            top: .75rem;
+            left: .75rem;
+            background: var(--brand);
+            color: var(--dark);
+            font-size: .68rem;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: .25rem .65rem;
+            border-radius: 20px;
+        }
+
+        .item-card-body {
+            padding: 1.1rem 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-title {
+            font-size: .97rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: .4rem;
+            line-height: 1.3;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .item-price small {
+            font-size: .75rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        .qty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            background: #f0fdf4;
+            color: var(--success);
+            font-size: .75rem;
+            font-weight: 600;
+            padding: .25rem .65rem;
+            border-radius: 20px;
+            border: 1px solid #bbf7d0;
+        }
+
+        .item-card-footer {
+            padding: .85rem 1.2rem;
+            background: var(--light-bg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: .6rem;
+        }
+
+        .btn-view {
+            flex: 1;
+            background: transparent;
+            border: 1.5px solid var(--brand);
+            color: var(--dark);
+            font-weight: 600;
+            font-size: .83rem;
+            border-radius: 8px;
+            padding: .5rem;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .35rem;
+            transition: all .2s;
+        }
+
+        .btn-view:hover {
+            background: var(--brand-lt);
+            border-color: var(--brand-dk);
+            color: var(--dark);
+        }
+
+        .btn-cart {
+            flex: 1;
+            background: var(--brand);
+            border: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: .83rem;
+            border-radius: 8px;
+            padding: .5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .35rem;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn-cart:hover {
+            background: var(--brand-dk);
+            box-shadow: 0 4px 14px rgba(255, 199, 0, .35);
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how-section {
+            background: var(--light-bg);
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .step-num {
+            width: 60px;
+            height: 60px;
+            background: var(--brand);
+            color: var(--dark);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .step-card h5 {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: .5rem;
+        }
+
+        .step-card p {
+            color: var(--muted);
+            font-size: .85rem;
+            line-height: 1.6;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: var(--brand);
+            padding: 4rem 0;
+        }
+
+        .pagination {
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+
+        .pagination .page-item .page-link {
+            border: none;
+            min-width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #fff;
+            color: #111;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+            transition: all .3s ease;
+        }
+
+        .pagination .page-item .page-link:hover {
+            background: #ffc700;
+            color: #111;
+            transform: translateY(-2px);
+        }
+
+        .pagination .page-item.active .page-link {
+            background: #ffc700;
+            color: #111;
+            border-color: #ffc700;
+            box-shadow: 0 8px 20px rgba(255, 199, 0, .35);
+        }
+
+        .pagination .page-item.disabled .page-link {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        @media(max-width:576px) {
+
+            .pagination .page-item .page-link {
+                min-width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+
+        }
+
+        .category-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            white-space: nowrap;
+            padding: 10px 18px;
+            border-radius: 30px;
+            background: #fff;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: #111;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        .category-pill:hover {
+            background: #ffc700;
+            border-color: #ffc700;
+            color: #111;
+        }
+
+        .category-pill.active {
+            background: #ffc700;
+            border-color: #ffc700;
+            color: #111;
+        }
+
+        @media(max-width:768px) {
+
+            .item-card .img-wrap {
+                height: 180px;
+                padding: 8px;
+            }
+
+            .item-card img {
+                object-fit: contain;
+            }
+
+        }
+
+        .gallery-box{
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.gallery-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.slider-wrap{
+    position:relative;
+    height:250px;
+    overflow:hidden;
+}
+
+.slider-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    opacity:0;
+    transition:.5s;
+}
+
+.active-img{
+    opacity:1;
+}
+
+.slider-dots{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    margin-top:8px;
+}
+
+.dot-indicator{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#ccc;
+}
+
+.active-dot{
+    background:#22c55e;
+}
+.product-type-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #E8E6DF;
+    padding-bottom: 12px;
+}
+.product-type-tab {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #555;
+    background: #F5F5F0;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #E8E6DF;
+}
+.product-type-tab:hover {
+    color: #111;
+    background: #E8E6DF;
+}
+.product-type-tab.active-sell {
+    background: #EDFAF0;
+    color: #166534;
+    border-color: #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+.product-type-tab.active-rental {
+    background: #EBF5FF;
+    color: #1d4ed8;
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+    </style>
+
+    <div class="container py-5">
+
+        <!-- Product Type Tabs (Sell / Rental) -->
+        <div class="product-type-tabs">
+            <a href="{{ url('/items?' . http_build_query(array_merge(request()->query(), ['type' => 'sell']))) }}" 
+               class="product-type-tab {{ ($productType ?? 'sell') == 'sell' ? 'active-sell' : '' }}">
+               🟢 Selling Products
+            </a>
+            <a href="{{ url('/items?' . http_build_query(array_merge(request()->query(), ['type' => 'rental']))) }}" 
+               class="product-type-tab {{ ($productType ?? '') == 'rental' ? 'active-rental' : '' }}">
+               🔵 Rental Products
+            </a>
+        </div>
+
+        <h2 class="mb-4">
+            {{ ($productType ?? 'sell') == 'sell' ? 'Selling Equipment' : 'Rental Equipment' }}
+        </h2>
+        <div class="mb-4">
+
+            <h5 class="fw-bold mb-3">
+                Browse Categories
+            </h5>
+
+            <div class="category-scroll">
+
+                <a href="{{ url('/items?' . http_build_query(array_merge(['type' => $productType ?? 'sell'], request()->except(['category', 'page'])))) }}" class="category-pill {{ !request('category') ? 'active' : '' }}">
+                    All
+                </a>
+
+                @foreach($categories as $cat)
+
+                    <a href="{{ url('/items?' . http_build_query(array_merge(request()->query(), ['category' => $cat->id, 'type' => $productType ?? 'sell']))) }}"
+                        class="category-pill {{ request('category') == $cat->id ? 'active' : '' }}">
+                        {{ $cat->name }}
+                    </a>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form method="GET" action="{{ url('/items') }}">
+                    <input type="hidden" name="type" value="{{ $productType ?? 'sell' }}">
+                    @if(request('category'))
+                        <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+
+                    <div class="input-group">
+                        <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                            placeholder="Search equipment by title...">
+
+                        <button class="btn btn-warning" type="submit">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+
+                        @if(request('search'))
+                            <a href="{{ request('category') ? url('/items?category=' . request('category')) : url('/items') }}"
+                                class="btn btn-outline-secondary">
+                                Clear
+                            </a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row g-4">
+
+            <div class="row g-4">
+
+
+                @foreach($items as $item)
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="item-card">
+                            @php
+
+                                $images = $item->image ?? [];
+
+                                if (!is_array($images)) {
+                                    $images = [$images];
+                                }
+
+                            @endphp
+
+                            <div class="img-wrap slider-wrap">
+
+                                @foreach($images as $key => $img)
+
+                                    <img src="{{ asset('uploads/items/' . $img) }}"
+                                        class="slider-image {{ $key == 0 ? 'active-img' : '' }}" data-item="{{ $item->id }}">
+
+                                @endforeach
+
+                            </div>
+
+                            <div class="slider-dots">
+
+                                @foreach($images as $key => $img)
+
+                                    <span class="dot-indicator {{ $key == 0 ? 'active-dot' : '' }}" data-item="{{ $item->id }}">
+                                    </span>
+
+                                @endforeach
+
+                            </div>
+                            <div class="item-card-body">
+                                <div class="item-title">{{ $item->title }}</div>
+                                <!-- <div class="item-price mt-1">
+                                                £{{ number_format($item->price_per_day, 2) }}
+                                                <small>/ day</small>
+                                            </div> -->
+                                <!-- <div class="mt-2">
+                                                        <span class="qty-badge">
+                                                            <i class="bi bi-boxes"></i> {{ $item->available_qty }} in stock
+                                                        </span>
+                                                    </div> -->
+                            </div>
+                            <div class="item-card-footer">
+                                <a href="{{ url('item/' . $item->id) }}" class="btn-view">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                                @if(Auth::check())
+                                    <form action="{{ url('/add-to-cart') }}" method="POST" style="flex:1;display:flex;">
+                                        @csrf
+                                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit" class="btn-cart w-100">
+                                            <i class="bi bi-cart-plus-fill"></i> Request
+                                        </button>
+                                    </form>
+                                @else
+
+                                    <button class="btn-cart w-100" onclick="addToRequest(
+                                            '{{ $item->id }}',
+                                            '{{ addslashes($item->title) }}',
+                                            '{{ $productType ?? 'sell' }}'
+                                            )">
+                                        <i class="bi bi-plus-circle"></i>
+                                        Request
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="mt-4">
+
+            <!-- {{ $items->links() }} -->
+            <div class="d-flex justify-content-center mt-5">
+                <!-- {{ $items->onEachSide(1)->links('pagination::bootstrap-5') }} -->
+                {{ $items->appends(request()->query())->onEachSide(1)->links('pagination::bootstrap-5') }}
+            </div>
+
+        </div>
+
+    </div>
+    @include('front.portfolio')
+    @include('front.brand')
+    @include('front.television')
+
+    <div class="modal fade" id="requestModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5>Request Item</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="item_id">
+
+                    <div class="mb-3">
+                        <label>Request Type *</label>
+                        <select id="request_product_type" class="form-select fw-bold" style="background:#f8f9fa;">
+                            <option value="sell" {{ ($productType ?? 'sell') == 'sell' ? 'selected' : '' }}>🟢 Selling Request</option>
+                            <option value="rental" {{ ($productType ?? '') == 'rental' ? 'selected' : '' }}>🔵 Rental Request</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Name *</label>
+                        <input type="text" id="name" class="form-control">
+                        <small class="text-danger" id="name_error"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email *</label>
+                        <input type="email" id="email" class="form-control">
+                        <small class="text-danger" id="email_error"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Phone *</label>
+                        <input type="text" id="phone" class="form-control">
+                        <small class="text-danger" id="phone_error"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Message</label>
+                        <textarea id="message" class="form-control"></textarea>
+                    </div>
+
+                    <button class="btn btn-warning w-100" onclick="submitRequest()">
+                        Send Request
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function showToast(message) {
+            document.getElementById('toastMessage').innerHTML = message;
+
+            let toastEl =
+                document.getElementById('liveToast');
+
+            let toast =
+                new bootstrap.Toast(toastEl, {
+                    delay: 3000
+                });
+
+            toast.show();
+        }
+
+
+
+
+    </script>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index:99999">
+
+        <div id="liveToast" class="toast border-0 shadow">
+
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Light As AIR</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+
+            <div class="toast-body" id="toastMessage">
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        async function submitRequest() {
+            document.getElementById('name_error').innerHTML = '';
+            document.getElementById('email_error').innerHTML = '';
+            document.getElementById('phone_error').innerHTML = '';
+
+            let name =
+                document.getElementById('name').value.trim();
+
+            let email =
+                document.getElementById('email').value.trim();
+
+            let phone =
+                document.getElementById('phone').value.trim();
+
+            let valid = true;
+
+            if (!name) {
+                document.getElementById('name_error')
+                    .innerHTML = 'Name is required';
+
+                valid = false;
+            }
+
+            if (!email) {
+                document.getElementById('email_error')
+                    .innerHTML = 'Email is required';
+
+                valid = false;
+            }
+            else {
+                let emailRegex =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!emailRegex.test(email)) {
+                    document.getElementById('email_error')
+                        .innerHTML = 'Enter valid email';
+
+                    valid = false;
+                }
+            }
+
+            if (!phone) {
+                document.getElementById('phone_error')
+                    .innerHTML = 'Phone number is required';
+
+                valid = false;
+            }
+
+            if (!valid) {
+                return;
+            }
+
+            try {
+
+                let reqType = document.getElementById('request_product_type') ? document.getElementById('request_product_type').value : '{{ $productType ?? 'sell' }}';
+
+                const response =
+                    await fetch('/guest-request', {
+
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document
+                                .querySelector('meta[name="csrf-token"]')
+                                .content
+                        },
+
+                        body: JSON.stringify({
+
+                            items: JSON.parse(
+                                localStorage.getItem('requests')
+                            ),
+                            product_type: reqType,
+
+                            name: name,
+                            email: email,
+                            phone: phone,
+
+                            message:
+                                document.getElementById('message').value
+                        })
+                    });
+
+                const data = await response.json();
+
+                if (!data.status) {
+                    showToast('Request failed.');
+                    return;
+                }
+
+                let msg =
+
+                    `🔥 NEW LIGHT AS AIR REQUEST (${data.product_type})
+
+    Request Type: ${data.product_type}
+
+    Items:
+    ${data.items}
+
+    Name: ${data.name}
+
+    Email: ${data.email}
+
+    Phone: ${data.phone}`;
+
+                window.open(
+                    `https://wa.me/447879175585?text=${encodeURIComponent(msg)}`,
+                    '_blank'
+                );
+
+                bootstrap.Modal
+                    .getInstance(
+                        document.getElementById('requestModal')
+                    ).hide();
+
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('message').value = '';
+
+                // Request list clear
+                localStorage.removeItem('requests');
+
+                // Count update
+                updateRequestCount();
+
+                showToast(
+                    '✅ Request submitted successfully.'
+                );
+
+            }
+            catch (error) {
+                console.log(error);
+
+                showToast(
+                    '❌ Something went wrong. Please try again.'
+                );
+            }
+        }
+    </script>
+
+@endsection
