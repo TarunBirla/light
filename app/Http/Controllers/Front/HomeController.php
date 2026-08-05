@@ -26,38 +26,36 @@ public function guestRequest(Request $request)
         'phone' => 'required'
     ]);
 
-    $items = [];
+    $rawType = strtolower($request->product_type ?? 'rental');
+    $isSell  = in_array($rawType, ['sell', 'selling', 'selling request']);
+
+    $productTypeDb    = $isSell ? 'Sell' : 'Rental';
+    $requestTypeTitle = $isSell ? 'Selling Request' : 'Rental Request';
+
+    $itemsList = [];
     $itemsText = '';
-    $productType = $request->product_type ?? 'rental';
 
     foreach ($request->items as $item)
     {
-        $itemType = $item['product_type'] ?? $productType;
-        if (in_array(strtolower($itemType), ['sell', 'selling', 'selling request'])) {
-            $itemTypeFormatted = 'Sell';
-        } else {
-            $itemTypeFormatted = 'Rental';
-        }
+        $itemTitle = is_array($item) ? ($item['title'] ?? 'Item') : $item;
+        $itemId    = is_array($item) ? ($item['id'] ?? null) : null;
 
         RequestLead::create([
-            'item_id'      => $item['id'],
-            'item_name'    => $item['title'],
-            'product_type' => $itemTypeFormatted,
+            'item_id'      => $itemId,
+            'item_name'    => $itemTitle,
+            'product_type' => $productTypeDb,
             'name'         => $request->name,
             'email'        => $request->email,
             'phone'        => $request->phone,
             'message'      => $request->message
         ]);
 
-        $items[] = $item['title'] . " (" . $itemTypeFormatted . ")";
-
-        $itemsText .= "• " . $item['title'] . " [" . $itemTypeFormatted . "]\n";
+        $itemsList[] = $itemTitle;
+        $itemsText  .= "• " . $itemTitle . "\n";
     }
 
-    $requestTypeTitle = in_array(strtolower($productType), ['sell', 'selling', 'selling request']) ? 'Selling Request' : 'Rental Request';
-
     $mailData = [
-        'items'        => $items,
+        'items'        => $itemsList,
         'product_type' => $requestTypeTitle,
         'name'         => $request->name,
         'email'        => $request->email,
@@ -69,7 +67,7 @@ public function guestRequest(Request $request)
         Mail::to('tbirla120@gmail.com')
             ->send(new RequestLeadMail($mailData));
     } catch (\Exception $e) {
-        \Log::error($e->getMessage());
+        \Log::error('Mail sending error: ' . $e->getMessage());
     }
 
     return response()->json([
