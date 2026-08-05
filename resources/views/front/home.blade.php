@@ -1199,6 +1199,14 @@
                     <input type="hidden" id="item_id">
 
                     <div class="mb-3">
+                        <label>Request Type *</label>
+                        <select id="request_product_type" class="form-select fw-bold" style="background:#f8f9fa;">
+                            <option value="sell"> Selling Request</option>
+                            <option value="rental" selected> Rental Request</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
                         <label>Name *</label>
                         <input type="text" id="name" class="form-control">
                         <small class="text-danger" id="name_error"></small>
@@ -1319,6 +1327,8 @@
 
             try {
 
+                let reqType = document.getElementById('request_product_type') ? document.getElementById('request_product_type').value : 'rental';
+
                 const response =
                     await fetch('/guest-request', {
 
@@ -1334,11 +1344,10 @@
 
                         body: JSON.stringify({
 
-                            // item_id:
-                            // document.getElementById('item_id').value,
                             items: JSON.parse(
                                 localStorage.getItem('requests')
                             ),
+                            product_type: reqType,
 
                             name: name,
                             email: email,
@@ -1349,7 +1358,6 @@
                         })
                     });
 
-                // const data = await response.json();
                 const data = await response.json();
 
                 console.log(data);
@@ -1361,7 +1369,9 @@
 
                 let msg =
 
-                    `🔥 NEW LIGHT AS AIR REQUEST
+                    `🔥 NEW LIGHT AS AIR REQUEST (${data.product_type})
+
+        Request Type: ${data.product_type}
 
         Items:
         ${data.items}

@@ -527,6 +527,14 @@
                     <input type="hidden" id="item_id">
 
                     <div class="mb-3">
+                        <label>Request Type *</label>
+                        <select id="request_product_type" class="form-select fw-bold" style="background:#f8f9fa;">
+                            <option value="sell" {{ ($item->is_sell && !$item->is_rental) ? 'selected' : '' }}> Selling Request</option>
+                            <option value="rental" {{ ($item->is_rental || !$item->is_sell) ? 'selected' : '' }}> Rental Request</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
                         <label>Name *</label>
                         <input type="text" id="name" class="form-control">
                         <small class="text-danger" id="name_error"></small>
@@ -640,6 +648,13 @@
 
             try {
 
+                let reqType = document.getElementById('request_product_type') ? document.getElementById('request_product_type').value : 'rental';
+
+                let requestsPayload = JSON.parse(localStorage.getItem('requests') || '[]');
+                if (requestsPayload.length === 0) {
+                    requestsPayload = [{ id: '{{ $item->id }}', title: '{{ addslashes($item->title) }}', product_type: reqType }];
+                }
+
                 const response =
                     await fetch('/guest-request', {
 
@@ -656,7 +671,9 @@
                         body: JSON.stringify({
 
                             item_id:
-                                document.getElementById('item_id').value,
+                                document.getElementById('item_id').value || '{{ $item->id }}',
+                            items: requestsPayload,
+                            product_type: reqType,
 
                             name: name,
                             email: email,
@@ -676,9 +693,11 @@
 
                 let msg =
 
-                    `🔥 NEW LIGHT AS AIR REQUEST
+                    `🔥 NEW LIGHT AS AIR REQUEST (${data.product_type})
 
-                    Item: ${data.item_name}
+                    Request Type: ${data.product_type}
+
+                    Item: ${data.items || '{{ addslashes($item->title) }}'}
 
                     Name: ${data.name}
 

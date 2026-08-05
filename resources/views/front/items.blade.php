@@ -790,8 +790,8 @@
                     <div class="mb-3">
                         <label>Request Type *</label>
                         <select id="request_product_type" class="form-select fw-bold" style="background:#f8f9fa;">
-                            <option value="sell" {{ ($productType ?? 'sell') == 'sell' ? 'selected' : '' }}>🟢 Selling Request</option>
-                            <option value="rental" {{ ($productType ?? '') == 'rental' ? 'selected' : '' }}>🔵 Rental Request</option>
+                            <option value="sell" {{ ($productType ?? 'sell') == 'sell' ? 'selected' : '' }}> Selling Request</option>
+                            <option value="rental" {{ ($productType ?? '') == 'rental' ? 'selected' : '' }}> Rental Request</option>
                         </select>
                     </div>
 
