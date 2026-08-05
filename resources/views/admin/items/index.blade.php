@@ -367,7 +367,7 @@
                     <th>Sort Order</th>
                     <th>Qty</th>
                     <th>Available</th>
-                    <th>Price/Day</th>
+                    <th>Prices</th>
                     <th>Status</th>
 
                     <th>Actions</th>
@@ -427,10 +427,10 @@
                         </td>
                         <td>
                             @if($item->is_sell)
-                                <span class="badge bg-success" style="font-size: 11px; margin-right: 2px;">🟢 Sell</span>
+                                <span class="badge bg-success" style="font-size: 11px; margin-right: 2px;"> Sell</span>
                             @endif
                             @if($item->is_rental)
-                                <span class="badge bg-primary" style="font-size: 11px;">🔵 Rental</span>
+                                <span class="badge bg-primary" style="font-size: 11px;"> Rental</span>
                             @endif
                         </td>
                         <td>
@@ -445,7 +445,19 @@
                             <span class="avail-pill">{{ $item->available_qty }}</span>
                         </td>
                         <td>
-                            <span class="price-tag">£{{ $item->price_per_day }}<span>/day</span></span>
+                            @if($item->is_sell && $item->selling_price !== null)
+                                <div style="font-size: 13px; font-weight: 700; color: #166534; white-space: nowrap;">
+                                    Sell: £{{ number_format($item->selling_price, 2) }}
+                                </div>
+                            @endif
+                            @if($item->is_rental && ($item->rental_price !== null || $item->price_per_day !== null))
+                                <div style="font-size: 13px; font-weight: 700; color: #1d4ed8; white-space: nowrap;">
+                                    Rent: £{{ number_format($item->rental_price ?? $item->price_per_day, 2) }}<small style="font-size:10px; font-weight:normal;">/day</small>
+                                </div>
+                            @endif
+                            @if(!$item->is_sell && !$item->is_rental)
+                                —
+                            @endif
                         </td>
                         <td>
                             @if($item->status == 'active')

@@ -19,6 +19,8 @@ class Item extends Model
         'qty',
         'available_qty',
         'price_per_day',
+        'selling_price',
+        'rental_price',
         'is_sell',
         'is_rental',
         'status',
@@ -28,7 +30,9 @@ class Item extends Model
     protected $casts = [
         'image' => 'array',
         'is_sell' => 'boolean',
-        'is_rental' => 'boolean'
+        'is_rental' => 'boolean',
+        'selling_price' => 'float',
+        'rental_price' => 'float'
     ];
     public function category()
     {

@@ -564,11 +564,11 @@
         <div class="product-type-tabs">
             <a href="{{ url('/category/' . $category->id . '?' . http_build_query(array_merge(request()->query(), ['type' => 'sell']))) }}" 
                class="product-type-tab {{ ($productType ?? 'sell') == 'sell' ? 'active-sell' : '' }}">
-               🟢 Selling Products
+               <i class="bi bi-bag-check-fill fs-5 me-1"></i> Selling Products
             </a>
             <a href="{{ url('/category/' . $category->id . '?' . http_build_query(array_merge(request()->query(), ['type' => 'rental']))) }}" 
                class="product-type-tab {{ ($productType ?? '') == 'rental' ? 'active-rental' : '' }}">
-               🔵 Rental Products
+               <i class="bi bi-calendar-event-fill fs-5 me-1"></i> Rental Products
             </a>
         </div>
 

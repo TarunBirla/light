@@ -41,31 +41,6 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id' => 'required',
-            'title' => 'required',
-            'qty' => 'required',
-            'price_per_day' => 'required'
-        ]);
-
-        $images = [];
-
-        if ($request->hasFile('image')) {
-
-            foreach ($request->file('image') as $file) {
-
-                $imageName =
-                    time() . '_' . uniqid() . '.' . $file->extension();
-
-                $file->move(
-                    public_path('uploads/items'),
-                    $imageName
-                );
-
-                $images[] = $imageName;
-            }
-        }
-
         $isSell = $request->has('is_sell') ? 1 : 0;
         $isRental = $request->has('is_rental') ? 1 : 0;
 
@@ -73,18 +48,49 @@ class ItemController extends Controller
             return back()->withInput()->withErrors(['product_type' => 'Please select at least one Product Type (Sell or Rental).']);
         }
 
+        $rules = [
+            'category_id' => 'required',
+            'title'       => 'required',
+            'qty'         => 'required',
+        ];
+
+        if ($isSell) {
+            $rules['selling_price'] = 'required|numeric|min:0';
+        }
+
+        if ($isRental) {
+            $rules['rental_price'] = 'required|numeric|min:0';
+        }
+
+        $request->validate($rules);
+
+        $sellingPrice = $isSell ? $request->selling_price : null;
+        $rentalPrice  = $isRental ? $request->rental_price : null;
+
+        $images = [];
+
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $imageName = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path('uploads/items'), $imageName);
+                $images[] = $imageName;
+            }
+        }
+
         Item::create([
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $images,
-            'qty' => $request->qty,
+            'category_id'   => $request->category_id,
+            'title'         => $request->title,
+            'description'   => $request->description,
+            'image'         => $images,
+            'qty'           => $request->qty,
             'available_qty' => $request->qty,
-            'price_per_day' => $request->price_per_day,
-            'is_sell' => $isSell,
-            'is_rental' => $isRental,
-            'status' => $request->status,
-            'sort_order' => $request->sort_order ?? 0
+            'price_per_day' => $rentalPrice ?? 0,
+            'selling_price' => $sellingPrice,
+            'rental_price'  => $rentalPrice,
+            'is_sell'       => $isSell,
+            'is_rental'     => $isRental,
+            'status'        => $request->status,
+            'sort_order'    => $request->sort_order ?? 0
         ]);
 
         return redirect()
@@ -182,18 +188,39 @@ if (!empty($item->image)) {
             return back()->withInput()->withErrors(['product_type' => 'Please select at least one Product Type (Sell or Rental).']);
         }
 
+        $rules = [
+            'category_id' => 'required',
+            'title'       => 'required',
+            'qty'         => 'required',
+        ];
+
+        if ($isSell) {
+            $rules['selling_price'] = 'required|numeric|min:0';
+        }
+
+        if ($isRental) {
+            $rules['rental_price'] = 'required|numeric|min:0';
+        }
+
+        $request->validate($rules);
+
+        $sellingPrice = $isSell ? $request->selling_price : null;
+        $rentalPrice  = $isRental ? $request->rental_price : null;
+
         $item->update([
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $oldImages,
-            'qty' => $request->qty,
+            'category_id'   => $request->category_id,
+            'title'         => $request->title,
+            'description'   => $request->description,
+            'image'         => $oldImages,
+            'qty'           => $request->qty,
             'available_qty' => $request->available_qty,
-            'price_per_day' => $request->price_per_day,
-            'is_sell' => $isSell,
-            'is_rental' => $isRental,
-            'status' => $request->status,
-            'sort_order' => $request->sort_order ?? 0
+            'price_per_day' => $rentalPrice ?? 0,
+            'selling_price' => $sellingPrice,
+            'rental_price'  => $rentalPrice,
+            'is_sell'       => $isSell,
+            'is_rental'     => $isRental,
+            'status'        => $request->status,
+            'sort_order'    => $request->sort_order ?? 0
         ]);
 
         return redirect()

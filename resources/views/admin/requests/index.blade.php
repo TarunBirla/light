@@ -277,11 +277,11 @@
                         <td>
                             @if(in_array(strtolower($request->product_type ?? 'rental'), ['sell', 'selling', 'selling request']))
                                 <span class="badge-status" style="background:#EDFAF0; color:#1a7a3a; border: 1px solid #86efac; font-size:12px; padding:5px 12px;">
-                                    🟢 Sell
+                                     Sell
                                 </span>
                             @else
                                 <span class="badge-status" style="background:#EBF5FF; color:#1d4ed8; border: 1px solid #93c5fd; font-size:12px; padding:5px 12px;">
-                                    🔵 Rental
+                                     Rental
                                 </span>
                             @endif
                         </td>
@@ -395,9 +395,9 @@
         let badgeContainer = document.getElementById('modalProductTypeBadge');
         let typeLower = (product_type || 'rental').toLowerCase();
         if (typeLower === 'sell' || typeLower === 'selling' || typeLower === 'selling request') {
-            badgeContainer.innerHTML = '<span class="badge-status" style="background:#EDFAF0; color:#1a7a3a; border: 1px solid #86efac; font-size:14px; padding:6px 14px; border-radius:20px;">🟢 Sell (Purchase Request)</span>';
+            badgeContainer.innerHTML = '<span class="badge-status" style="background:#EDFAF0; color:#1a7a3a; border: 1px solid #86efac; font-size:14px; padding:6px 14px; border-radius:20px;"> Sell (Purchase Request)</span>';
         } else {
-            badgeContainer.innerHTML = '<span class="badge-status" style="background:#EBF5FF; color:#1d4ed8; border: 1px solid #93c5fd; font-size:14px; padding:6px 14px; border-radius:20px;">🔵 Rental (Rental Request)</span>';
+            badgeContainer.innerHTML = '<span class="badge-status" style="background:#EBF5FF; color:#1d4ed8; border: 1px solid #93c5fd; font-size:14px; padding:6px 14px; border-radius:20px;"> Rental (Rental Request)</span>';
         }
 
         new bootstrap.Modal(document.getElementById('requestDetailsModal')).show();

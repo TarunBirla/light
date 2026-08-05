@@ -68,32 +68,39 @@
 
                     </div>
 
-                    <div class="col-md-4 mb-3">
-
-                        <label>Price Per Day (£)</label>
-
-                        <input type="number" step="0.01" name="price_per_day" value="{{ $item->price_per_day }}"
-                            class="form-control">
-
-                    </div>
-
                     <div class="col-md-12 mb-3">
                         <label class="d-block fw-bold">Product Type <span class="text-danger">*</span></label>
                         <div class="d-flex gap-4 align-items-center mt-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_sell" id="is_sell" value="1" {{ old('is_sell', $item->is_sell) ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="is_sell" id="is_sell" value="1" {{ old('is_sell', $item->is_sell) ? 'checked' : '' }} onchange="togglePriceFields()">
                                 <label class="form-check-label fw-semibold" for="is_sell">
                                      Sell
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_rental" id="is_rental" value="1" {{ old('is_rental', $item->is_rental) ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="is_rental" id="is_rental" value="1" {{ old('is_rental', $item->is_rental) ? 'checked' : '' }} onchange="togglePriceFields()">
                                 <label class="form-check-label fw-semibold" for="is_rental">
                                      Rental
                                 </label>
                             </div>
                         </div>
                         @error('product_type')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3" id="selling_price_wrapper">
+                        <label class="fw-bold">Selling Price (£) <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" name="selling_price" id="selling_price" value="{{ old('selling_price', $item->selling_price) }}" class="form-control" placeholder="0.00">
+                        @error('selling_price')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3" id="rental_price_wrapper">
+                        <label class="fw-bold">Rental Price / Day (£) <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" name="rental_price" id="rental_price" value="{{ old('rental_price', $item->rental_price ?? $item->price_per_day) }}" class="form-control" placeholder="0.00">
+                        @error('rental_price')
                             <small class="text-danger d-block mt-1">{{ $message }}</small>
                         @enderror
                     </div>
@@ -205,15 +212,29 @@
             <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
             <script>
+                function togglePriceFields() {
+                    const isSell = document.getElementById('is_sell').checked;
+                    const isRental = document.getElementById('is_rental').checked;
+
+                    const sellWrap = document.getElementById('selling_price_wrapper');
+                    const rentWrap = document.getElementById('rental_price_wrapper');
+
+                    if (sellWrap) {
+                        sellWrap.style.display = isSell ? 'block' : 'none';
+                    }
+                    if (rentWrap) {
+                        rentWrap.style.display = isRental ? 'block' : 'none';
+                    }
+                }
+
                 document.addEventListener('DOMContentLoaded', function () {
+                    togglePriceFields();
                     ClassicEditor
                         .create(document.querySelector('#description'))
                         .catch(error => {
                             console.error(error);
                         });
                 });
-
-
             </script>
             <script>
 
