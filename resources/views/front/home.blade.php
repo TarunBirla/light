@@ -828,7 +828,7 @@
                         <img src="{{ asset('uploads/banner/' . $banner->image) }}" alt="{{ $banner->title }}">
                         <div class="hero-overlay"></div>
                         <div class="hero-content">
-                            <span class="hero-tag"><i class="bi bi-lightning-charge-fill me-1"></i>Premium Rental Service</span>
+                            <span class="hero-tag"><i class="bi bi-lightning-charge-fill me-1"></i> Premium Production Lights</span>
                             <h1 class="hero-title">{{ $banner->title }}</h1>
                             <p class="hero-sub">Professional equipment rental with flexible terms. Book online in minutes.
                             </p>
@@ -991,13 +991,13 @@
                     <div class="section-label mb-1"><i class="bi bi-box-seam me-1"></i>Available Now</div>
                     <h2 class="section-title mb-0">Rental Equipment</h2>
                 </div>
-                <a href="/items" class="btn-brand-outline text-decoration-none d-flex align-items-center gap-1">
+                <a href="/items?type=rental" class="btn-brand-outline text-decoration-none d-flex align-items-center gap-1">
                     View All <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
 
             <div class="row g-4">
-                @foreach($items as $item)
+                @foreach($rental_items as $item)
                     <div class="col-12 col-md-4 col-lg-3">
                         <div class="item-card">
                             @php
@@ -1033,15 +1033,6 @@
                             </div>
                             <div class="item-card-body">
                                 <div class="item-title">{{ $item->title }}</div>
-                                <!-- <div class="item-price mt-1">
-                                                    £{{ number_format($item->price_per_day, 2) }}
-                                                    <small>/ day</small>
-                                                </div> -->
-                                <!-- <div class="mt-2">
-                                                            <span class="qty-badge">
-                                                                <i class="bi bi-boxes"></i> {{ $item->available_qty }} in stock
-                                                            </span>
-                                                        </div> -->
                             </div>
                             <div class="item-card-footer">
                                 <a href="{{ url('item/' . $item->id) }}" class="btn-view">
@@ -1057,18 +1048,95 @@
                                         </button>
                                     </form>
                                 @else
-                                    <!-- 
-                                                                                                            <button class="btn-cart w-100" onclick="openRequestModal(
-                                                                                    '{{ $item->id }}',
-                                                                                    '{{ $item->title }}'
-                                                                                    )">
-                                                                                                                <i class="bi bi-cart-plus-fill"></i>
-                                                                                                                Request
-                                                                                                            </button> -->
-
                                     <button class="btn-cart w-100" onclick="addToRequest(
                                                 '{{ $item->id }}',
-                                                '{{ $item->title }}'
+                                                '{{ addslashes($item->title) }}',
+                                                'rental'
+                                                )">
+                                        <i class="bi bi-plus-circle"></i>
+                                        Request
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+     
+    <!-- ── Selling ITEMS ── -->
+
+    <section class="py-5 bg-light" id="items">
+        <div class="container">
+            <!-- <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2"> -->
+            <div class="section-header d-flex align-items-end justify-content-between mb-4">
+
+                <div>
+                    <div class="section-label mb-1"><i class="bi bi-box-seam me-1"></i>Available Now</div>
+                    <h2 class="section-title mb-0">Selling Equipment</h2>
+                </div>
+                <a href="/items?type=sell" class="btn-brand-outline text-decoration-none d-flex align-items-center gap-1">
+                    View All <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="row g-4">
+                @foreach($selling_items as $item)
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="item-card">
+                            @php
+
+                                $images = $item->image ?? [];
+
+                                if (!is_array($images)) {
+                                    $images = [$images];
+                                }
+
+                            @endphp
+
+                            <div class="img-wrap slider-wrap">
+
+                                @foreach($images as $key => $img)
+
+                                    <img src="{{ asset('uploads/items/' . $img) }}"
+                                        class="slider-image {{ $key == 0 ? 'active-img' : '' }}" data-item="{{ $item->id }}">
+
+                                @endforeach
+
+                            </div>
+
+                            <div class="slider-dots">
+
+                                @foreach($images as $key => $img)
+
+                                    <span class="dot-indicator {{ $key == 0 ? 'active-dot' : '' }}" data-item="{{ $item->id }}">
+                                    </span>
+
+                                @endforeach
+
+                            </div>
+                            <div class="item-card-body">
+                                <div class="item-title">{{ $item->title }}</div>
+                            </div>
+                            <div class="item-card-footer">
+                                <a href="{{ url('item/' . $item->id) }}" class="btn-view">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                                @if(Auth::check())
+                                    <form action="{{ url('/add-to-cart') }}" method="POST" style="flex:1;display:flex;">
+                                        @csrf
+                                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit" class="btn-cart w-100">
+                                            <i class="bi bi-cart-plus-fill"></i> Request
+                                        </button>
+                                    </form>
+                                @else
+                                    <button class="btn-cart w-100" onclick="addToRequest(
+                                                '{{ $item->id }}',
+                                                '{{ addslashes($item->title) }}',
+                                                'sell'
                                                 )">
                                         <i class="bi bi-plus-circle"></i>
                                         Request

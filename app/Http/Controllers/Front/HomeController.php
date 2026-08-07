@@ -99,12 +99,28 @@ public function index()
         ->take(8)
         ->get();
 
+    $rental_items = Item::where('status','active')
+        ->where('is_rental', 1)
+        ->orderBy('category_id','asc')
+        ->orderBy('sort_order','asc')
+        ->take(8)
+        ->get();
+
+    $selling_items = Item::where('status','active')
+        ->where('is_sell', 1)
+        ->orderBy('category_id','asc')
+        ->orderBy('sort_order','asc')
+        ->take(8)
+        ->get();
+
     return view(
         'front.home',
         compact(
             'banners',
             'categories',
             'items',
+            'rental_items',
+            'selling_items',
             'generatorbanners'
         )
     );

@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Light As AIR — Admin</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="{{ asset('Logo-3.webp') }}">
+    <link rel="shortcut icon" type="image/webp" href="{{ asset('Logo-3.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('Logo-3.webp') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">

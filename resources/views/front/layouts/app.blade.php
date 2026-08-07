@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Light as AIR – Premium Equipment Rental</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="{{ asset('Logo-3.webp') }}">
+    <link rel="shortcut icon" type="image/webp" href="{{ asset('Logo-3.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('Logo-3.webp') }}">
+
     <!-- Bootstrap 5 -->
      <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
