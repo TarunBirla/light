@@ -718,15 +718,18 @@
                             </div>
                             <div class="item-card-body">
                                 <div class="item-title">{{ $item->title }}</div>
-                                <!-- <div class="item-price mt-1">
-                                                £{{ number_format($item->price_per_day, 2) }}
-                                                <small>/ day</small>
-                                            </div> -->
-                                <!-- <div class="mt-2">
-                                                        <span class="qty-badge">
-                                                            <i class="bi bi-boxes"></i> {{ $item->available_qty }} in stock
-                                                        </span>
-                                                    </div> -->
+                                @if(($productType ?? 'sell') == 'sell')
+                                    @php
+                                        $displayPrice = ($item->selling_price && $item->selling_price > 0) 
+                                                        ? $item->selling_price 
+                                                        : ($item->price_per_day && $item->price_per_day > 0 ? $item->price_per_day : null);
+                                    @endphp
+                                    @if($displayPrice)
+                                        <div class="item-price mt-1 fw-bold" style="font-size: 1.15rem; color: #000000 !important; font-weight: 800;">
+                                            £{{ number_format($displayPrice, 2) }}
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                             <div class="item-card-footer">
                                 <a href="{{ url('item/' . $item->id) }}" class="btn-view">

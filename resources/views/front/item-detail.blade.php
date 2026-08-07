@@ -485,6 +485,19 @@
                 <div class="detail-card">
                     <h1 class="item-title">{{ $item->title }}</h1>
 
+                    @if($item->is_sell)
+                        @php
+                            $displayPrice = ($item->selling_price && $item->selling_price > 0) 
+                                            ? $item->selling_price 
+                                            : ($item->price_per_day && $item->price_per_day > 0 ? $item->price_per_day : null);
+                        @endphp
+                        @if($displayPrice)
+                            <div class="item-price my-2 fw-bold" style="font-size: 1.5rem; color: #000000 !important; font-weight: 800;">
+                                £{{ number_format($displayPrice, 2) }}
+                            </div>
+                        @endif
+                    @endif
+
                     <div class="feature-list">
                         <span class="feature-pill"><i class="bi bi-check-circle-fill text-success"></i> Available Now</span>
 

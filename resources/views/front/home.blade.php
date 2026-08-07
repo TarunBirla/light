@@ -1118,6 +1118,16 @@
                             </div>
                             <div class="item-card-body">
                                 <div class="item-title">{{ $item->title }}</div>
+                                @php
+                                    $displayPrice = ($item->selling_price && $item->selling_price > 0) 
+                                                    ? $item->selling_price 
+                                                    : ($item->price_per_day && $item->price_per_day > 0 ? $item->price_per_day : null);
+                                @endphp
+                                @if($displayPrice)
+                                    <div class="item-price mt-1 fw-bold" style="font-size: 1.15rem; color: #000000 !important; font-weight: 800;">
+                                        £{{ number_format($displayPrice, 2) }}
+                                    </div>
+                                @endif
                             </div>
                             <div class="item-card-footer">
                                 <a href="{{ url('item/' . $item->id) }}" class="btn-view">
