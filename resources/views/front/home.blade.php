@@ -833,7 +833,7 @@
                             <p class="hero-sub">Professional equipment rental with flexible terms. Book online in minutes.
                             </p>
                             <div class="hero-actions">
-                                <a href="//items?type=sell" class="btn-hero-primary1">
+                                <a href="/items?type=sell" class="btn-hero-primary1">
                                     <i class="bi bi-search"></i> Selling Equipment
                                 </a>
                                 <a href="/items?type=rental" class="btn-hero-secondary">
