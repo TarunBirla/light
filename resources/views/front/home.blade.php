@@ -833,12 +833,12 @@
                             <p class="hero-sub">Professional equipment rental with flexible terms. Book online in minutes.
                             </p>
                             <div class="hero-actions">
-                                <a href="#items" class="btn-hero-primary1">
-                                    <i class="bi bi-search"></i> Browse Equipment
+                                <a href="//items?type=sell" class="btn-hero-primary1">
+                                    <i class="bi bi-search"></i> Selling Equipment
                                 </a>
-                                <!-- <a href="/register" class="btn-hero-secondary">
-                                                            Get Started
-                                                        </a> -->
+                                <a href="/items?type=rental" class="btn-hero-secondary">
+                                                    <i class="bi bi-cart"></i>        Rental Equipment
+                                                        </a>
                             </div>
                         </div>
                     </div>
@@ -884,100 +884,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    @include('front.portfolio')
-
-    @if($generatorbanners->count())
-
-        <section class="generator-banner-section">
-
-            <div id="generatorBannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"
-                data-bs-pause="false">
-
-                <div class="carousel-inner">
-
-                    @foreach($generatorbanners as $key => $banner)
-
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-
-                                @if($banner->item_id)
-                                    <a href="{{ url('item/' . $banner->item_id) }}" class="generator-banner-card">
-                                @else
-                                        <div class="generator-banner-card">
-                                    @endif
-
-                                        <img src="{{ asset('uploads/generator-banner/' . $banner->image) }}" alt="{{ $banner->title }}">
-
-                                        <div class="generator-overlay">
-                                            <div class="view-icon-wrap">
-                                                <i class="bi bi-eye"></i>
-                                            </div>
-                                        </div>
-
-                                        @if($banner->item_id)
-                                            </a>
-                                        @else
-                                    </div>
-                                @endif
-
-                        </div>
-
-                    @endforeach
-
-            </div>
-
-            {{-- Optional: Indicators for multiple banners --}}
-            @if($generatorbanners->count() > 1)
-                <div class="carousel-indicators">
-                    @foreach($generatorbanners as $key => $banner)
-                        <button type="button" data-bs-target="#generatorBannerCarousel" data-bs-slide-to="{{ $key }}"
-                            class="{{ $key == 0 ? 'active' : '' }}" aria-current="{{ $key == 0 ? 'true' : 'false' }}">
-                        </button>
-                    @endforeach
-                </div>
-            @endif
-
-            </div>
-
-        </section>
-
-    @endif
-
-    <!-- ── CATEGORIES ── -->
-    <section class="py-5 mt-2">
-        <div class="container">
-
-            <!-- <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2"> -->
-            <div class="section-header d-flex align-items-end justify-content-between mb-4">
-                <div>
-                    <div class="section-label mb-1"><i class="bi bi-box-seam me-1"></i>Browse by Category</div>
-                    <h2 class="section-title mb-0">What Are You Looking For?</h2>
-                </div>
-                <a href="{{ url('/categories') }}"
-                    class="btn-brand-outline text-decoration-none d-flex align-items-center gap-1">
-                    View All <i class="bi bi-arrow-right"></i>
-                </a>
-            </div>
-            <div class="category-wrapper">
-                <div class="row g-4">
-                    @foreach($categories as $category)
-                        <div class="col-6 col-md-3">
-                            <a href="{{ url('/category/' . $category->id) }}" class="text-decoration-none">
-                                <div class="cat-card">
-                                    <div class="cat-card-body">
-                                        <h6>{{ $category->name }}</h6>
-                                        <div class="cat-arrow">
-                                            <i class="bi bi-arrow-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -1159,6 +1065,102 @@
             </div>
         </div>
     </section>
+    @include('front.portfolio')
+
+    @if($generatorbanners->count())
+
+        <section class="generator-banner-section">
+
+            <div id="generatorBannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"
+                data-bs-pause="false">
+
+                <div class="carousel-inner">
+
+                    @foreach($generatorbanners as $key => $banner)
+
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+
+                                @if($banner->item_id)
+                                    <a href="{{ url('item/' . $banner->item_id) }}" class="generator-banner-card">
+                                @else
+                                        <div class="generator-banner-card">
+                                    @endif
+
+                                        <img src="{{ asset('uploads/generator-banner/' . $banner->image) }}" alt="{{ $banner->title }}">
+
+                                        <div class="generator-overlay">
+                                            <div class="view-icon-wrap">
+                                                <i class="bi bi-eye"></i>
+                                            </div>
+                                        </div>
+
+                                        @if($banner->item_id)
+                                            </a>
+                                        @else
+                                    </div>
+                                @endif
+
+                        </div>
+
+                    @endforeach
+
+            </div>
+
+            {{-- Optional: Indicators for multiple banners --}}
+            @if($generatorbanners->count() > 1)
+                <div class="carousel-indicators">
+                    @foreach($generatorbanners as $key => $banner)
+                        <button type="button" data-bs-target="#generatorBannerCarousel" data-bs-slide-to="{{ $key }}"
+                            class="{{ $key == 0 ? 'active' : '' }}" aria-current="{{ $key == 0 ? 'true' : 'false' }}">
+                        </button>
+                    @endforeach
+                </div>
+            @endif
+
+            </div>
+
+        </section>
+
+    @endif
+
+    <!-- ── CATEGORIES ── -->
+    <section class="py-5 mt-2">
+        <div class="container">
+
+            <!-- <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-2"> -->
+            <div class="section-header d-flex align-items-end justify-content-between mb-4">
+                <div>
+                    <div class="section-label mb-1"><i class="bi bi-box-seam me-1"></i>Browse by Category</div>
+                    <h2 class="section-title mb-0">What Are You Looking For?</h2>
+                </div>
+                <a href="{{ url('/categories') }}"
+                    class="btn-brand-outline text-decoration-none d-flex align-items-center gap-1">
+                    View All <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="category-wrapper">
+                <div class="row g-4">
+                    @foreach($categories as $category)
+                        <div class="col-6 col-md-3">
+                            <a href="{{ url('/category/' . $category->id) }}" class="text-decoration-none">
+                                <div class="cat-card">
+                                    <div class="cat-card-body">
+                                        <h6>{{ $category->name }}</h6>
+                                        <div class="cat-arrow">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    
 
     <script>
 
