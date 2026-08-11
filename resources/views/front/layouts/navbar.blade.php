@@ -131,9 +131,89 @@
         margin: 0 .3rem;
     }
     .logoData{
-        max-height: 100px;
+        max-height: 100px !important;
     }
    
+   .navbar-right {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand);
+    color: var(--dark) !important;
+    /* padding: 8px 20px; */
+    border-radius: 8px;
+    /* font-size: .85rem; */
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #000 !important;
+    text-decoration: none;
+
+    font-size: .88rem;
+    font-weight: 600;
+
+    padding: 8px 14px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+
+    background: transparent;
+
+    transition: all .2s ease;
+}
+
+.nav-action-link:hover {
+    background: var(--brand-dk);;
+    color: #000 !important;
+    border-radius: 8px;
+    padding: 8px 14px;
+}
+
+.nav-action-link i {
+    font-size: 16px;
+}
+@media (max-width: 576px) {
+    .navbar-right {
+        gap: 3px;
+    }
+
+    .btn-hero-primary {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    .nav-actions {
+        gap: 10px;
+    }
+
+    .nav-action-link {
+        font-size: 12px;
+    }
+
+    .logoData {
+        max-height: 50px;
+    }
+}
+
 </style>
 
 
@@ -145,72 +225,41 @@
         <!-- Brand -->
         <a class="navbar-brand" href="/">
             <img src="/Logo-3.webp" class="logoData">
-            <!-- <div class="brand-icon"><i class="bi bi-box-seam-fill"></i></div>
-            Light as<span>AIR</span> -->
+           
         </a>
 
-        <!-- <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
+       
 
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
 
-                <!-- @if(Auth::check())
+              
 
-                    <li class="nav-item">
-                        <a class="nav-link cart-wrap" href="/cart">
-                            <i class="bi bi-cart3" style="font-size:1.1rem;"></i>
-                            Cart
-                            @php $cartCount = count(session('cart', [])); @endphp
-                            @if($cartCount > 0)
-                                <span class="cart-count">{{ $cartCount }}</span>
-                            @endif
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/my-bookings">
-                            <i class="bi bi-calendar2-check"></i> My Bookings
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">
-                            <i class="bi bi-person-circle"></i> Profile
-                        </a>
-                    </li>
-
-                    <li><div class="divider-nav d-none d-lg-block"></div></li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout" style="color:rgba(255,100,100,.8) !important;">
-                            <i class="bi bi-box-arrow-right"></i> Logout
-                        </a>
-                    </li>
-
-                @else -->
-
-                   <!-- <li class="nav-item">
-                        <a href="#items" class="btn-hero-primary">
-                                    LIGHT AS AIR
-                                </a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link btn-nav-register" href="/register">
-                            <i class="bi bi-person-plus-fill"></i> Register
-                        </a>
-                    </li> -->
-
-                @endif
 
             </ul>
         </div>
-         <!-- <li class="nav-item"> -->
-                        <a href="#items" class="btn-hero-primary">
-                                    LIGHT AS AIR
-                                </a>
-                    <!-- </li> -->
+                          {{-- Right Side --}}
+        <div class="navbar-right">
+
+            {{-- Top --}}
+            <a href="#items" class="btn-hero-primary">
+                LIGHT AS AIR
+            </a>
+
+            {{-- Bottom --}}
+            <div class="nav-actions">
+
+                <a href="/items?type=sell" class="nav-action-link">
+                    <i class="bi bi-search"></i>
+                    Selling
+                </a>
+
+                <a href="/items?type=rental" class="nav-action-link">
+                    <i class="bi bi-cart"></i>
+                    Rental
+                </a>
+
+            </div>
 
     </div>
 </nav>
