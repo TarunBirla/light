@@ -56,6 +56,7 @@ class ItemController extends Controller
 
         if ($isSell) {
             $rules['selling_price'] = 'required|numeric|min:0';
+            $rules['condition']     = 'required|in:new,used';
         }
 
         if ($isRental) {
@@ -66,6 +67,7 @@ class ItemController extends Controller
 
         $sellingPrice = $isSell ? $request->selling_price : null;
         $rentalPrice  = $isRental ? $request->rental_price : null;
+        $condition    = $isSell ? $request->condition : null;
 
         $images = [];
 
@@ -87,6 +89,7 @@ class ItemController extends Controller
             'price_per_day' => $rentalPrice ?? 0,
             'selling_price' => $sellingPrice,
             'rental_price'  => $rentalPrice,
+            'condition'     => $condition,
             'is_sell'       => $isSell,
             'is_rental'     => $isRental,
             'status'        => $request->status,
@@ -196,6 +199,7 @@ if (!empty($item->image)) {
 
         if ($isSell) {
             $rules['selling_price'] = 'required|numeric|min:0';
+            $rules['condition']     = 'required|in:new,used';
         }
 
         if ($isRental) {
@@ -206,6 +210,7 @@ if (!empty($item->image)) {
 
         $sellingPrice = $isSell ? $request->selling_price : null;
         $rentalPrice  = $isRental ? $request->rental_price : null;
+        $condition    = $isSell ? $request->condition : null;
 
         $item->update([
             'category_id'   => $request->category_id,
@@ -217,6 +222,7 @@ if (!empty($item->image)) {
             'price_per_day' => $rentalPrice ?? 0,
             'selling_price' => $sellingPrice,
             'rental_price'  => $rentalPrice,
+            'condition'     => $condition,
             'is_sell'       => $isSell,
             'is_rental'     => $isRental,
             'status'        => $request->status,

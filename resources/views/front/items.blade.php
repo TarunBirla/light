@@ -717,7 +717,14 @@
 
                             </div>
                             <div class="item-card-body">
-                                <div class="item-title">{{ $item->title }}</div>
+                                <div class="d-flex justify-content-between align-items-start gap-1">
+                                    <div class="item-title">{{ $item->title }}</div>
+                                    @if($item->condition && ($productType ?? 'sell') == 'sell')
+                                        <span class="badge {{ $item->condition == 'new' ? 'bg-success' : 'bg-secondary' }}" style="font-size: 10px; text-transform: uppercase; font-weight: 700; white-space: nowrap;">
+                                            {{ $item->condition }}
+                                        </span>
+                                    @endif
+                                </div>
                                 @if(($productType ?? 'sell') == 'sell')
                                     @php
                                         $displayPrice = ($item->selling_price && $item->selling_price > 0) 

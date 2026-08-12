@@ -91,6 +91,18 @@
                         @enderror
                     </div>
 
+                    <div class="col-md-4 mb-3" id="condition_wrapper">
+                        <label class="fw-bold">Item Condition <span class="text-danger">*</span></label>
+                        <select name="condition" id="condition" class="form-control">
+                            <option value="">Select Condition</option>
+                            <option value="new" {{ old('condition') == 'new' ? 'selected' : '' }}>New</option>
+                            <option value="used" {{ old('condition') == 'used' ? 'selected' : '' }}>Used</option>
+                        </select>
+                        @error('condition')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
+                    </div>
+
                     <div class="col-md-4 mb-3" id="rental_price_wrapper">
                         <label class="fw-bold">Rental Price / Day (£) <span class="text-danger">*</span></label>
                         <input type="number" step="0.01" name="rental_price" id="rental_price" value="{{ old('rental_price') }}" class="form-control" placeholder="0.00">
@@ -149,10 +161,14 @@
                     const isRental = document.getElementById('is_rental').checked;
 
                     const sellWrap = document.getElementById('selling_price_wrapper');
+                    const condWrap = document.getElementById('condition_wrapper');
                     const rentWrap = document.getElementById('rental_price_wrapper');
 
                     if (sellWrap) {
                         sellWrap.style.display = isSell ? 'block' : 'none';
+                    }
+                    if (condWrap) {
+                        condWrap.style.display = isSell ? 'block' : 'none';
                     }
                     if (rentWrap) {
                         rentWrap.style.display = isRental ? 'block' : 'none';

@@ -428,9 +428,12 @@
                         <td>
                             @if($item->is_sell)
                                 <span class="badge bg-success" style="font-size: 11px; margin-right: 2px;"> Sell</span>
+                                @if($item->condition)
+                                    <span class="badge bg-dark" style="font-size: 10px; text-transform: uppercase; margin-right: 2px;">{{ $item->condition }}</span>
+                                @endif
                             @endif
                             @if($item->is_rental)
-                                <span class="badge bg-primary" style="font-size: 11px;"> Rental</span>
+                                <span class="badge bg-primary" style="font-size: 11px;">Rental</span>
                             @endif
                         </td>
                         <td>

@@ -21,6 +21,7 @@ class Item extends Model
         'price_per_day',
         'selling_price',
         'rental_price',
+        'condition',
         'is_sell',
         'is_rental',
         'status',

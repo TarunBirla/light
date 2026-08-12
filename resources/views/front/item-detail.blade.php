@@ -500,7 +500,9 @@
 
                     <div class="feature-list">
                         <span class="feature-pill"><i class="bi bi-check-circle-fill text-success"></i> Available Now</span>
-
+                        @if($item->is_sell && $item->condition)
+                            <span class="feature-pill text-uppercase fw-bold"><i class="bi bi-tag-fill text-primary"></i> Condition: {{ $item->condition }}</span>
+                        @endif
                     </div>
 
                     <p class="item-desc">{!! $item->description !!}</p>
