@@ -249,7 +249,7 @@
             {{-- Bottom --}}
             <div class="nav-actions">
 
-                <a href="/equipment-request" class="nav-action-link">
+                <a href="/equipment-requestnew" class="nav-action-link">
                     <i class="bi bi-file-earmark-text"></i>
                     Equipment Request
                 </a>

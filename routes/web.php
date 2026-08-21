@@ -26,6 +26,10 @@ use App\Http\Controllers\Admin\EquipmentRequestController as AdminEquipmentReque
 Route::get('/equipment-request', [FrontEquipmentRequestController::class, 'index'])->name('equipment-request.index');
 Route::post('/equipment-request', [FrontEquipmentRequestController::class, 'store'])->name('equipment-request.store');
 
+Route::get('/equipment-requestnew', [FrontEquipmentRequestController::class, 'indexNew'])->name('equipment-requestnew.index');
+Route::post('/equipment-requestnew', [FrontEquipmentRequestController::class, 'storeNew'])->name('equipment-requestnew.store');
+
+
 
 
 Route::post(
