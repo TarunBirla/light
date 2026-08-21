@@ -71,7 +71,7 @@
         letter-spacing: 0.5px;
     }
 
-    /* Styled Category Tabs Bar (Image Style) */
+    /* Styled Category Tabs Bar */
     .category-tabs-wrapper {
         display: flex;
         flex-wrap: wrap;
@@ -120,7 +120,7 @@
         font-weight: 800;
     }
 
-    /* Red Sub-Header Banner (From Uploaded Images) */
+    /* Sub-Header Banner */
     .red-sub-header {
         background: #FFC700;
         color: #000;
@@ -139,7 +139,7 @@
     }
 
     .category-scroll-container {
-        max-height: 300px;
+        max-height: 520px;
         overflow-y: auto;
         padding-right: 8px;
     }
@@ -184,7 +184,7 @@
 
     .product-title-text {
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         color: #111;
         word-break: break-word;
     }
@@ -196,12 +196,12 @@
     }
 
     .qty-btn {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         background: #eee;
         border: 1px solid #ccc;
         font-weight: bold;
-        font-size: 1rem;
+        font-size: 0.95rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -225,15 +225,15 @@
     }
 
     .qty-number-input {
-        width: 48px;
-        height: 30px;
+        width: 44px;
+        height: 28px;
         text-align: center;
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
         border-left: none;
         border-right: none;
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
     }
 
     .qty-number-input::-webkit-inner-spin-button,
@@ -263,7 +263,13 @@
     }
 </style>
 
-
+<!-- Header Banner -->
+<div class="eq-page-header text-center">
+    <div class="container">
+        <h1 class="fw-bold mb-2" style="font-size: 2.2rem;">EQUIPMENT ORDER FORM (v3.1)</h1>
+        <p class="text-muted mb-0" style="color: #ccc !important;">Select your required equipment quantities below and proceed to production details.</p>
+    </div>
+</div>
 
 <div class="container pb-5">
 
@@ -297,126 +303,11 @@
     <form action="{{ route('equipment-requestnew.store') }}" method="POST" id="equipmentRequestForm">
         @csrf
 
-        <!-- SECTION 1: PERMANENT PRODUCTION INFORMATION FORM -->
-        <div class="eq-card">
-            <div class="eq-card-header">
-                <i class="bi bi-film"></i>
-                <span>1. PERMANENT PRODUCTION INFORMATION</span>
-            </div>
-            <div class="eq-card-body">
-
-                <!-- Production Details -->
-                <div class="eq-section-subtitle">
-                    <i class="bi bi-person-lines-fill me-1"></i> Production Information
-                </div>
-
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Gaffer</label>
-                        <input type="text" name="gaffer" class="form-control eq-form-control" placeholder="e.g. Stephen Mathie" value="{{ old('gaffer') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Email</label>
-                        <input type="email" name="email" class="form-control eq-form-control" placeholder="e.g. stephenmathie@me.com" value="{{ old('email') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Contact Phone</label>
-                        <input type="text" name="contact" class="form-control eq-form-control" placeholder="e.g. 07973 427124" value="{{ old('contact') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Production Co.</label>
-                        <input type="text" name="production_company" class="form-control eq-form-control" placeholder="e.g. 72" value="{{ old('production_company') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Production Title <span class="text-danger">*</span></label>
-                        <input type="text" name="production_title" class="form-control eq-form-control" placeholder="e.g. Handcuffed" value="{{ old('production_title') }}" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Production Contact</label>
-                        <input type="text" name="production_contact" class="form-control eq-form-control" placeholder="Contact person name" value="{{ old('production_contact') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">DoP (Director of Photography)</label>
-                        <input type="text" name="dop" class="form-control eq-form-control" placeholder="e.g. Justin Frahms" value="{{ old('dop') }}">
-                    </div>
-                </div>
-
-                <!-- Production Dates -->
-                <div class="eq-section-subtitle">
-                    <i class="bi bi-calendar-range me-1"></i> Production Dates
-                </div>
-
-                <div class="row g-3 mb-4">
-                    <!-- Rig -->
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Rig - From</label>
-                        <input type="date" name="rig_from" class="form-control eq-form-control" value="{{ old('rig_from') }}">
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Rig - To</label>
-                        <input type="date" name="rig_to" class="form-control eq-form-control" value="{{ old('rig_to') }}">
-                    </div>
-
-                    <!-- Prelight -->
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Prelight - From</label>
-                        <input type="date" name="prelight_from" class="form-control eq-form-control" value="{{ old('prelight_from') }}">
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Prelight - To</label>
-                        <input type="date" name="prelight_to" class="form-control eq-form-control" value="{{ old('prelight_to') }}">
-                    </div>
-
-                    <!-- Shoot -->
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Shoot - From</label>
-                        <input type="date" name="shoot_from" class="form-control eq-form-control" value="{{ old('shoot_from') }}">
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Shoot - To</label>
-                        <input type="date" name="shoot_to" class="form-control eq-form-control" value="{{ old('shoot_to') }}">
-                    </div>
-
-                    <!-- Derig -->
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Derig - From</label>
-                        <input type="date" name="derig_from" class="form-control eq-form-control" value="{{ old('derig_from') }}">
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label class="eq-form-label">Derig - To</label>
-                        <input type="date" name="derig_to" class="form-control eq-form-control" value="{{ old('derig_to') }}">
-                    </div>
-                </div>
-
-                <!-- Location -->
-                <div class="eq-section-subtitle">
-                    <i class="bi bi-geo-alt-fill me-1"></i> Location Address
-                </div>
-
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Address Line 1</label>
-                        <input type="text" name="address_line_1" class="form-control eq-form-control" placeholder="The Film Shed" value="{{ old('address_line_1') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Address Line 2</label>
-                        <input type="text" name="address_line_2" class="form-control eq-form-control" placeholder="Millers Avenue" value="{{ old('address_line_2') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="eq-form-label">Address Line 3 / Postcode</label>
-                        <input type="text" name="address_line_3_postcode" class="form-control eq-form-control" placeholder="Dalston E9" value="{{ old('address_line_3_postcode') }}">
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-
-        <!-- SECTION 2: STATIC CATEGORY & PRODUCT QUANTITY SELECTION -->
+        <!-- SECTION 1: STATIC CATEGORY & PRODUCT QUANTITY SELECTION (GRID 3) -->
         <div class="eq-card">
             <div class="eq-card-header">
                 <i class="bi bi-boxes"></i>
-                <span>2. CATEGORY-WISE PRODUCT SELECTION & QUANTITY</span>
+                <span>PRODUCT QUANTITY SELECTION (STATIC SPECIFICATION v3.1)</span>
             </div>
             <div class="eq-card-body">
 
@@ -481,7 +372,7 @@
                                 <div class="red-sub-header">
                                     <i class="bi bi-lightbulb-fill"></i> {{ $subHeader }}
                                 </div>
-                                <div class="row row-cols-1 row-cols-md-2 g-2 mb-3">
+                                <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
                                     @foreach($items as $itemTitle)
                                         @php $itemKey = md5('LED & Daylight' . $subHeader . $itemTitle); @endphp
                                         <div class="col">
@@ -539,7 +430,7 @@
                                 <div class="red-sub-header">
                                     <i class="bi bi-sliders"></i> {{ $subHeader }}
                                 </div>
-                                <div class="row row-cols-1 row-cols-md-2 g-2 mb-3">
+                                <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
                                     @foreach($items as $itemTitle)
                                         @php $itemKey = md5('Tungsten' . $subHeader . $itemTitle); @endphp
                                         <div class="col">
@@ -593,7 +484,7 @@
                                 <div class="red-sub-header">
                                     <i class="bi bi-tools"></i> {{ $subHeader }}
                                 </div>
-                                <div class="row row-cols-1 row-cols-md-2 g-2 mb-3">
+                                <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
                                     @foreach($items as $itemTitle)
                                         @php $itemKey = md5('Cables' . $subHeader . $itemTitle); @endphp
                                         <div class="col">
@@ -647,7 +538,7 @@
                                 <div class="red-sub-header">
                                     <i class="bi bi-truck"></i> {{ $subHeader }}
                                 </div>
-                                <div class="row row-cols-1 row-cols-md-2 g-2 mb-3">
+                                <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
                                     @foreach($items as $itemTitle)
                                         @php $itemKey = md5('Cons' . $subHeader . $itemTitle); @endphp
                                         <div class="col">
@@ -695,7 +586,7 @@
                                 <div class="red-sub-header">
                                     <i class="bi bi-receipt"></i> {{ $subHeader }}
                                 </div>
-                                <div class="row row-cols-1 row-cols-md-2 g-2 mb-3">
+                                <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
                                     @foreach($items as $itemTitle)
                                         @php $itemKey = md5('RedRack' . $subHeader . $itemTitle); @endphp
                                         <div class="col">
@@ -729,7 +620,7 @@
             </div>
         </div>
 
-        <!-- SECTION 3: FORM SUBMIT CARD (NON-STICKY AT BOTTOM) -->
+        <!-- SECTION 2: BOTTOM BAR WITH PROCEED BUTTON -->
         <div class="submit-card">
             <div class="row align-items-center g-3">
                 <div class="col-md-7 text-center text-md-start">
@@ -738,13 +629,143 @@
                         <span>Total Products Selected: <strong id="totalSelectedQty">0</strong> Items</span>
                     </div>
                     <small class="text-muted d-block mt-1" style="color: #aaa !important;">
-                        Clicking submit will send your request via Email & WhatsApp.
+                        Select equipment quantities above, then click proceed to fill production information.
                     </small>
                 </div>
                 <div class="col-md-5 text-center text-md-end">
-                    <button type="submit" class="btn btn-brand btn-lg text-dark fw-bold px-5 py-3 rounded-3 w-100 w-md-auto" id="submitBtn">
-                        <i class="bi bi-send-fill me-2"></i> SUBMIT FORM
+                    <button type="button" class="btn btn-brand btn-lg text-dark fw-bold px-5 py-3 rounded-3 w-100 w-md-auto" onclick="openProductionModal()">
+                        PROCEED TO PRODUCTION DETAILS <i class="bi bi-arrow-right-circle-fill ms-2"></i>
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: MODAL FOR PRODUCTION INFORMATION FORM -->
+        <div class="modal fade" id="productionInfoModal" tabindex="-1" aria-labelledby="productionInfoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                    <div class="modal-header bg-dark text-white px-4 py-3">
+                        <h5 class="modal-title fw-bold text-white mb-0" id="productionInfoModalLabel">
+                            <i class="bi bi-film text-warning me-2"></i> PRODUCTION INFORMATION FORM
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4" style="max-height: 70vh; overflow-y: auto;">
+
+                        <div class="alert alert-warning py-2 px-3 mb-4 rounded-3 text-dark fw-bold display-flex align-items-center">
+                            <i class="bi bi-cart-check-fill me-2 fs-5"></i> Selected Products Count: <span id="modalSelectedQtyBadge" class="badge bg-dark text-warning fs-6 ms-1">0</span> Items
+                        </div>
+
+                        <!-- Production Information -->
+                        <div class="eq-section-subtitle">
+                            <i class="bi bi-person-lines-fill me-1"></i> Production Details
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Gaffer</label>
+                                <input type="text" name="gaffer" class="form-control eq-form-control" placeholder="e.g. Stephen Mathie" value="{{ old('gaffer') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Email</label>
+                                <input type="email" name="email" class="form-control eq-form-control" placeholder="e.g. stephenmathie@me.com" value="{{ old('email') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Contact Phone</label>
+                                <input type="text" name="contact" class="form-control eq-form-control" placeholder="e.g. 07973 427124" value="{{ old('contact') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Production Co.</label>
+                                <input type="text" name="production_company" class="form-control eq-form-control" placeholder="e.g. 72" value="{{ old('production_company') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Production Title <span class="text-danger">*</span></label>
+                                <input type="text" name="production_title" id="production_title_field" class="form-control eq-form-control" placeholder="e.g. Handcuffed" value="{{ old('production_title') }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Production Contact</label>
+                                <input type="text" name="production_contact" class="form-control eq-form-control" placeholder="Contact person name" value="{{ old('production_contact') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">DoP (Director of Photography)</label>
+                                <input type="text" name="dop" class="form-control eq-form-control" placeholder="e.g. Justin Frahms" value="{{ old('dop') }}">
+                            </div>
+                        </div>
+
+                        <!-- Production Dates -->
+                        <div class="eq-section-subtitle">
+                            <i class="bi bi-calendar-range me-1"></i> Production Dates
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <!-- Rig -->
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Rig - From</label>
+                                <input type="date" name="rig_from" class="form-control eq-form-control" value="{{ old('rig_from') }}">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Rig - To</label>
+                                <input type="date" name="rig_to" class="form-control eq-form-control" value="{{ old('rig_to') }}">
+                            </div>
+
+                            <!-- Prelight -->
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Prelight - From</label>
+                                <input type="date" name="prelight_from" class="form-control eq-form-control" value="{{ old('prelight_from') }}">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Prelight - To</label>
+                                <input type="date" name="prelight_to" class="form-control eq-form-control" value="{{ old('prelight_to') }}">
+                            </div>
+
+                            <!-- Shoot -->
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Shoot - From</label>
+                                <input type="date" name="shoot_from" class="form-control eq-form-control" value="{{ old('shoot_from') }}">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Shoot - To</label>
+                                <input type="date" name="shoot_to" class="form-control eq-form-control" value="{{ old('shoot_to') }}">
+                            </div>
+
+                            <!-- Derig -->
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Derig - From</label>
+                                <input type="date" name="derig_from" class="form-control eq-form-control" value="{{ old('derig_from') }}">
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <label class="eq-form-label">Derig - To</label>
+                                <input type="date" name="derig_to" class="form-control eq-form-control" value="{{ old('derig_to') }}">
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="eq-section-subtitle">
+                            <i class="bi bi-geo-alt-fill me-1"></i> Location Address
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Address Line 1</label>
+                                <input type="text" name="address_line_1" class="form-control eq-form-control" placeholder="The Film Shed" value="{{ old('address_line_1') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Address Line 2</label>
+                                <input type="text" name="address_line_2" class="form-control eq-form-control" placeholder="Millers Avenue" value="{{ old('address_line_2') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="eq-form-label">Address Line 3 / Postcode</label>
+                                <input type="text" name="address_line_3_postcode" class="form-control eq-form-control" placeholder="Dalston E9" value="{{ old('address_line_3_postcode') }}">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer bg-light px-4 py-3">
+                        <button type="button" class="btn btn-secondary px-4 fw-bold" data-bs-dismiss="modal">Back to Products</button>
+                        <button type="submit" class="btn btn-brand text-dark fw-bold px-5 py-2" id="submitBtn">
+                            <i class="bi bi-send-fill me-2"></i> SUBMIT REQUEST
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -755,17 +776,14 @@
 <script>
     // Tab switching logic for static tabs
     function switchStaticTab(catSlug) {
-        // Hide all category panels
         const panels = document.querySelectorAll('.category-panel');
         panels.forEach(panel => panel.style.display = 'none');
 
-        // Show target panel
         const targetPanel = document.getElementById('cat-panel-' + catSlug);
         if (targetPanel) {
             targetPanel.style.display = 'block';
         }
 
-        // Update active tab buttons
         const tabBtns = document.querySelectorAll('.cat-tab-btn');
         tabBtns.forEach(btn => {
             if (btn.getAttribute('data-cat-slug') === catSlug) {
@@ -844,6 +862,31 @@
         });
     }
 
+    // Open Production Information Modal (Checks if totalQty > 0)
+    function openProductionModal() {
+        let totalQty = 0;
+        const qtyInputs = document.querySelectorAll('.static-qty-field');
+        qtyInputs.forEach(input => {
+            totalQty += (parseInt(input.value) || 0);
+        });
+
+        if (totalQty <= 0) {
+            alert('Please select at least one product with a quantity greater than 0 before proceeding to production details.');
+            return false;
+        }
+
+        const modalBadge = document.getElementById('modalSelectedQtyBadge');
+        if (modalBadge) {
+            modalBadge.innerText = totalQty;
+        }
+
+        const modalElem = document.getElementById('productionInfoModal');
+        if (modalElem) {
+            const modal = bootstrap.Modal.getOrCreateInstance(modalElem);
+            modal.show();
+        }
+    }
+
     // Form Submit Validation & WhatsApp Trigger
     document.addEventListener('DOMContentLoaded', function () {
         updateStaticTotals();
@@ -863,12 +906,20 @@
                     return false;
                 }
 
+                const prodTitle = form.querySelector('[name="production_title"]')?.value || '';
+                if (!prodTitle.trim()) {
+                    e.preventDefault();
+                    alert('Please fill out the Production Title in the form.');
+                    const prodTitleInput = form.querySelector('[name="production_title"]');
+                    if (prodTitleInput) prodTitleInput.focus();
+                    return false;
+                }
+
                 // Construct WhatsApp Message
                 const gaffer = (form.querySelector('[name="gaffer"]')?.value || '').trim();
                 const email = (form.querySelector('[name="email"]')?.value || '').trim();
                 const contact = (form.querySelector('[name="contact"]')?.value || '').trim();
                 const prodCompany = (form.querySelector('[name="production_company"]')?.value || '').trim();
-                const prodTitle = (form.querySelector('[name="production_title"]')?.value || '').trim();
                 const prodContact = (form.querySelector('[name="production_contact"]')?.value || '').trim();
                 const dop = (form.querySelector('[name="dop"]')?.value || '').trim();
 
