@@ -139,7 +139,7 @@
     }
 
     .category-scroll-container {
-        max-height: 520px;
+        max-height: 320px;
         overflow-y: auto;
         padding-right: 8px;
     }
@@ -263,13 +263,7 @@
     }
 </style>
 
-<!-- Header Banner -->
-<div class="eq-page-header text-center">
-    <div class="container">
-        <h1 class="fw-bold mb-2" style="font-size: 2.2rem;">EQUIPMENT ORDER FORM (v3.1)</h1>
-        <p class="text-muted mb-0" style="color: #ccc !important;">Select your required equipment quantities below and proceed to production details.</p>
-    </div>
-</div>
+
 
 <div class="container pb-5">
 
@@ -307,7 +301,7 @@
         <div class="eq-card">
             <div class="eq-card-header">
                 <i class="bi bi-boxes"></i>
-                <span>PRODUCT QUANTITY SELECTION (STATIC SPECIFICATION v3.1)</span>
+                <span>PRODUCT QUANTITY SELECTION </span>
             </div>
             <div class="eq-card-body">
 
