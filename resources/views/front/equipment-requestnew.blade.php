@@ -415,7 +415,7 @@
         <div class="eq-card">
             <div class="eq-card-header">
                 <i class="bi bi-boxes"></i>
-                <span>2. CATEGORY-WISE PRODUCT SELECTION (STATIC SPECIFICATION v3.1)</span>
+                <span>2. CATEGORY-WISE PRODUCT SELECTION & QUANTITY</span>
             </div>
             <div class="eq-card-body">
 
