@@ -313,23 +313,23 @@
                 <div class="row g-3 mb-4">
                     <div class="col-md-4">
                         <label class="eq-form-label">Gaffer</label>
-                        <input type="text" name="gaffer" class="form-control eq-form-control" placeholder="e.g. Stephen Mathie" value="{{ old('gaffer', 'Stephen Mathie') }}">
+                        <input type="text" name="gaffer" class="form-control eq-form-control" placeholder="e.g. Stephen Mathie" value="{{ old('gaffer') }}">
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Email</label>
-                        <input type="email" name="email" class="form-control eq-form-control" placeholder="e.g. stephenmathie@me.com" value="{{ old('email', 'stephenmathie@me.com') }}">
+                        <input type="email" name="email" class="form-control eq-form-control" placeholder="e.g. stephenmathie@me.com" value="{{ old('email') }}">
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Contact Phone</label>
-                        <input type="text" name="contact" class="form-control eq-form-control" placeholder="e.g. 07973 427124" value="{{ old('contact', '07973 427124') }}">
+                        <input type="text" name="contact" class="form-control eq-form-control" placeholder="e.g. 07973 427124" value="{{ old('contact') }}">
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Production Co.</label>
-                        <input type="text" name="production_company" class="form-control eq-form-control" placeholder="e.g. 72" value="{{ old('production_company', '72') }}">
+                        <input type="text" name="production_company" class="form-control eq-form-control" placeholder="e.g. 72" value="{{ old('production_company') }}">
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Production Title <span class="text-danger">*</span></label>
-                        <input type="text" name="production_title" class="form-control eq-form-control" placeholder="e.g. Handcuffed" value="{{ old('production_title', 'Handcuffed') }}" required>
+                        <input type="text" name="production_title" class="form-control eq-form-control" placeholder="e.g. Handcuffed" value="{{ old('production_title') }}" required>
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Production Contact</label>
@@ -337,7 +337,7 @@
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">DoP (Director of Photography)</label>
-                        <input type="text" name="dop" class="form-control eq-form-control" placeholder="e.g. Justin Frahms" value="{{ old('dop', 'Justin Frahms') }}">
+                        <input type="text" name="dop" class="form-control eq-form-control" placeholder="e.g. Justin Frahms" value="{{ old('dop') }}">
                     </div>
                 </div>
 
@@ -350,11 +350,11 @@
                     <!-- Rig -->
                     <div class="col-md-3 col-6">
                         <label class="eq-form-label">Rig - From</label>
-                        <input type="date" name="rig_from" class="form-control eq-form-control" value="{{ old('rig_from', '2026-08-18') }}">
+                        <input type="date" name="rig_from" class="form-control eq-form-control" value="{{ old('rig_from') }}">
                     </div>
                     <div class="col-md-3 col-6">
                         <label class="eq-form-label">Rig - To</label>
-                        <input type="date" name="rig_to" class="form-control eq-form-control" value="{{ old('rig_to', '2026-08-19') }}">
+                        <input type="date" name="rig_to" class="form-control eq-form-control" value="{{ old('rig_to') }}">
                     </div>
 
                     <!-- Prelight -->
@@ -370,7 +370,7 @@
                     <!-- Shoot -->
                     <div class="col-md-3 col-6">
                         <label class="eq-form-label">Shoot - From</label>
-                        <input type="date" name="shoot_from" class="form-control eq-form-control" value="{{ old('shoot_from', '2026-08-20') }}">
+                        <input type="date" name="shoot_from" class="form-control eq-form-control" value="{{ old('shoot_from') }}">
                     </div>
                     <div class="col-md-3 col-6">
                         <label class="eq-form-label">Shoot - To</label>
@@ -380,7 +380,7 @@
                     <!-- Derig -->
                     <div class="col-md-3 col-6">
                         <label class="eq-form-label">Derig - From</label>
-                        <input type="date" name="derig_from" class="form-control eq-form-control" value="{{ old('derig_from', '2026-08-21') }}">
+                        <input type="date" name="derig_from" class="form-control eq-form-control" value="{{ old('derig_from') }}">
                     </div>
                     <div class="col-md-3 col-6">
                         <label class="eq-form-label">Derig - To</label>
@@ -396,17 +396,18 @@
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label class="eq-form-label">Address Line 1</label>
-                        <input type="text" name="address_line_1" class="form-control eq-form-control" placeholder="The Film Shed" value="{{ old('address_line_1', 'The Film Shed') }}">
+                        <input type="text" name="address_line_1" class="form-control eq-form-control" placeholder="The Film Shed" value="{{ old('address_line_1') }}">
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Address Line 2</label>
-                        <input type="text" name="address_line_2" class="form-control eq-form-control" placeholder="Millers Avenue" value="{{ old('address_line_2', 'Millers Avenue') }}">
+                        <input type="text" name="address_line_2" class="form-control eq-form-control" placeholder="Millers Avenue" value="{{ old('address_line_2') }}">
                     </div>
                     <div class="col-md-4">
                         <label class="eq-form-label">Address Line 3 / Postcode</label>
-                        <input type="text" name="address_line_3_postcode" class="form-control eq-form-control" placeholder="Dalston E9" value="{{ old('address_line_3_postcode', 'Dalston E9') }}">
+                        <input type="text" name="address_line_3_postcode" class="form-control eq-form-control" placeholder="Dalston E9" value="{{ old('address_line_3_postcode') }}">
                     </div>
                 </div>
+
 
             </div>
         </div>
