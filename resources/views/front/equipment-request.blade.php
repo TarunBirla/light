@@ -447,6 +447,8 @@
                                                                    id="qty-input-{{ $product->id }}" 
                                                                    class="qty-number-input product-qty-field" 
                                                                    data-category-id="{{ $category->id }}"
+                                                                   data-category-name="{{ $category->name }}"
+                                                                   data-product-title="{{ $product->title }}"
                                                                    min="0" 
                                                                    value="{{ old('quantities.'.$product->id, 0) }}" 
                                                                    oninput="onQtyChange({{ $product->id }}, {{ $category->id }})">
@@ -573,7 +575,7 @@
         });
     }
 
-    // Form Submit Validation
+    // Form Submit Validation & WhatsApp Trigger
     document.addEventListener('DOMContentLoaded', function () {
         updateTotals();
 
@@ -591,6 +593,78 @@
                     alert('Please select at least one product with a valid quantity before submitting.');
                     return false;
                 }
+
+                // Construct WhatsApp Message
+                const gaffer = (form.querySelector('[name="gaffer"]')?.value || '').trim();
+                const email = (form.querySelector('[name="email"]')?.value || '').trim();
+                const contact = (form.querySelector('[name="contact"]')?.value || '').trim();
+                const prodCompany = (form.querySelector('[name="production_company"]')?.value || '').trim();
+                const prodTitle = (form.querySelector('[name="production_title"]')?.value || '').trim();
+                const prodContact = (form.querySelector('[name="production_contact"]')?.value || '').trim();
+                const dop = (form.querySelector('[name="dop"]')?.value || '').trim();
+
+                let msg = "*NEW EQUIPMENT REQUEST*\n\n";
+                msg += "*Production Information:*\n";
+                if (gaffer) msg += `• Gaffer: ${gaffer}\n`;
+                if (email) msg += `• Email: ${email}\n`;
+                if (contact) msg += `• Phone: ${contact}\n`;
+                if (prodCompany) msg += `• Production Co.: ${prodCompany}\n`;
+                if (prodTitle) msg += `• Production Title: ${prodTitle}\n`;
+                if (prodContact) msg += `• Production Contact: ${prodContact}\n`;
+                if (dop) msg += `• DoP: ${dop}\n`;
+
+                const rigFrom = form.querySelector('[name="rig_from"]')?.value;
+                const rigTo = form.querySelector('[name="rig_to"]')?.value;
+                const prelightFrom = form.querySelector('[name="prelight_from"]')?.value;
+                const prelightTo = form.querySelector('[name="prelight_to"]')?.value;
+                const shootFrom = form.querySelector('[name="shoot_from"]')?.value;
+                const shootTo = form.querySelector('[name="shoot_to"]')?.value;
+                const derigFrom = form.querySelector('[name="derig_from"]')?.value;
+                const derigTo = form.querySelector('[name="derig_to"]')?.value;
+
+                let hasDates = false;
+                let dateStr = "\n*Production Dates:*\n";
+                if (rigFrom || rigTo) { dateStr += `• Rig: ${rigFrom} to ${rigTo}\n`; hasDates = true; }
+                if (prelightFrom || prelightTo) { dateStr += `• Prelight: ${prelightFrom} to ${prelightTo}\n`; hasDates = true; }
+                if (shootFrom || shootTo) { dateStr += `• Shoot: ${shootFrom} to ${shootTo}\n`; hasDates = true; }
+                if (derigFrom || derigTo) { dateStr += `• Derig: ${derigFrom} to ${derigTo}\n`; hasDates = true; }
+                if (hasDates) msg += dateStr;
+
+                const addr1 = (form.querySelector('[name="address_line_1"]')?.value || '').trim();
+                const addr2 = (form.querySelector('[name="address_line_2"]')?.value || '').trim();
+                const addr3 = (form.querySelector('[name="address_line_3_postcode"]')?.value || '').trim();
+                const fullAddr = [addr1, addr2, addr3].filter(Boolean).join(', ');
+                if (fullAddr) {
+                    msg += `\n*Location Address:*\n${fullAddr}\n`;
+                }
+
+                msg += `\n*Requested Equipment:*\n`;
+                const selectedByCategory = {};
+
+                qtyInputs.forEach(input => {
+                    const qty = parseInt(input.value) || 0;
+                    if (qty > 0) {
+                        const catName = input.getAttribute('data-category-name') || 'Equipment';
+                        const title = input.getAttribute('data-product-title') || 'Product';
+                        if (!selectedByCategory[catName]) {
+                            selectedByCategory[catName] = [];
+                        }
+                        selectedByCategory[catName].push({ title: title, qty: qty });
+                    }
+                });
+
+                for (const catName in selectedByCategory) {
+                    msg += `\n*${catName}*\n`;
+                    selectedByCategory[catName].forEach(item => {
+                        msg += `  - ${item.title} (Qty: ${item.qty})\n`;
+                    });
+                }
+
+                // Open WhatsApp in new window
+                window.open(
+                    `https://wa.me/447879175585?text=${encodeURIComponent(msg)}`,
+                    '_blank'
+                );
 
                 // Show spinner loading state
                 const submitBtn = document.getElementById('submitBtn');

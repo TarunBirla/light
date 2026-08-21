@@ -7,8 +7,12 @@ use App\Models\Category;
 use App\Models\EquipmentRequest;
 use App\Models\EquipmentRequestItem;
 use App\Models\Item;
+use App\Mail\EquipmentRequestSubmittedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+
 
 class EquipmentRequestController extends Controller
 {
@@ -121,6 +125,15 @@ class EquipmentRequestController extends Controller
             }
 
             DB::commit();
+
+            // Send admin notification email
+            try {
+                $equipmentRequest->load(['items.product', 'items.category']);
+                Mail::to('mohammednasar.uk@gmail.com')->send(new EquipmentRequestSubmittedMail($equipmentRequest));
+            } catch (\Exception $e) {
+                Log::error('Failed sending equipment request admin email: ' . $e->getMessage());
+            }
+
 
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json([
