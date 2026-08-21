@@ -249,6 +249,11 @@
             {{-- Bottom --}}
             <div class="nav-actions">
 
+                <a href="/equipment-request" class="nav-action-link">
+                    <i class="bi bi-file-earmark-text"></i>
+                    Equipment Request
+                </a>
+
                 <a href="/items?type=sell" class="nav-action-link">
                     <i class="bi bi-search"></i>
                     Selling
@@ -258,6 +263,7 @@
                     <i class="bi bi-cart"></i>
                     Rental
                 </a>
+
 
             </div>
 

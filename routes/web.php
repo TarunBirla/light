@@ -20,6 +20,12 @@ use App\Http\Controllers\Front\AuthController as FrontAuthController;
 
 use App\Http\Controllers\Front\CategoryController as FrontCategoryController;
 use App\Http\Controllers\Front\ItemController as FrontItemController;
+use App\Http\Controllers\Front\EquipmentRequestController as FrontEquipmentRequestController;
+use App\Http\Controllers\Admin\EquipmentRequestController as AdminEquipmentRequestController;
+
+Route::get('/equipment-request', [FrontEquipmentRequestController::class, 'index'])->name('equipment-request.index');
+Route::post('/equipment-request', [FrontEquipmentRequestController::class, 'store'])->name('equipment-request.store');
+
 
 
 Route::post(
@@ -213,6 +219,11 @@ Route::delete(
             'items',
             ItemController::class
         );
+
+        Route::get('/equipment-requests', [AdminEquipmentRequestController::class, 'index'])->name('admin.equipment-requests.index');
+        Route::get('/equipment-requests/{id}', [AdminEquipmentRequestController::class, 'show'])->name('admin.equipment-requests.show');
+        Route::delete('/equipment-requests/{id}', [AdminEquipmentRequestController::class, 'destroy'])->name('admin.equipment-requests.destroy');
+
 
         Route::get(
             'logout',
