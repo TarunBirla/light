@@ -5,8 +5,8 @@
     .eq-page-header {
         background: #111;
         color: #fff;
-        padding: 40px 0;
-        margin-bottom: 30px;
+        padding: 35px 0;
+        margin-bottom: 25px;
         border-bottom: 4px solid var(--brand);
     }
 
@@ -24,7 +24,7 @@
         color: #fff;
         padding: 14px 20px;
         font-weight: 700;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         letter-spacing: .5px;
         display: flex;
         align-items: center;
@@ -41,16 +41,16 @@
 
     .eq-form-label {
         font-weight: 600;
-        font-size: 0.9rem;
-        margin-bottom: 6px;
+        font-size: 0.88rem;
+        margin-bottom: 5px;
         color: #222;
     }
 
     .eq-form-control {
         border-radius: 8px;
         border: 1px solid #ccc;
-        padding: 10px 14px;
-        font-size: 0.95rem;
+        padding: 9px 13px;
+        font-size: 0.92rem;
         transition: border-color .2s, box-shadow .2s;
     }
 
@@ -61,7 +61,7 @@
     }
 
     .eq-section-subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
         font-weight: 700;
         text-transform: uppercase;
         color: var(--dark);
@@ -88,8 +88,8 @@
         color: #333;
         border: 1px solid #ddd;
         font-weight: 600;
-        font-size: 0.9rem;
-        padding: 10px 18px;
+        font-size: 0.88rem;
+        padding: 9px 16px;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -108,7 +108,7 @@
         color: #111;
         border-color: var(--brand-dk);
         font-weight: 700;
-        box-shadow: 0 4px 12px rgba(255, 199, 0, 0.3);
+        box-shadow: 0 3px 10px rgba(255, 199, 0, 0.3);
     }
 
     .badge-qty-count {
@@ -120,42 +120,67 @@
         font-weight: 700;
     }
 
-    /* Product Table Styling */
-    .product-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
+    /* 2-Column Product Grid & Compact Cards */
+    .category-scroll-container {
+        max-height: 440px;
+        overflow-y: auto;
+        padding-right: 6px;
     }
 
-    .product-table th {
-        background: #111;
-        color: #fff;
-        padding: 12px 16px;
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+    .category-scroll-container::-webkit-scrollbar {
+        width: 6px;
     }
 
-    .product-table td {
-        padding: 12px 16px;
-        border-bottom: 1px solid #eee;
-        vertical-align: middle;
+    .category-scroll-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
     }
 
-    .product-table tr:hover td {
-        background-color: #fafafa;
+    .category-scroll-container::-webkit-scrollbar-thumb {
+        background: var(--brand);
+        border-radius: 3px;
+    }
+
+    .product-item-card {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        height: 100%;
+    }
+
+    .product-item-card:hover {
+        border-color: #bbb;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .product-item-card.has-qty {
+        border-color: var(--brand);
+        background-color: #fffdf2;
+        box-shadow: 0 0 0 1px var(--brand);
+    }
+
+    .product-title-text {
+        font-weight: 600;
+        font-size: 0.92rem;
+        color: #111;
+        word-break: break-word;
     }
 
     .qty-input-group {
         display: flex;
         align-items: center;
-        max-width: 140px;
+        flex-shrink: 0;
     }
 
     .qty-btn {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         background: #eee;
         border: 1px solid #ccc;
         font-weight: bold;
@@ -182,15 +207,15 @@
     }
 
     .qty-number-input {
-        width: 60px;
-        height: 34px;
+        width: 50px;
+        height: 32px;
         text-align: center;
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
         border-left: none;
         border-right: none;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .qty-number-input::-webkit-inner-spin-button,
@@ -199,46 +224,28 @@
         margin: 0;
     }
 
-    .submit-bar {
-        position: sticky;
-        bottom: 20px;
-        z-index: 99;
+    /* Fixed Submit Form Card at Bottom */
+    .submit-card {
         background: #111;
-        padding: 16px 24px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 3px solid var(--brand);
-    }
-
-    .submit-summary {
         color: #fff;
-        font-size: 1.05rem;
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: var(--shadow);
+        border-top: 4px solid var(--brand);
+        margin-top: 25px;
     }
 
-    .submit-summary strong {
+    .submit-summary-box {
+        font-size: 1.1rem;
+    }
+
+    .submit-summary-box strong {
         color: var(--brand);
-        font-size: 1.2rem;
-    }
-
-    @media (max-width: 768px) {
-        .submit-bar {
-            flex-direction: column;
-            gap: 12px;
-            text-align: center;
-        }
+        font-size: 1.3rem;
     }
 </style>
 
-<!-- Header Banner -->
-<div class="eq-page-header text-center">
-    <div class="container">
-        <h1 class="fw-bold mb-2" style="font-size: 2.3rem;">EQUIPMENT REQUEST FORM</h1>
-        <p class="text-muted mb-0" style="color: #ccc !important;">Fill out your production details and select required equipment quantities.</p>
-    </div>
-</div>
+
 
 <div class="container pb-5">
 
@@ -407,58 +414,46 @@
                     @endforeach
                 </div>
 
-                <!-- Category Product Lists -->
+                <!-- Category Product Lists (2-Column Grid with Fixed Height & Scrollbar) -->
                 <div id="categoryProductsContainer">
                     @foreach($categories as $index => $category)
                         <div class="category-panel" id="cat-panel-{{ $category->id }}" style="{{ $index === 0 ? 'display: block;' : 'display: none;' }}">
 
                             <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
-                                <h5 class="fw-bold mb-0 text-dark">
+                                <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.05rem;">
                                     <i class="bi bi-folder2-open me-2 text-warning"></i>{{ $category->name }}
                                 </h5>
                                 <span class="text-muted small">{{ count($category->products) }} Products Available</span>
                             </div>
 
                             @if(count($category->products) > 0)
-                                <div class="table-responsive">
-                                    <table class="product-table table table-hover align-middle rounded-3 overflow-hidden">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 60px;">#</th>
-                                                <th>Product Name</th>
-                                                <th style="width: 200px;" class="text-end">Quantity Required</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($category->products as $pIndex => $product)
-                                                <tr>
-                                                    <td class="fw-bold text-muted">{{ $pIndex + 1 }}</td>
-                                                    <td>
-                                                        <div class="fw-bold text-dark">{{ $product->title }}</div>
-                                                        @if(!empty($product->description))
-                                                            <div class="text-muted small">{!! Str::limit(strip_tags($product->description), 100) !!}</div>
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-end">
-                                                        <div class="qty-input-group ms-auto">
-                                                            <button type="button" class="qty-btn btn-minus" onclick="adjustQty({{ $product->id }}, {{ $category->id }}, -1)">-</button>
-                                                            <input type="number" 
-                                                                   name="quantities[{{ $product->id }}]" 
-                                                                   id="qty-input-{{ $product->id }}" 
-                                                                   class="qty-number-input product-qty-field" 
-                                                                   data-category-id="{{ $category->id }}"
-                                                                   data-category-name="{{ $category->name }}"
-                                                                   data-product-title="{{ $product->title }}"
-                                                                   min="0" 
-                                                                   value="{{ old('quantities.'.$product->id, 0) }}" 
-                                                                   oninput="onQtyChange({{ $product->id }}, {{ $category->id }})">
-                                                            <button type="button" class="qty-btn btn-plus" onclick="adjustQty({{ $product->id }}, {{ $category->id }}, 1)">+</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                <div class="category-scroll-container">
+                                    <div class="row row-cols-1 row-cols-md-2 g-2">
+                                        @foreach($category->products as $pIndex => $product)
+                                            <div class="col">
+                                                <div class="product-item-card" id="card-product-{{ $product->id }}">
+                                                    <div class="product-title-text me-auto">
+                                                        {{ $product->title }}
+                                                    </div>
+                                                    <div class="qty-input-group">
+                                                        <button type="button" class="qty-btn btn-minus" onclick="adjustQty({{ $product->id }}, {{ $category->id }}, -1)">-</button>
+                                                        <input type="number" 
+                                                               name="quantities[{{ $product->id }}]" 
+                                                               id="qty-input-{{ $product->id }}" 
+                                                               class="qty-number-input product-qty-field" 
+                                                               data-product-id="{{ $product->id }}"
+                                                               data-category-id="{{ $category->id }}"
+                                                               data-category-name="{{ $category->name }}"
+                                                               data-product-title="{{ $product->title }}"
+                                                               min="0" 
+                                                               value="{{ old('quantities.'.$product->id, 0) }}" 
+                                                               oninput="onQtyChange({{ $product->id }}, {{ $category->id }})">
+                                                        <button type="button" class="qty-btn btn-plus" onclick="adjustQty({{ $product->id }}, {{ $category->id }}, 1)">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             @else
                                 <div class="alert alert-light text-center py-4 border">
@@ -474,15 +469,23 @@
             </div>
         </div>
 
-        <!-- SECTION 3: STICKY SUBMIT BAR -->
-        <div class="submit-bar">
-            <div class="submit-summary">
-                <i class="bi bi-cart-check me-2 text-warning fs-5"></i> Total Products Selected: <strong id="totalSelectedQty">0</strong> Items
-            </div>
-            <div>
-                <button type="submit" class="btn btn-brand btn-lg text-dark px-4" id="submitBtn">
-                    <i class="bi bi-send-fill me-2"></i> Submit Form
-                </button>
+        <!-- SECTION 3: FORM SUBMIT CARD (NON-STICKY AT BOTTOM) -->
+        <div class="submit-card">
+            <div class="row align-items-center g-3">
+                <div class="col-md-7 text-center text-md-start">
+                    <div class="submit-summary-box">
+                        <i class="bi bi-cart-check me-2 text-warning fs-4"></i>
+                        <span>Total Products Selected: <strong id="totalSelectedQty">0</strong> Items</span>
+                    </div>
+                    <small class="text-muted d-block mt-1" style="color: #aaa !important;">
+                        Clicking submit will send your request via Email & WhatsApp.
+                    </small>
+                </div>
+                <div class="col-md-5 text-center text-md-end">
+                    <button type="submit" class="btn btn-brand btn-lg text-dark fw-bold px-5 py-3 rounded-3 w-100 w-md-auto" id="submitBtn">
+                        <i class="bi bi-send-fill me-2"></i> SUBMIT FORM
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -537,7 +540,7 @@
         updateTotals();
     }
 
-    // Update overall totals & category badges
+    // Update overall totals & category badges & card highlighting
     function updateTotals() {
         const qtyInputs = document.querySelectorAll('.product-qty-field');
         let totalCount = 0;
@@ -545,10 +548,16 @@
 
         qtyInputs.forEach(input => {
             const val = parseInt(input.value) || 0;
+            const productId = input.getAttribute('data-product-id');
+            const card = document.getElementById('card-product-' + productId);
+
             if (val > 0) {
                 totalCount += val;
                 const catId = input.getAttribute('data-category-id');
                 categoryCounts[catId] = (categoryCounts[catId] || 0) + val;
+                if (card) card.classList.add('has-qty');
+            } else {
+                if (card) card.classList.remove('has-qty');
             }
         });
 
