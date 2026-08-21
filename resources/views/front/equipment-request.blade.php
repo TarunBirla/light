@@ -122,7 +122,7 @@
 
     /* 2-Column Product Grid & Compact Cards */
     .category-scroll-container {
-        max-height: 440px;
+        max-height: 300px;
         overflow-y: auto;
         padding-right: 6px;
     }
