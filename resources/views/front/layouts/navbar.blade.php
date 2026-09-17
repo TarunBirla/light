@@ -264,6 +264,11 @@
                     Rental
                 </a>
 
+                <a href="/auctions" class="nav-action-link">
+                    <i class="bi bi-gavel"></i>
+                    Auction
+                </a>
+
 
             </div>
 

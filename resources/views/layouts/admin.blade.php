@@ -354,6 +354,18 @@
                     Request To Product
                 </a>
             </li>
+            <li>
+                <a href="/admin/auction-products" class="{{ request()->is('admin/auction-products*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-gavel"></i>
+                    Auction Products
+                </a>
+            </li>
+            <li>
+                <a href="/admin/auction-requests" class="{{ request()->is('admin/auction-requests*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    Auction Requests
+                </a>
+            </li>
 
             <li>
     <a href="/admin/brands"
