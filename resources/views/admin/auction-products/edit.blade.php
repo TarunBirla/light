@@ -74,12 +74,7 @@
                                     Included Shipping cost
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="shipping_type" id="shipping_both" value="both" {{ old('shipping_type', $auctionProduct->shipping_type) == 'both' ? 'checked' : '' }}>
-                                <label class="form-check-label fw-medium" for="shipping_both">
-                                    Both Included & Excluded Shipping cost
-                                </label>
-                            </div>
+                            
                         </div>
                     </div>
 
