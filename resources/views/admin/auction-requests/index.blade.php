@@ -262,6 +262,9 @@
                         <td>
                             <div><i class="fa-regular fa-envelope me-1 text-muted"></i>{{ $req->email }}</div>
                             <div><i class="fa-solid fa-phone me-1 text-muted"></i>{{ $req->phone }}</div>
+                            @if($req->address)
+                                <div class="small text-secondary mt-1" style="max-width:220px; word-break:break-word;"><i class="fa-solid fa-location-dot me-1 text-danger"></i>{{ $req->address }}</div>
+                            @endif
                         </td>
                         <td>
                             <span class="badge bg-light text-dark border">{{ $req->qty }}</span>

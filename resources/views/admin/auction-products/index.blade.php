@@ -283,6 +283,7 @@
                     <th>Category</th>
                     <th>Qty</th>
                     <th>Min Price</th>
+                    <th>Shipping</th>
                     <th>Sort Order</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -330,6 +331,15 @@
                             <span class="price-tag">£{{ number_format($product->minprice, 2) }}</span>
                         </td>
                         <td>
+                            @if($product->shipping_type == 'included')
+                                <span class="badge bg-success text-white px-2 py-1">Included</span>
+                            @elseif($product->shipping_type == 'both')
+                                <span class="badge bg-info text-white px-2 py-1">Both</span>
+                            @else
+                                <span class="badge bg-secondary text-white px-2 py-1">Excluded</span>
+                            @endif
+                        </td>
+                        <td>
                             <span class="badge bg-secondary">{{ $product->sort_order }}</span>
                         </td>
                         <td>
@@ -360,7 +370,7 @@
                     </tr>
                 @empty
                     <tr class="empty-row">
-                        <td colspan="9">
+                        <td colspan="10">
                             <i class="fa-solid fa-gavel" style="font-size:36px;display:block;margin-bottom:10px"></i>
                             No auction products found. <a href="{{ route('auction-products.create') }}" style="color:#FFC700;font-weight:600">Add one?</a>
                         </td>

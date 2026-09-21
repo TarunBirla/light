@@ -18,6 +18,7 @@ class AuctionRequest extends Model
         'phone',
         'bid_price',
         'qty',
+        'address',
         'message',
         'status',
     ];

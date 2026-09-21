@@ -59,6 +59,30 @@
                         @enderror
                     </div>
 
+                    <div class="col-md-12 mb-3">
+                        <label class="fw-semibold mb-2">Shipping Cost Option <span class="text-danger">*</span></label>
+                        <div class="d-flex flex-wrap gap-4 align-items-center border p-3 rounded">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="shipping_type" id="shipping_excluded" value="excluded" {{ old('shipping_type', $auctionProduct->shipping_type ?? 'excluded') == 'excluded' ? 'checked' : '' }}>
+                                <label class="form-check-label fw-medium" for="shipping_excluded">
+                                    Excluded Shipping cost
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="shipping_type" id="shipping_included" value="included" {{ old('shipping_type', $auctionProduct->shipping_type) == 'included' ? 'checked' : '' }}>
+                                <label class="form-check-label fw-medium" for="shipping_included">
+                                    Included Shipping cost
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="shipping_type" id="shipping_both" value="both" {{ old('shipping_type', $auctionProduct->shipping_type) == 'both' ? 'checked' : '' }}>
+                                <label class="form-check-label fw-medium" for="shipping_both">
+                                    Both Included & Excluded Shipping cost
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-4 mb-3">
                         <label class="fw-semibold mb-1">Status</label>
                         <select name="status" class="form-select">

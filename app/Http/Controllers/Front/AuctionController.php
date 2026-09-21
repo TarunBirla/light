@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\AuctionProduct;
 use App\Models\AuctionRequest;
 use App\Models\Category;
+use App\Mail\AuctionRequestSubmittedMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class AuctionController extends Controller
 {
@@ -71,6 +74,8 @@ class AuctionController extends Controller
             'name'               => 'required|string|max:255',
             'email'              => 'required|email|max:255',
             'phone'              => 'required|string|max:50',
+            'address'            => 'required|string|max:500',
+            'terms'              => 'required|accepted',
             'bid_price'          => 'required|numeric|min:' . $minPrice,
             'qty'                => 'required|integer|min:1|max:' . $availQty,
             'message'            => 'nullable|string',
@@ -78,6 +83,8 @@ class AuctionController extends Controller
             'name.required'      => 'Full name is required.',
             'email.required'     => 'Email address is required.',
             'phone.required'     => 'Phone number is required.',
+            'address.required'   => 'Address is required.',
+            'terms.accepted'     => 'You must agree to the Terms and Conditions before submitting.',
             'bid_price.required' => 'Bid offer price is required.',
             'bid_price.min'      => 'Your bid offer price must be at least £' . number_format($minPrice, 2) . '.',
             'qty.min'            => 'Quantity must be at least 1.',
@@ -99,19 +106,22 @@ class AuctionController extends Controller
                 'name'      => $request->name,
                 'email'     => $request->email,
                 'phone'     => $request->phone,
+                'address'   => $request->address,
                 'bid_price' => $request->bid_price,
                 'qty'       => $request->qty,
                 'message'   => $request->message,
             ]);
 
+            $auctionReq = $existingRequest;
             $msg = 'Your pending auction bid for this product has been updated successfully!';
         } else {
             // Create a brand new bid (since previous ones are completed/approved/rejected or first time)
-            AuctionRequest::create([
+            $auctionReq = AuctionRequest::create([
                 'auction_product_id' => $request->auction_product_id,
                 'name'               => $request->name,
                 'email'              => $request->email,
                 'phone'              => $request->phone,
+                'address'            => $request->address,
                 'bid_price'          => $request->bid_price,
                 'qty'                => $request->qty,
                 'message'            => $request->message,
@@ -119,6 +129,13 @@ class AuctionController extends Controller
             ]);
 
             $msg = 'Your new auction bid has been submitted successfully!';
+        }
+
+        // Send Email Notification to Admin
+        try {
+            Mail::to('mohammednasar.uk@gmail.com')->send(new AuctionRequestSubmittedMail($auctionReq));
+        } catch (\Exception $e) {
+            Log::error('Auction Request Email Notification Error: ' . $e->getMessage());
         }
 
         if ($request->wantsJson()) {
@@ -131,6 +148,7 @@ class AuctionController extends Controller
                 'name'      => $request->name,
                 'email'     => $request->email,
                 'phone'     => $request->phone,
+                'address'   => $request->address,
                 'user_msg'  => $request->message,
             ]);
         }

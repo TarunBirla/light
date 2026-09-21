@@ -96,11 +96,24 @@
             <!-- Product Info & Bid CTA -->
             <div class="col-lg-6 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="mb-2">
-                        <span class="badge bg-warning text-dark fw-bold px-3 py-2 me-2">Auction Product</span>
+                    <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
+                        <span class="badge bg-warning text-dark fw-bold px-3 py-2">Auction Product</span>
                         <span class="badge bg-light text-dark border px-3 py-2">
                             Category: {{ $auctionProduct->category->name ?? 'Uncategorized' }}
                         </span>
+                        @if(($auctionProduct->shipping_type ?? 'excluded') == 'included')
+                            <span class="badge bg-success text-white px-3 py-2">
+                                <i class="bi bi-truck me-1"></i> Included Shipping cost
+                            </span>
+                        @elseif(($auctionProduct->shipping_type ?? 'excluded') == 'both')
+                            <span class="badge bg-info text-dark px-3 py-2">
+                                <i class="bi bi-truck me-1"></i> Included & Excluded Shipping cost
+                            </span>
+                        @else
+                            <span class="badge bg-secondary text-white px-3 py-2">
+                                <i class="bi bi-truck me-1"></i> Excluded Shipping cost
+                            </span>
+                        @endif
                     </div>
 
                     <h2 class="fw-bold text-dark mt-2 mb-3">{{ $auctionProduct->title }}</h2>
@@ -288,8 +301,22 @@
                         </div>
 
                         <div class="col-md-12">
+                            <label class="form-label fw-semibold">Delivery / Contact Address <span class="text-danger">*</span></label>
+                            <textarea name="address" class="form-control" rows="2" placeholder="Enter your full street address, city, postcode..." required></textarea>
+                        </div>
+
+                        <div class="col-md-12">
                             <label class="form-label fw-semibold">Message / Bid Offer Details</label>
-                            <textarea name="message" class="form-control" rows="3" placeholder="Enter your message or custom offer notes..."></textarea>
+                            <textarea name="message" class="form-control" rows="2" placeholder="Enter your message or custom offer notes..."></textarea>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <div class="form-check bg-light p-3 rounded-3 border">
+                                <input class="form-check-input ms-0 me-2" type="checkbox" name="terms" id="termsCheck" value="1" required style="cursor:pointer; width:18px; height:18px;">
+                                <label class="form-check-label fw-medium text-dark small" for="termsCheck" style="cursor:pointer; line-height: 1.5;">
+                                    I agree to the <a href="#" onclick="event.preventDefault(); alert('By submitting an auction request, you agree to abide by the bidding rules and terms of Light As Air.');" style="color:var(--brand-dark, #B38A00); font-weight:700; text-decoration:underline;">Terms and Conditions</a> of Light As Air auction bidding. <span class="text-danger">*</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -399,7 +426,8 @@ Quantity: ${data.qty}
 
 Name: ${data.name}
 Email: ${data.email}
-Phone: ${data.phone}${data.user_msg ? '\nMessage: ' + data.user_msg : ''}`;
+Phone: ${data.phone}
+Address: ${data.address || 'N/A'}${data.user_msg ? '\nMessage: ' + data.user_msg : ''}`;
 
             window.open(
                 `https://wa.me/447879175585?text=${encodeURIComponent(msg)}`,

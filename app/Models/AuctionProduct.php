@@ -19,6 +19,7 @@ class AuctionProduct extends Model
         'qty',
         'minprice',
         'status',
+        'shipping_type',
         'sort_order',
     ];
 

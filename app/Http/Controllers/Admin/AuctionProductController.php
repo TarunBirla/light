@@ -40,6 +40,7 @@ class AuctionProductController extends Controller
             'title'       => 'required|string|max:255',
             'qty'         => 'required|integer|min:1',
             'minprice'    => 'required|numeric|min:0',
+            'shipping_type' => 'nullable|in:excluded,included,both',
         ]);
 
         $images = [];
@@ -53,14 +54,15 @@ class AuctionProductController extends Controller
         }
 
         AuctionProduct::create([
-            'category_id' => $request->category_id,
-            'title'       => $request->title,
-            'description' => $request->description,
-            'image'       => $images,
-            'qty'         => $request->qty,
-            'minprice'    => $request->minprice,
-            'status'      => $request->status ?? 'active',
-            'sort_order'  => $request->sort_order ?? 0,
+            'category_id'   => $request->category_id,
+            'title'         => $request->title,
+            'description'   => $request->description,
+            'image'         => $images,
+            'qty'           => $request->qty,
+            'minprice'      => $request->minprice,
+            'status'        => $request->status ?? 'active',
+            'shipping_type' => $request->shipping_type ?? 'excluded',
+            'sort_order'    => $request->sort_order ?? 0,
         ]);
 
         return redirect()
@@ -85,6 +87,7 @@ class AuctionProductController extends Controller
             'title'       => 'required|string|max:255',
             'qty'         => 'required|integer|min:1',
             'minprice'    => 'required|numeric|min:0',
+            'shipping_type' => 'nullable|in:excluded,included,both',
         ]);
 
         $oldImages = [];
@@ -120,14 +123,15 @@ class AuctionProductController extends Controller
         }
 
         $auctionProduct->update([
-            'category_id' => $request->category_id,
-            'title'       => $request->title,
-            'description' => $request->description,
-            'image'       => $oldImages,
-            'qty'         => $request->qty,
-            'minprice'    => $request->minprice,
-            'status'      => $request->status,
-            'sort_order'  => $request->sort_order ?? 0,
+            'category_id'   => $request->category_id,
+            'title'         => $request->title,
+            'description'   => $request->description,
+            'image'         => $oldImages,
+            'qty'           => $request->qty,
+            'minprice'      => $request->minprice,
+            'status'        => $request->status,
+            'shipping_type' => $request->shipping_type ?? 'excluded',
+            'sort_order'    => $request->sort_order ?? 0,
         ]);
 
         return redirect()
