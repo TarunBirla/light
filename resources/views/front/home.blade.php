@@ -944,25 +944,14 @@
                                 <a href="{{ url('item/' . $item->id) }}" class="btn-view">
                                     <i class="bi bi-eye"></i> View
                                 </a>
-                                @if(Auth::check())
-                                    <form action="{{ url('/add-to-cart') }}" method="POST" style="flex:1;display:flex;">
-                                        @csrf
-                                        <input type="hidden" name="item_id" value="{{ $item->id }}">
-                                        <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn-cart w-100">
-                                            <i class="bi bi-cart-plus-fill"></i> Request
-                                        </button>
-                                    </form>
-                                @else
-                                    <button class="btn-cart w-100" onclick="addToRequest(
-                                                '{{ $item->id }}',
-                                                '{{ addslashes($item->title) }}',
-                                                'rental'
-                                                )">
-                                        <i class="bi bi-plus-circle"></i>
-                                        Request
-                                    </button>
-                                @endif
+                                <button class="btn-cart w-100" onclick="addToRequest(
+                                            '{{ $item->id }}',
+                                            '{{ addslashes($item->title) }}',
+                                            'rental'
+                                            )">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Request
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1046,25 +1035,14 @@
                                 <a href="{{ url('item/' . $item->id) }}" class="btn-view">
                                     <i class="bi bi-eye"></i> View
                                 </a>
-                                @if(Auth::check())
-                                    <form action="{{ url('/add-to-cart') }}" method="POST" style="flex:1;display:flex;">
-                                        @csrf
-                                        <input type="hidden" name="item_id" value="{{ $item->id }}">
-                                        <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn-cart w-100">
-                                            <i class="bi bi-cart-plus-fill"></i> Request
-                                        </button>
-                                    </form>
-                                @else
-                                    <button class="btn-cart w-100" onclick="addToRequest(
-                                                '{{ $item->id }}',
-                                                '{{ addslashes($item->title) }}',
-                                                'sell'
-                                                )">
-                                        <i class="bi bi-plus-circle"></i>
-                                        Request
-                                    </button>
-                                @endif
+                                <button class="btn-cart w-100" onclick="addToRequest(
+                                            '{{ $item->id }}',
+                                            '{{ addslashes($item->title) }}',
+                                            'sell'
+                                            )">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Request
+                                </button>
                             </div>
                         </div>
                     </div>
