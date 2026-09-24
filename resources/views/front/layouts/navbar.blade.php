@@ -227,7 +227,6 @@
             <img src="/Logo-3.webp" class="logoData">
            
         </a>
-        <h5>Official Godox KNOWLED Dealer for Cinematic Lighting</h5>
 
        
 
@@ -246,6 +245,8 @@
             <a href="#items" class="btn-hero-primary">
                 LIGHT AS AIR
             </a>
+        <h5>Official Godox KNOWLED Dealer for Cinematic Lighting</h5>
+
 
             {{-- Bottom --}}
             <div class="nav-actions">
