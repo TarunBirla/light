@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -90,6 +92,85 @@ class AuthController extends Controller
         }
 
         return back()->with('error', 'Invalid email or password credentials.')->withInput($request->only('email'));
+    }
+
+    public function forgotPassword()
+    {
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        return view('front.auth.forgot-password');
+    }
+
+    public function forgotPasswordSubmit(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.required' => 'Email address is required.',
+            'email.exists'   => 'We could not find an account registered with this email address.',
+        ]);
+
+        $token = Str::random(64);
+
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'email'      => $request->email,
+                'token'      => $token,
+                'created_at' => now(),
+            ]
+        );
+
+        return redirect()->route('password.reset', ['token' => $token, 'email' => $request->email])
+            ->with('success', 'Account verified! Please enter your new password below to reset.');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        $email = $request->get('email');
+        $token = $request->get('token');
+        return view('front.auth.reset-password', compact('email', 'token'));
+    }
+
+    public function resetPasswordSubmit(Request $request)
+    {
+        $request->validate([
+            'email'                 => 'required|email|exists:users,email',
+            'token'                 => 'required|string',
+            'password'              => 'required|string|min:6|confirmed',
+        ], [
+            'email.required'        => 'Email address is required.',
+            'email.exists'          => 'Invalid email address.',
+            'password.required'     => 'New password is required.',
+            'password.min'          => 'New password must be at least 6 characters.',
+            'password.confirmed'    => 'Password confirmation does not match.',
+        ]);
+
+        $record = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->where('token', $request->token)
+            ->first();
+
+        if (!$record) {
+            return back()->with('error', 'Invalid or expired password reset token. Please request a new one.');
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+            return redirect('/login')->with('success', 'Password reset successfully! You can now login with your new password.');
+        }
+
+        return back()->with('error', 'Unable to reset password. Please try again.');
     }
 
     public function profile()

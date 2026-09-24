@@ -1,4 +1,3 @@
-{{-- resources/views/front/login.blade.php --}}
 @extends('front.layouts.app')
 
 @section('content')
@@ -11,41 +10,41 @@
     padding: 3rem 0;
 }
 .auth-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
+    background: var(--white, #fff);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 1px solid #E8E6DF;
     overflow: hidden;
     width: 100%;
     max-width: 440px;
     margin: 0 auto;
 }
 .auth-card-top {
-    background: linear-gradient(135deg, var(--dark) 0%, #2a2a2a 100%);
+    background: #111111;
     padding: 2.2rem 2rem 1.8rem;
     text-align: center;
 }
 .auth-logo-circle {
     width: 68px; height: 68px;
-    background: var(--brand);
+    background: #FFC700;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.8rem;
-    color: var(--dark);
+    color: #111111;
     margin: 0 auto 1rem;
     box-shadow: 0 6px 20px rgba(255,199,0,.4);
 }
 .auth-title {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--white);
+    color: #ffffff;
     margin: 0 0 .25rem;
 }
 .auth-sub {
-    font-size: .82rem;
-    color: rgba(255,255,255,.5);
+    font-size: .85rem;
+    color: rgba(255,255,255,.6);
 }
 .auth-body { padding: 2rem; }
 
@@ -54,24 +53,24 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .06em;
-    color: var(--dark);
+    color: #111111;
     margin-bottom: .4rem;
 }
 .auth-input {
-    border: 1.5px solid var(--border);
+    border: 1.5px solid #E8E6DF;
     border-radius: 10px;
     padding: .7rem 1rem .7rem 2.6rem;
     font-size: .9rem;
-    color: var(--dark);
+    color: #111111;
     background: #fafafa;
     width: 100%;
     transition: border-color .2s, box-shadow .2s;
 }
 .auth-input:focus {
-    border-color: var(--brand);
+    border-color: #FFC700;
     box-shadow: 0 0 0 3px rgba(255,199,0,.18);
     outline: none;
-    background: var(--white);
+    background: #ffffff;
 }
 .input-icon-wrap {
     position: relative;
@@ -82,7 +81,7 @@
     left: .9rem;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--muted);
+    color: #888;
     font-size: .95rem;
     pointer-events: none;
 }
@@ -92,8 +91,8 @@
     align-items: center;
     justify-content: center;
     gap: .5rem;
-    background: var(--brand);
-    color: var(--dark);
+    background: #FFC700;
+    color: #111111;
     font-weight: 800;
     font-size: 1rem;
     padding: .85rem;
@@ -105,7 +104,7 @@
     margin-top: .5rem;
 }
 .btn-auth:hover {
-    background: var(--brand-dk);
+    background: #E6B200;
     box-shadow: 0 6px 20px rgba(255,199,0,.4);
     transform: translateY(-1px);
 }
@@ -113,16 +112,16 @@
 .auth-footer {
     text-align: center;
     padding: 1rem 2rem 1.5rem;
-    border-top: 1px solid var(--border);
-    font-size: .83rem;
-    color: var(--muted);
+    border-top: 1px solid #E8E6DF;
+    font-size: .85rem;
+    color: #888;
 }
 .auth-footer a {
-    color: var(--dark);
+    color: #111111;
     font-weight: 700;
     text-decoration: none;
 }
-.auth-footer a:hover { color: var(--brand-dk); }
+.auth-footer a:hover { color: #E6B200; }
 </style>
 
 <div class="auth-section">
@@ -130,9 +129,9 @@
         <div class="auth-card">
 
             <div class="auth-card-top">
-                <div class="auth-logo-circle"><i class="bi bi-person-fill"></i></div>
-                <h2 class="auth-title">Welcome Back</h2>
-                <p class="auth-sub">Sign in to manage your rentals</p>
+                <div class="auth-logo-circle"><i class="bi bi-key-fill"></i></div>
+                <h2 class="auth-title">Forgot Password?</h2>
+                <p class="auth-sub">Enter your email address to reset your password</p>
             </div>
 
             <div class="auth-body">
@@ -155,10 +154,10 @@
                     </div>
                 @endif
 
-                <form method="POST" action="/login">
+                <form method="POST" action="{{ route('password.email') }}">
                     @csrf
 
-                    <label class="form-label">Email Address</label>
+                    <label class="form-label">Registered Email Address</label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-envelope-fill input-icon"></i>
                         <input type="email" name="email" class="auth-input"
@@ -166,40 +165,14 @@
                                value="{{ old('email') }}" required>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="form-label mb-0">Password</label>
-                        <a href="{{ route('password.request') }}" class="small text-muted text-decoration-none fw-semibold" style="font-size: .8rem;">Forgot Password?</a>
-                    </div>
-                    <div class="input-icon-wrap" style="position:relative;">
-                        <i class="bi bi-lock-fill input-icon"></i>
-                        <input type="password" name="password" id="loginPassword" class="auth-input"
-                               placeholder="••••••••" required style="padding-right: 2.7rem;">
-                        <i class="bi bi-eye-slash toggle-pwd-icon" onclick="togglePasswordVisibility('loginPassword', this)" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); cursor:pointer; color:#888; font-size:1.1rem; z-index:10;"></i>
-                    </div>
-
                     <button type="submit" class="btn-auth">
-                        <i class="bi bi-box-arrow-in-right"></i> Login
+                        <i class="bi bi-arrow-right-circle-fill"></i> Verify & Reset Password
                     </button>
                 </form>
             </div>
 
-            <script>
-                function togglePasswordVisibility(inputId, icon) {
-                    const input = document.getElementById(inputId);
-                    if (input.type === 'password') {
-                        input.type = 'text';
-                        icon.classList.remove('bi-eye-slash');
-                        icon.classList.add('bi-eye');
-                    } else {
-                        input.type = 'password';
-                        icon.classList.remove('bi-eye');
-                        icon.classList.add('bi-eye-slash');
-                    }
-                }
-            </script>
-
             <div class="auth-footer">
-                Don't have an account? <a href="/register">Create one</a>
+                Remember your password? <a href="/login">Back to Login</a>
             </div>
         </div>
     </div>

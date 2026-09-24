@@ -125,13 +125,19 @@ Route::get(
     )->name('cart.remove');
 });
 
-Route::get('/login', [FrontAuthController::class, 'login']);
+Route::get('/login', [FrontAuthController::class, 'login'])->name('login');
 Route::post('/login', [FrontAuthController::class, 'loginSubmit']);
 
-Route::get('/register', [FrontAuthController::class, 'register']);
+Route::get('/register', [FrontAuthController::class, 'register'])->name('register');
 Route::post('/register', [FrontAuthController::class, 'registerSubmit']);
 
-Route::get('/logout', [FrontAuthController::class, 'logout']);
+Route::get('/forgot-password', [FrontAuthController::class, 'forgotPassword'])->name('password.request');
+Route::post('/forgot-password', [FrontAuthController::class, 'forgotPasswordSubmit'])->name('password.email');
+
+Route::get('/reset-password', [FrontAuthController::class, 'resetPassword'])->name('password.reset');
+Route::post('/reset-password', [FrontAuthController::class, 'resetPasswordSubmit'])->name('password.update');
+
+Route::get('/logout', [FrontAuthController::class, 'logout'])->name('logout');
 
 Route::get('/profile', [FrontAuthController::class, 'profile'])
     ->middleware('auth');
