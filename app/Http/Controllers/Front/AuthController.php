@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -113,14 +114,28 @@ class AuthController extends Controller
 
         $token = Str::random(64);
 
-        DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $request->email],
-            [
-                'email'      => $request->email,
-                'token'      => $token,
-                'created_at' => now(),
-            ]
-        );
+        // Auto-create table if missing on live server
+        try {
+            if (!Schema::hasTable('password_reset_tokens')) {
+                Schema::create('password_reset_tokens', function ($table) {
+                    $table->string('email')->primary();
+                    $table->string('token');
+                    $table->timestamp('created_at')->nullable();
+                });
+            }
+
+            DB::table('password_reset_tokens')->updateOrInsert(
+                ['email' => $request->email],
+                [
+                    'email'      => $request->email,
+                    'token'      => $token,
+                    'created_at' => now(),
+                ]
+            );
+        } catch (\Exception $e) {
+            // Fallback: save reset token in user's remember_token field
+            User::where('email', $request->email)->update(['remember_token' => $token]);
+        }
 
         return redirect()->route('password.reset', ['token' => $token, 'email' => $request->email])
             ->with('success', 'Account verified! Please enter your new password below to reset.');
@@ -150,22 +165,49 @@ class AuthController extends Controller
             'password.confirmed'    => 'Password confirmation does not match.',
         ]);
 
-        $record = DB::table('password_reset_tokens')
-            ->where('email', $request->email)
-            ->where('token', $request->token)
-            ->first();
+        $validToken = false;
 
-        if (!$record) {
+        try {
+            if (Schema::hasTable('password_reset_tokens')) {
+                $record = DB::table('password_reset_tokens')
+                    ->where('email', $request->email)
+                    ->where('token', $request->token)
+                    ->first();
+                if ($record) {
+                    $validToken = true;
+                }
+            }
+        } catch (\Exception $e) {
+            // ignore
+        }
+
+        if (!$validToken) {
+            $userCheck = User::where('email', $request->email)
+                ->where('remember_token', $request->token)
+                ->first();
+            if ($userCheck) {
+                $validToken = true;
+            }
+        }
+
+        if (!$validToken) {
             return back()->with('error', 'Invalid or expired password reset token. Please request a new one.');
         }
 
         $user = User::where('email', $request->email)->first();
         if ($user) {
             $user->update([
-                'password' => Hash::make($request->password)
+                'password'       => Hash::make($request->password),
+                'remember_token' => null,
             ]);
 
-            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            try {
+                if (Schema::hasTable('password_reset_tokens')) {
+                    DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+                }
+            } catch (\Exception $e) {
+                // ignore
+            }
 
             return redirect('/login')->with('success', 'Password reset successfully! You can now login with your new password.');
         }

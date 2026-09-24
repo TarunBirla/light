@@ -227,6 +227,7 @@
             <img src="/Logo-3.webp" class="logoData">
            
         </a>
+        <h5>Official Godox KNOWLED Dealer for Cinematic Lighting</h5>
 
        
 
