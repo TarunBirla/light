@@ -281,15 +281,17 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <div class="input-wrap">
+                <div class="input-wrap" style="position:relative;">
                     <i class="fa-solid fa-lock"></i>
                     <input
                         type="password"
                         name="password"
-                        id="password"
+                        id="adminPassword"
                         class="form-control"
                         placeholder="••••••••"
-                        required>
+                        required
+                        style="padding-right: 40px;">
+                    <i class="fa-solid fa-eye-slash" onclick="toggleAdminPassword('adminPassword', this)" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); cursor:pointer; color:#888; font-size:14px; z-index:10;"></i>
                 </div>
             </div>
 
@@ -299,6 +301,21 @@
             </button>
 
         </form>
+
+        <script>
+            function toggleAdminPassword(inputId, icon) {
+                const input = document.getElementById(inputId);
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+            }
+        </script>
 
     </div>
 

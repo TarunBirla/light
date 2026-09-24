@@ -167,10 +167,11 @@
                     </div>
 
                     <label class="form-label">Password</label>
-                    <div class="input-icon-wrap">
+                    <div class="input-icon-wrap" style="position:relative;">
                         <i class="bi bi-lock-fill input-icon"></i>
-                        <input type="password" name="password" class="auth-input"
-                               placeholder="••••••••" required>
+                        <input type="password" name="password" id="loginPassword" class="auth-input"
+                               placeholder="••••••••" required style="padding-right: 2.7rem;">
+                        <i class="bi bi-eye-slash toggle-pwd-icon" onclick="togglePasswordVisibility('loginPassword', this)" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); cursor:pointer; color:#888; font-size:1.1rem; z-index:10;"></i>
                     </div>
 
                     <button type="submit" class="btn-auth">
@@ -178,6 +179,21 @@
                     </button>
                 </form>
             </div>
+
+            <script>
+                function togglePasswordVisibility(inputId, icon) {
+                    const input = document.getElementById(inputId);
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('bi-eye-slash');
+                        icon.classList.add('bi-eye');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('bi-eye');
+                        icon.classList.add('bi-eye-slash');
+                    }
+                }
+            </script>
 
             <div class="auth-footer">
                 Don't have an account? <a href="/register">Create one</a>
