@@ -159,12 +159,21 @@
 
                 <div class="pt-3 border-top">
                     @if($auctionProduct->available_qty > 0)
-                        <button type="button" class="btn-place-bid" data-bs-toggle="modal" data-bs-target="#auctionBidModal">
-                            <i class="bi bi-gavel me-2"></i> Bid Now / Request Auction
-                        </button>
-                        <small class="text-muted d-block text-center mt-2">
-                            <i class="bi bi-shield-check me-1"></i> Guest Mode — Instant Request Submission
-                        </small>
+                        @auth
+                            <button type="button" class="btn-place-bid" data-bs-toggle="modal" data-bs-target="#auctionBidModal">
+                                <i class="bi bi-gavel me-2"></i> Bid Now / Request Auction
+                            </button>
+                            <small class="text-muted d-block text-center mt-2">
+                                <i class="bi bi-person-check-fill me-1 text-success"></i> Logged in as <strong>{{ Auth::user()->name }}</strong>
+                            </small>
+                        @else
+                            <a href="/login" class="btn-place-bid text-center d-block text-decoration-none">
+                                <i class="bi bi-lock-fill me-2"></i> Login to Bid / Request Auction
+                            </a>
+                            <small class="text-danger d-block text-center mt-2 fw-semibold">
+                                <i class="bi bi-info-circle me-1"></i> You must be logged in to place an auction bid.
+                            </small>
+                        @endauth
                     @else
                         <button class="btn btn-danger btn-lg w-100 fw-bold disabled" disabled style="border-radius:10px; padding:14px;">
                             <i class="bi bi-x-circle me-2"></i> PRODUCT SOLD OUT
@@ -273,17 +282,17 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Your Full Name <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                            <input type="text" name="name" value="{{ old('name', Auth::user()->name ?? '') }}" class="form-control" placeholder="Enter your full name" required>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
-                            <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                            <input type="email" name="email" value="{{ old('email', Auth::user()->email ?? '') }}" class="form-control" placeholder="name@example.com" required>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
-                            <input type="text" name="phone" class="form-control" placeholder="+44 1234 567890" required>
+                            <input type="text" name="phone" value="{{ old('phone', Auth::user()->phone ?? Auth::user()->mobile ?? '') }}" class="form-control" placeholder="+44 1234 567890" required>
                         </div>
 
                         <div class="col-md-4">
@@ -302,7 +311,7 @@
 
                         <div class="col-md-12">
                             <label class="form-label fw-semibold">Delivery / Contact Address <span class="text-danger">*</span></label>
-                            <textarea name="address" class="form-control" rows="2" placeholder="Enter your full street address, city, postcode..." required></textarea>
+                            <textarea name="address" class="form-control" rows="2" placeholder="Enter your full street address, city, postcode..." required>{{ old('address', Auth::user()->address ?? '') }}</textarea>
                         </div>
 
                         <div class="col-md-12">

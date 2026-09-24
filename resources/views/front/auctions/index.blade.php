@@ -133,10 +133,29 @@
 
 <div class="container py-5">
     
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3">
+        <li class="nav-item">
+            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'active' ? 'active bg-warning text-dark' : 'bg-light text-dark border' }}" 
+               style="border-radius:10px;"
+               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'active'])) }}">
+                <i class="bi bi-gavel me-1"></i> Active Auction Products
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'old' ? 'active bg-dark text-white' : 'bg-light text-dark border' }}" 
+               style="border-radius:10px;"
+               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'old'])) }}">
+                <i class="bi bi-clock-history me-1"></i> Old / Past Auction Products
+            </a>
+        </li>
+    </ul>
+    
     <!-- Filter Bar -->
     <div class="row mb-4 align-items-center">
         <div class="col-md-8 mb-3 mb-md-0">
             <form method="GET" action="{{ route('front.auctions.index') }}" class="d-flex gap-2 flex-wrap">
+                <input type="hidden" name="tab" value="{{ $tab ?? 'active' }}">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search auction products..." class="form-control" style="max-width:280px;">
                 <select name="category_id" class="form-select" style="max-width:200px;" onchange="this.form.submit()">
                     <option value="">All Categories</option>

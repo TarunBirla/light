@@ -269,6 +269,25 @@
                     Auction
                 </a>
 
+                @auth
+                    <div class="dropdown d-inline-block">
+                        <a href="#" class="nav-action-link dropdown-toggle" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i>
+                            {{ Auth::user()->first_name ?? Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" aria-labelledby="userMenuDropdown">
+                            <li><span class="dropdown-item-text text-muted small"><i class="bi bi-envelope me-1"></i> {{ Auth::user()->email }}</span></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger fw-bold" href="/logout"><i class="bi bi-box-arrow-right me-1"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="/login" class="nav-action-link">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Login
+                    </a>
+                @endauth
+
 
             </div>
 

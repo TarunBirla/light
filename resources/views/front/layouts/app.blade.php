@@ -252,7 +252,6 @@
    class="whatsapp-float1">
 
     <div class="d-flex flex-column align-items-center">
-        <!-- <i class="bi bi-whatsapp"></i> -->
         <small style="font-size:16px;">Request</small>
     </div>
 

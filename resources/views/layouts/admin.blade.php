@@ -366,6 +366,12 @@
                     Auction Requests
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.all-users.index') }}" class="{{ request()->is('admin/all-users*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-users"></i>
+                    All Users
+                </a>
+            </li>
 
             <li>
     <a href="/admin/brands"

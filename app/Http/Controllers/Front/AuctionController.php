@@ -10,6 +10,7 @@ use App\Mail\AuctionRequestSubmittedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuctionController extends Controller
 {
@@ -17,25 +18,46 @@ class AuctionController extends Controller
     {
         $search     = $request->search;
         $categoryId = $request->category_id;
+        $tab        = $request->get('tab', 'active');
 
         $categories = Category::where('status', 'active')->get();
 
-        $auctionProducts = AuctionProduct::with(['category', 'requests'])
-            ->where('status', 'active')
-            ->when($categoryId, function ($query) use ($categoryId) {
-                $query->where('category_id', $categoryId);
+        $query = AuctionProduct::with(['category', 'requests'])
+            ->when($categoryId, function ($q) use ($categoryId) {
+                $q->where('category_id', $categoryId);
             })
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('title', 'LIKE', "%{$search}%")
-                      ->orWhere('description', 'LIKE', "%{$search}%");
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('title', 'LIKE', "%{$search}%")
+                        ->orWhere('description', 'LIKE', "%{$search}%");
                 });
-            })
-            ->orderBy('sort_order', 'asc')
-            ->latest()
-            ->paginate(15);
+            });
 
-        return view('front.auctions.index', compact('auctionProducts', 'categories'));
+        $allProducts = $query->orderBy('sort_order', 'asc')->latest()->get();
+
+        if ($tab === 'old') {
+            $filtered = $allProducts->filter(function ($item) {
+                return $item->available_qty <= 0 || $item->status !== 'active';
+            });
+        } else {
+            $filtered = $allProducts->filter(function ($item) {
+                return $item->available_qty > 0 && $item->status === 'active';
+            });
+        }
+
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 15;
+        $paginatedItems = $filtered->slice(($page - 1) * $perPage, $perPage)->values();
+
+        $auctionProducts = new LengthAwarePaginator(
+            $paginatedItems,
+            $filtered->count(),
+            $perPage,
+            $page,
+            ['path' => LengthAwarePaginator::resolveCurrentPath(), 'query' => $request->query()]
+        );
+
+        return view('front.auctions.index', compact('auctionProducts', 'categories', 'tab'));
     }
 
     public function show($id)

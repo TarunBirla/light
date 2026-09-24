@@ -137,10 +137,21 @@
 
             <div class="auth-body">
 
+                @if(session('success'))
+                    <div class="alert alert-success rounded-3 py-2 px-3 small mb-3">
+                        <i class="bi bi-check-circle-fill me-1"></i> {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger rounded-3 py-2 px-3 small mb-3">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i> {{ session('error') }}
+                    </div>
+                @endif
+
                 @if($errors->any())
-                    <div class="mb-3 p-3 rounded-3" style="background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;font-size:.85rem;">
-                        <i class="bi bi-exclamation-circle-fill me-2"></i>
-                        {{ $errors->first() }}
+                    <div class="alert alert-danger rounded-3 py-2 px-3 small mb-3">
+                        <i class="bi bi-exclamation-circle-fill me-1"></i> {{ $errors->first() }}
                     </div>
                 @endif
 

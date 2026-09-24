@@ -24,6 +24,7 @@ use App\Http\Controllers\Front\EquipmentRequestController as FrontEquipmentReque
 use App\Http\Controllers\Admin\EquipmentRequestController as AdminEquipmentRequestController;
 use App\Http\Controllers\Admin\AuctionProductController;
 use App\Http\Controllers\Admin\AuctionRequestController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Front\AuctionController;
 
 Route::get('/equipment-request', [FrontEquipmentRequestController::class, 'index'])->name('equipment-request.index');
@@ -239,6 +240,10 @@ Route::delete(
         Route::get('/auction-requests', [AuctionRequestController::class, 'index'])->name('auction-requests.index');
         Route::patch('/auction-requests/{id}/status', [AuctionRequestController::class, 'updateStatus'])->name('auction-requests.status');
         Route::delete('/auction-requests/{id}', [AuctionRequestController::class, 'destroy'])->name('auction-requests.destroy');
+
+        Route::get('/all-users', [AdminUserController::class, 'index'])->name('admin.all-users.index');
+        Route::patch('/all-users/{id}/status', [AdminUserController::class, 'updateStatus'])->name('admin.all-users.status');
+        Route::delete('/all-users/{id}', [AdminUserController::class, 'destroy'])->name('admin.all-users.destroy');
 
 
         Route::get(

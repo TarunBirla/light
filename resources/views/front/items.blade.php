@@ -807,19 +807,19 @@
 
                     <div class="mb-3">
                         <label>Name *</label>
-                        <input type="text" id="name" class="form-control">
+                        <input type="text" id="name" class="form-control" value="{{ Auth::check() ? Auth::user()->name : '' }}">
                         <small class="text-danger" id="name_error"></small>
                     </div>
 
                     <div class="mb-3">
                         <label>Email *</label>
-                        <input type="email" id="email" class="form-control">
+                        <input type="email" id="email" class="form-control" value="{{ Auth::check() ? Auth::user()->email : '' }}">
                         <small class="text-danger" id="email_error"></small>
                     </div>
 
                     <div class="mb-3">
                         <label>Phone *</label>
-                        <input type="text" id="phone" class="form-control">
+                        <input type="text" id="phone" class="form-control" value="{{ Auth::check() ? (Auth::user()->phone ?? Auth::user()->mobile) : '' }}">
                         <small class="text-danger" id="phone_error"></small>
                     </div>
 
