@@ -53,21 +53,9 @@
 }
 </style>
 
-<div class="profile-header">
-    <div class="container">
-        <div class="d-flex align-items-center gap-3">
-            <div class="profile-avatar">
-                {{ strtoupper(substr($user->first_name ?: $user->name, 0, 1)) }}
-            </div>
-            <div>
-                <h2 class="text-white mb-1">{{ $user->name }}</h2>
-                <p class="text-light mb-0"><i class="bi bi-envelope me-1"></i> {{ $user->email }} | <span class="badge bg-warning text-dark"><i class="bi bi-shield-check me-1"></i> {{ ucfirst($user->status) }}</span></p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container my-5">
+
+<div class="container my-3">
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
