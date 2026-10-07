@@ -367,13 +367,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('steps.index') }}" class="{{ request()->is('admin/steps*') ? 'active' : '' }}">
+                <a href="{{ route('admin.steps.index') }}" class="{{ request()->is('admin/steps*') ? 'active' : '' }}">
                     <i class="fa-solid fa-list-check"></i>
                     Auction Steps
                 </a>
             </li>
             <li>
-                <a href="{{ route('auction-faqs.index') }}" class="{{ request()->is('admin/auction-faqs*') ? 'active' : '' }}">
+                <a href="{{ route('admin.auction-faqs.index') }}" class="{{ request()->is('admin/auction-faqs*') ? 'active' : '' }}">
                     <i class="fa-solid fa-circle-question"></i>
                     Auction FAQs
                 </a>

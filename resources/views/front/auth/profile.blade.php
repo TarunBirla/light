@@ -217,11 +217,24 @@
                             </thead>
                             <tbody>
                                 @foreach($myBids as $bid)
+                                    @php
+                                        $prod = $bid->auctionProduct;
+                                        $imgSrc = null;
+                                        if ($prod && !empty($prod->image)) {
+                                            $imgArr = is_array($prod->image) ? $prod->image : [$prod->image];
+                                            $first = $imgArr[0] ?? null;
+                                            if ($first) {
+                                                $imgSrc = (str_starts_with($first, 'uploads/') || str_starts_with($first, 'storage/'))
+                                                    ? asset($first) 
+                                                    : asset('uploads/auction_products/' . $first);
+                                            }
+                                        }
+                                    @endphp
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                @if($bid->auctionProduct && $bid->auctionProduct->image)
-                                                    <img src="{{ asset('storage/' . $bid->auctionProduct->image) }}" class="rounded" width="50" height="50" style="object-fit:cover;">
+                                                @if($imgSrc)
+                                                    <img src="{{ $imgSrc }}" class="rounded" width="50" height="50" style="object-fit:cover;">
                                                 @else
                                                     <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width:50px; height:50px;">
                                                         <i class="bi bi-image text-muted fs-4"></i>
@@ -287,11 +300,24 @@
                             </thead>
                             <tbody>
                                 @foreach($winningBids as $bid)
+                                    @php
+                                        $prod = $bid->auctionProduct;
+                                        $winImgSrc = null;
+                                        if ($prod && !empty($prod->image)) {
+                                            $imgArr = is_array($prod->image) ? $prod->image : [$prod->image];
+                                            $first = $imgArr[0] ?? null;
+                                            if ($first) {
+                                                $winImgSrc = (str_starts_with($first, 'uploads/') || str_starts_with($first, 'storage/'))
+                                                    ? asset($first) 
+                                                    : asset('uploads/auction_products/' . $first);
+                                            }
+                                        }
+                                    @endphp
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                @if($bid->auctionProduct && $bid->auctionProduct->image)
-                                                    <img src="{{ asset('storage/' . $bid->auctionProduct->image) }}" class="rounded" width="50" height="50" style="object-fit:cover;">
+                                                @if($winImgSrc)
+                                                    <img src="{{ $winImgSrc }}" class="rounded" width="50" height="50" style="object-fit:cover;">
                                                 @else
                                                     <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width:50px; height:50px;">
                                                         <i class="bi bi-image text-muted fs-4"></i>

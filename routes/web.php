@@ -164,8 +164,8 @@ Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->group(function () {
 
-    Route::resource('steps', \App\Http\Controllers\Admin\AuctionStepController::class);
-    Route::resource('auction-faqs', \App\Http\Controllers\Admin\AuctionFaqController::class);
+    Route::resource('steps', \App\Http\Controllers\Admin\AuctionStepController::class)->names('admin.steps');
+    Route::resource('auction-faqs', \App\Http\Controllers\Admin\AuctionFaqController::class)->names('admin.auction-faqs');
 
     Route::resource(
     'brands',
