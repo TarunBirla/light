@@ -128,16 +128,13 @@
 
 <div class="container py-5">
     
-    <!-- Tabs Navigation -->
-    
-    
-    <!-- Filter Bar -->
-    <div class="row mb-4 align-items-center">
-        <div class="col-md-8 mb-3 mb-md-0">
-            <form method="GET" action="{{ route('front.auctions.index') }}" class="d-flex gap-2 flex-wrap">
+    <!-- Filter Bar & Tabs Row -->
+    <div class="row mb-4 align-items-center g-3">
+        <div class="col-lg-7 col-md-6">
+            <form method="GET" action="{{ route('front.auctions.index') }}" class="d-flex gap-2 flex-wrap align-items-center">
                 <input type="hidden" name="tab" value="{{ $tab ?? 'active' }}">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search auction products..." class="form-control" style="max-width:280px;">
-                <select name="category_id" class="form-select" style="max-width:200px;" onchange="this.form.submit()">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search auction products..." class="form-control" style="max-width:240px;">
+                <select name="category_id" class="form-select" style="max-width:180px;" onchange="this.form.submit()">
                     <option value="">All Categories</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
@@ -147,27 +144,27 @@
                 </select>
                 <button type="submit" class="btn btn-dark"><i class="bi bi-search"></i> Search</button>
                 @if(request('search') || request('category_id'))
-                    <a href="{{ route('front.auctions.index') }}" class="btn btn-outline-secondary">Clear</a>
+                    <a href="{{ route('front.auctions.index', ['tab' => $tab ?? 'active']) }}" class="btn btn-outline-secondary">Clear</a>
                 @endif
             </form>
         </div>
-        <div class="col-md-4 text-end">
-            <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3">
-        <li class="nav-item">
-            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'active' ? 'active bg-warning text-dark' : 'bg-light text-dark border' }}" 
-               style="border-radius:10px;"
-               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'active'])) }}">
-                <i class="bi bi-gavel me-1"></i> Active Auction Products
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'old' ? 'active bg-dark text-white' : 'bg-light text-dark border' }}" 
-               style="border-radius:10px;"
-               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'old'])) }}">
-                <i class="bi bi-clock-history me-1"></i> Old / Past Auction Products
-            </a>
-        </li>
-    </ul>
+        <div class="col-lg-5 col-md-6 text-md-end">
+            <ul class="nav nav-pills d-inline-flex gap-1 bg-light p-1 rounded-3 border">
+                <li class="nav-item">
+                    <a class="nav-link btn-sm fw-bold px-3 py-1-5 {{ ($tab ?? 'active') === 'active' ? 'active bg-warning text-dark shadow-sm' : 'text-dark' }}" 
+                       style="border-radius:6px; font-size:0.82rem;"
+                       href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'active'])) }}">
+                        <i class="bi bi-gavel me-1"></i> Active Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-sm fw-bold px-3 py-1-5 {{ ($tab ?? 'active') === 'old' ? 'active bg-dark text-white shadow-sm' : 'text-dark' }}" 
+                       style="border-radius:6px; font-size:0.82rem;"
+                       href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'old'])) }}">
+                        <i class="bi bi-clock-history me-1"></i> Old / Past Products
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 
