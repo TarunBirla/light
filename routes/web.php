@@ -140,6 +140,10 @@ Route::post('/reset-password', [FrontAuthController::class, 'resetPasswordSubmit
 Route::get('/logout', [FrontAuthController::class, 'logout'])->name('logout');
 
 Route::get('/profile', [FrontAuthController::class, 'profile'])
+    ->name('profile')
+    ->middleware('auth');
+Route::post('/profile', [FrontAuthController::class, 'profileUpdate'])
+    ->name('front.profile.update')
     ->middleware('auth');
 
 Route::get(
@@ -154,9 +158,14 @@ Route::post(
 
 
 
+Route::get('/run-auction-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-auction-migrations');
+
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->group(function () {
+
+    Route::resource('steps', \App\Http\Controllers\Admin\AuctionStepController::class);
+    Route::resource('auction-faqs', \App\Http\Controllers\Admin\AuctionFaqController::class);
 
     Route::resource(
     'brands',

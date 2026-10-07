@@ -57,7 +57,20 @@ class AuctionController extends Controller
             ['path' => LengthAwarePaginator::resolveCurrentPath(), 'query' => $request->query()]
         );
 
-        return view('front.auctions.index', compact('auctionProducts', 'categories', 'tab'));
+        $auctionSteps = collect();
+        $auctionFaqs  = collect();
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('auction_steps')) {
+                $auctionSteps = \App\Models\AuctionStep::where('status', 'active')->orderBy('sort_order', 'asc')->get();
+            }
+            if (\Illuminate\Support\Facades\Schema::hasTable('auction_faqs')) {
+                $auctionFaqs = \App\Models\AuctionFaq::where('status', 'active')->orderBy('sort_order', 'asc')->get();
+            }
+        } catch (\Exception $e) {
+            // ignore
+        }
+
+        return view('front.auctions.index', compact('auctionProducts', 'categories', 'tab', 'auctionSteps', 'auctionFaqs'));
     }
 
     public function show($id)

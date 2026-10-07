@@ -217,7 +217,90 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return view('front.auth.profile');
+        $user = Auth::user();
+        
+        $myBids = \App\Models\AuctionRequest::with('auctionProduct')
+            ->where(function($q) use ($user) {
+                $q->where('email', $user->email);
+                if (!empty($user->phone)) {
+                    $q->orWhere('phone', $user->phone);
+                }
+                if (!empty($user->main_phone)) {
+                    $q->orWhere('phone', $user->main_phone);
+                }
+            })
+            ->latest()
+            ->get();
+
+        $winningBids = \App\Models\AuctionRequest::with('auctionProduct')
+            ->where(function($q) use ($user) {
+                $q->where('email', $user->email);
+                if (!empty($user->phone)) {
+                    $q->orWhere('phone', $user->phone);
+                }
+                if (!empty($user->main_phone)) {
+                    $q->orWhere('phone', $user->main_phone);
+                }
+            })
+            ->whereIn('status', ['approved', 'completed', 'won', 'accepted'])
+            ->latest()
+            ->get();
+
+        return view('front.auth.profile', compact('user', 'myBids', 'winningBids'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'first_name'    => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
+            'company_name'  => 'nullable|string|max:255',
+            'job_title'     => 'nullable|string|max:255',
+            'address_line1' => 'required|string|max:255',
+            'address_line2' => 'nullable|string|max:255',
+            'city'          => 'required|string|max:255',
+            'county'        => 'nullable|string|max:255',
+            'postcode'      => 'required|string|max:100',
+            'country'       => 'required|string|max:255',
+            'main_phone'    => 'required|string|max:100',
+            'mobile_number' => 'nullable|string|max:100',
+        ], [
+            'first_name.required'    => 'First name is required.',
+            'last_name.required'     => 'Last name is required.',
+            'address_line1.required' => 'Address Line 1 is required.',
+            'city.required'          => 'City is required.',
+            'postcode.required'      => 'Postcode / Zip code is required.',
+            'country.required'       => 'Country is required.',
+            'main_phone.required'    => 'Main phone number is required.',
+        ]);
+
+        $combinedAddress = $request->address_line1;
+        if (!empty($request->address_line2)) {
+            $combinedAddress .= ', ' . $request->address_line2;
+        }
+        $combinedAddress .= ', ' . $request->city . ', ' . $request->country . ' ' . $request->postcode;
+
+        $user->update([
+            'first_name'    => $request->first_name,
+            'last_name'     => $request->last_name,
+            'name'          => trim($request->first_name . ' ' . $request->last_name),
+            'company_name'  => $request->company_name,
+            'job_title'     => $request->job_title,
+            'address_line1' => $request->address_line1,
+            'address_line2' => $request->address_line2,
+            'city'          => $request->city,
+            'county'        => $request->county,
+            'postcode'      => $request->postcode,
+            'country'       => $request->country,
+            'main_phone'    => $request->main_phone,
+            'mobile_number' => $request->mobile_number,
+            'phone'         => $request->main_phone ?: $request->mobile_number,
+            'address'       => $combinedAddress,
+        ]);
+
+        return back()->with('success', 'Profile details updated successfully!');
     }
 
     public function logout()

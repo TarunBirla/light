@@ -367,6 +367,18 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('steps.index') }}" class="{{ request()->is('admin/steps*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-list-check"></i>
+                    Auction Steps
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('auction-faqs.index') }}" class="{{ request()->is('admin/auction-faqs*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-circle-question"></i>
+                    Auction FAQs
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.all-users.index') }}" class="{{ request()->is('admin/all-users*') ? 'active' : '' }}">
                     <i class="fa-solid fa-users"></i>
                     All Users

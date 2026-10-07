@@ -282,6 +282,7 @@
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" aria-labelledby="userMenuDropdown">
                             <li><span class="dropdown-item-text text-muted small"><i class="bi bi-envelope me-1"></i> {{ Auth::user()->email }}</span></li>
                             <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item fw-bold" href="/profile"><i class="bi bi-person me-1"></i> My Profile</a></li>
                             <li><a class="dropdown-item text-danger fw-bold" href="/logout"><i class="bi bi-box-arrow-right me-1"></i> Logout</a></li>
                         </ul>
                     </div>
