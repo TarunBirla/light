@@ -126,10 +126,10 @@
 
 
 
-<div class="container ">
+<div class="container py-2">
     
     <!-- Filter Bar & Tabs Row -->
-    <div class="row mb-4 align-items-center g-3">
+    <div class="row mb-2 align-items-center g-3">
         <div class="col-lg-7 col-md-6">
             <form method="GET" action="{{ route('front.auctions.index') }}" class="d-flex gap-2 flex-wrap align-items-center">
                 <input type="hidden" name="tab" value="{{ $tab ?? 'active' }}">
