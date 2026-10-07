@@ -129,22 +129,7 @@
 <div class="container py-5">
     
     <!-- Tabs Navigation -->
-    <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3">
-        <li class="nav-item">
-            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'active' ? 'active bg-warning text-dark' : 'bg-light text-dark border' }}" 
-               style="border-radius:10px;"
-               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'active'])) }}">
-                <i class="bi bi-gavel me-1"></i> Active Auction Products
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'old' ? 'active bg-dark text-white' : 'bg-light text-dark border' }}" 
-               style="border-radius:10px;"
-               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'old'])) }}">
-                <i class="bi bi-clock-history me-1"></i> Old / Past Auction Products
-            </a>
-        </li>
-    </ul>
+    
     
     <!-- Filter Bar -->
     <div class="row mb-4 align-items-center">
@@ -165,6 +150,24 @@
                     <a href="{{ route('front.auctions.index') }}" class="btn btn-outline-secondary">Clear</a>
                 @endif
             </form>
+        </div>
+        <div class="col-md-4 text-end">
+            <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3">
+        <li class="nav-item">
+            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'active' ? 'active bg-warning text-dark' : 'bg-light text-dark border' }}" 
+               style="border-radius:10px;"
+               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'active'])) }}">
+                <i class="bi bi-gavel me-1"></i> Active Auction Products
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-bold px-4 py-2 {{ ($tab ?? 'active') === 'old' ? 'active bg-dark text-white' : 'bg-light text-dark border' }}" 
+               style="border-radius:10px;"
+               href="{{ route('front.auctions.index', array_merge(request()->query(), ['tab' => 'old'])) }}">
+                <i class="bi bi-clock-history me-1"></i> Old / Past Auction Products
+            </a>
+        </li>
+    </ul>
         </div>
     </div>
 
