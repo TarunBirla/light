@@ -84,7 +84,6 @@
             color: var(--dark);
             font-weight: 700;
             font-size: 1rem;
-            padding: .75rem 2rem;
             border-radius: 10px;
             border: none;
             text-decoration: none;

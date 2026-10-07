@@ -124,12 +124,7 @@
     }
 </style>
 
-<div class="auction-hero">
-    <div class="container">
-        <h1>Live <span>Auction Products</span></h1>
-        <p class="text-white-50">Submit your bid for equipment & products. Guest Mode — No registration required!</p>
-    </div>
-</div>
+
 
 <div class="container py-5">
     

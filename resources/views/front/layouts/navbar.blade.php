@@ -140,6 +140,7 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 5px;
+    margin-top: -4px;
 }
 
 .btn-hero-primary {
@@ -159,6 +160,7 @@
     display: flex;
     align-items: center;
     gap: 18px;
+    margin-top: -11px;
 }
 
 .nav-action-link {
@@ -245,11 +247,11 @@
             <a href="#items" class="btn-hero-primary">
                 LIGHT AS AIR
             </a>
-        <h5>Official Godox KNOWLED Dealer for Cinematic Lighting</h5>
+        <h5 class="-mt-5">Official Godox KNOWLED Dealer for Cinematic Lighting</h5>
 
 
             {{-- Bottom --}}
-            <div class="nav-actions">
+            <div class="nav-actions  -mt-5">
 
                 <a href="/equipment-requestnew" class="nav-action-link">
                     <i class="bi bi-file-earmark-text"></i>
