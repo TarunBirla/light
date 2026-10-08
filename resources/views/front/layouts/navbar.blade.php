@@ -246,7 +246,7 @@
             <a href="#items" class="btn-hero-primary">
                 LIGHT AS AIR
             </a>
-        <h5 class="-mt-5">Official Godox KNOWLED Dealer for Cinematic Lighting</h5>
+        <p class="mb-0 fw-semibold text-dark -mt-5" style="font-size:0.92rem;">Official Godox KNOWLED Dealer for Cinematic Lighting</p>
 
 
             {{-- Bottom --}}

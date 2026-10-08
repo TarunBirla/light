@@ -7,7 +7,7 @@
 
     <!-- Primary SEO Meta Tags -->
     <title>@yield('title', 'Light As Air – Official Godox KNOWLED Dealer & Cinematic Lighting')</title>
-    <meta name="description" content="@yield('meta_description', 'Light As Air - Official Godox KNOWLED Dealer for Cinematic Lighting. Premium film, video, and TV studio lighting rental, equipment purchase, and live auctions in the UK.')">
+    <meta name="description" content="@yield('meta_description', 'Official Godox KNOWLED dealer in the UK. Premium film, video, and TV studio lighting rental, equipment sales, and live auctions.')">
     <meta name="keywords" content="@yield('meta_keywords', 'Godox KNOWLED, Cinematic Lighting, Film Lighting Rental, TV Studio Equipment, Lighting Auctions, Light As Air, Godox Dealer UK')">
     <meta name="robots" content="@yield('meta_robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
     <meta name="author" content="Light As Air">
@@ -19,7 +19,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('title', 'Light As Air – Official Godox KNOWLED Dealer & Cinematic Lighting')">
-    <meta property="og:description" content="@yield('meta_description', 'Light As Air - Official Godox KNOWLED Dealer for Cinematic Lighting. Premium film, video, and TV studio lighting rental, equipment purchase, and live auctions in the UK.')">
+    <meta property="og:description" content="@yield('meta_description', 'Official Godox KNOWLED dealer in the UK. Premium film, video, and TV studio lighting rental, equipment sales, and live auctions.')">
     <meta property="og:image" content="{{ asset('Logo-3.webp') }}">
     <meta property="og:site_name" content="Light As Air">
 
@@ -27,7 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="@yield('title', 'Light As Air – Official Godox KNOWLED Dealer & Cinematic Lighting')">
-    <meta name="twitter:description" content="@yield('meta_description', 'Light As Air - Official Godox KNOWLED Dealer for Cinematic Lighting. Premium film, video, and TV studio lighting rental, equipment purchase, and live auctions in the UK.')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Official Godox KNOWLED dealer in the UK. Premium film, video, and TV studio lighting rental, equipment sales, and live auctions.')">
     <meta name="twitter:image" content="{{ asset('Logo-3.webp') }}">
 
     <!-- JSON-LD Structured Data Schema -->

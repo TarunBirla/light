@@ -143,7 +143,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="d-flex align-items-center gap-2 mb-3">
                    
-                    <div class="footer-brand-name"> <img src="/Logo-3.webp" class="logoData">
+                    <div class="footer-brand-name"> <img src="/Logo-3.webp" alt="Light As Air Footer Logo" class="logoData">
                     </div>
                 </div>
                 <p style="color:rgba(255,255,255,.5);font-size:.85rem;line-height:1.7;">

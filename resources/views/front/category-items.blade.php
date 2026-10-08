@@ -641,7 +641,7 @@
             <div class="gallery-box">
                 <img
                     src="{{ asset('uploads/category/'.$img->image) }}"
-                    alt=""
+                    alt="{{ $category->name }} Gallery Image {{ $loop->iteration }}"
                 >
             </div>
 
@@ -677,6 +677,7 @@ if (!is_array($images)) {
 
         <img
             src="{{ asset('uploads/items/'.$img) }}"
+            alt="{{ $item->title }}"
             class="slider-image {{ $key == 0 ? 'active-img' : '' }}"
             data-item="{{ $item->id }}">
 
