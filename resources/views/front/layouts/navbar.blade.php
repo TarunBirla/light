@@ -225,9 +225,8 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand" href="/">
-            <img src="/Logo-3.webp" class="logoData">
-           
+        <a class="navbar-brand" href="/" title="Light As Air - Home">
+            <img src="/Logo-3.webp" alt="Light As Air Logo" class="logoData">
         </a>
 
        

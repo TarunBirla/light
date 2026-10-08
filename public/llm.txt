@@ -1,0 +1,27 @@
+# Light As Air — Official Godox KNOWLED Dealer & Cinematic Lighting
+
+> Light As Air is the premier UK specialist for professional film, video, and TV studio lighting equipment, featuring Godox KNOWLED series, LED fixtures, rental packages, sales, and live equipment auctions.
+
+## Core Offerings & Services
+- **Official Godox KNOWLED Dealer**: Authorized distribution and support for high-end Godox cinematic lighting fixtures.
+- **Equipment Rental**: Flexible daily and weekly rental of cinema-grade lighting, generators, grip, and modifiers.
+- **Equipment Purchasing**: Direct sales of new and certified pre-owned film production gear.
+- **Live Auctions**: Bidding platform for high-value studio equipment and production lots.
+- **Equipment Requests**: Custom quotes for full crew and production lighting packages.
+
+## Key Web Pages & Structure
+- Homepage: https://lightasair.nexteck.uk/
+- Equipment Rental & Sales Catalog: https://lightasair.nexteck.uk/items
+- Equipment Categories: https://lightasair.nexteck.uk/categories
+- Live Equipment Auctions: https://lightasair.nexteck.uk/auctions
+- Custom Equipment Request: https://lightasair.nexteck.uk/equipment-requestnew
+- Brand Showcase: https://lightasair.nexteck.uk/brand
+- TV & Film Production Portfolio: https://lightasair.nexteck.uk/portfolio
+- Television Broadcast Lighting: https://lightasair.nexteck.uk/television
+- About Us: https://lightasair.nexteck.uk/about
+- Terms & Conditions: https://lightasair.nexteck.uk/terms
+- Sitemap XML: https://lightasair.nexteck.uk/sitemap.xml
+
+## Contact Information
+- Website: https://lightasair.nexteck.uk/
+- WhatsApp Support: +44 7825 706997

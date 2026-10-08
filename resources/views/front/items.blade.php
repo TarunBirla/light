@@ -699,6 +699,7 @@
                                 @foreach($images as $key => $img)
 
                                     <img src="{{ asset('uploads/items/' . $img) }}"
+                                        alt="{{ $item->title }}"
                                         class="slider-image {{ $key == 0 ? 'active-img' : '' }}" data-item="{{ $item->id }}">
 
                                 @endforeach

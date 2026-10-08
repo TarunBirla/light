@@ -440,6 +440,7 @@
                                 @foreach($images as $index => $img)
 
                                     <img src="{{ asset('uploads/items/' . $img) }}"
+                                        alt="{{ $item->title }} Thumbnail {{ $index + 1 }}"
                                         class="thumb-image {{ $index == 0 ? 'active-thumb' : '' }}" onclick="changeImage(this)"
                                         data-full="{{ asset('uploads/items/' . $img) }}">
 
@@ -455,7 +456,7 @@
 
                         <div class="main-gallery-image">
 
-                            <img id="mainProductImage" src="{{ asset('uploads/items/' . $mainImage) }}" class="product-image"
+                            <img id="mainProductImage" src="{{ asset('uploads/items/' . $mainImage) }}" alt="{{ $item->title }}" class="product-image"
                                 data-bs-toggle="modal" data-bs-target="#imageModal">
 
                         </div>
@@ -472,7 +473,7 @@
                         </button>
 
                         <div class="modal-body">
-                            <img id="modalProductImage" src="{{ asset('uploads/items/' . $mainImage) }}">
+                            <img id="modalProductImage" src="{{ asset('uploads/items/' . $mainImage) }}" alt="{{ $item->title }}">
                         </div>
 
                     </div>

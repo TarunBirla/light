@@ -3,7 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Light as AIR – Premium Equipment Rental</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Primary SEO Meta Tags -->
+    <title>@yield('title', 'Light As Air – Official Godox KNOWLED Dealer & Cinematic Lighting')</title>
+    <meta name="description" content="@yield('meta_description', 'Light As Air - Official Godox KNOWLED Dealer for Cinematic Lighting. Premium film, video, and TV studio lighting rental, equipment purchase, and live auctions in the UK.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'Godox KNOWLED, Cinematic Lighting, Film Lighting Rental, TV Studio Equipment, Lighting Auctions, Light As Air, Godox Dealer UK')">
+    <meta name="robots" content="@yield('meta_robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
+    <meta name="author" content="Light As Air">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'Light As Air – Official Godox KNOWLED Dealer & Cinematic Lighting')">
+    <meta property="og:description" content="@yield('meta_description', 'Light As Air - Official Godox KNOWLED Dealer for Cinematic Lighting. Premium film, video, and TV studio lighting rental, equipment purchase, and live auctions in the UK.')">
+    <meta property="og:image" content="{{ asset('Logo-3.webp') }}">
+    <meta property="og:site_name" content="Light As Air">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="@yield('title', 'Light As Air – Official Godox KNOWLED Dealer & Cinematic Lighting')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Light As Air - Official Godox KNOWLED Dealer for Cinematic Lighting. Premium film, video, and TV studio lighting rental, equipment purchase, and live auctions in the UK.')">
+    <meta name="twitter:image" content="{{ asset('Logo-3.webp') }}">
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Light As Air",
+      "image": "{{ asset('Logo-3.webp') }}",
+      "@id": "{{ url('/') }}",
+      "url": "{{ url('/') }}",
+      "telephone": "+447825706997",
+      "priceRange": "££",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "UK"
+      },
+      "description": "Official Godox KNOWLED Dealer for Cinematic Lighting, Film & TV Studio Lighting Rental, Equipment Purchase, and Auctions.",
+      "sameAs": [
+        "https://wa.me/447825706997"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Light As Air",
+      "url": "{{ url('/') }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ url('/items') }}?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="{{ asset('Logo-3.webp') }}">
@@ -11,9 +71,8 @@
     <link rel="apple-touch-icon" href="{{ asset('Logo-3.webp') }}">
 
     <!-- Bootstrap 5 -->
-     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Poppins Font -->
+    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">

@@ -27,6 +27,16 @@ use App\Http\Controllers\Admin\AuctionRequestController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Front\AuctionController;
 
+use App\Http\Controllers\Front\SitemapController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/llm.txt', function () {
+    return response()->file(public_path('llm.txt'), ['Content-Type' => 'text/plain; charset=utf-8']);
+});
+Route::get('/llms.txt', function () {
+    return response()->file(public_path('llms.txt'), ['Content-Type' => 'text/plain; charset=utf-8']);
+});
+
 Route::get('/equipment-request', [FrontEquipmentRequestController::class, 'index'])->name('equipment-request.index');
 Route::post('/equipment-request', [FrontEquipmentRequestController::class, 'store'])->name('equipment-request.store');
 

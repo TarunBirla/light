@@ -828,7 +828,11 @@
                         <div class="hero-overlay"></div>
                         <div class="hero-content">
                             <span class="hero-tag"><i class="bi bi-lightning-charge-fill me-1"></i> Premium Production Lights</span>
-                            <h1 class="hero-title">{{ $banner->title }}</h1>
+                            @if($key == 0)
+                                <h1 class="hero-title">{{ $banner->title }}</h1>
+                            @else
+                                <h2 class="hero-title">{{ $banner->title }}</h2>
+                            @endif
                             <p class="hero-sub">Professional equipment rental with flexible terms. Book online in minutes.
                             </p>
                             <div class="hero-actions">
@@ -920,6 +924,7 @@
                                 @foreach($images as $key => $img)
 
                                     <img src="{{ asset('uploads/items/' . $img) }}"
+                                        alt="{{ $item->title }}"
                                         class="slider-image {{ $key == 0 ? 'active-img' : '' }}" data-item="{{ $item->id }}">
 
                                 @endforeach
@@ -994,6 +999,7 @@
                                 @foreach($images as $key => $img)
 
                                     <img src="{{ asset('uploads/items/' . $img) }}"
+                                        alt="{{ $item->title }}"
                                         class="slider-image {{ $key == 0 ? 'active-img' : '' }}" data-item="{{ $item->id }}">
 
                                 @endforeach
