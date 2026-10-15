@@ -9,8 +9,15 @@
         font-weight: 600;
         padding: .35rem 0;
     }
-    .topbar a { color: var(--dark); text-decoration: none; }
-    .topbar a:hover { text-decoration: underline; }
+
+    .topbar a {
+        color: var(--dark);
+        text-decoration: none;
+    }
+
+    .topbar a:hover {
+        text-decoration: underline;
+    }
 
     /* ── NAVBAR ── */
     .site-navbar {
@@ -30,9 +37,11 @@
         align-items: center;
         gap: .45rem;
     }
+
     .site-navbar .navbar-brand span {
         color: var(--brand);
     }
+
     .brand-icon {
         width: 36px;
         height: 36px;
@@ -58,6 +67,7 @@
         align-items: center;
         gap: .35rem;
     }
+
     .site-navbar .nav-link:hover,
     .site-navbar .nav-link.active {
         color: var(--brand) !important;
@@ -68,6 +78,7 @@
     .cart-wrap {
         position: relative;
     }
+
     .cart-count {
         position: absolute;
         top: -6px;
@@ -95,11 +106,13 @@
         border-radius: 8px;
         transition: all .2s;
     }
+
     .btn-nav-login:hover {
         border-color: var(--brand);
         color: var(--brand) !important;
         background: transparent;
     }
+
     .btn-nav-register {
         background: var(--brand) !important;
         color: var(--dark) !important;
@@ -110,16 +123,18 @@
         border: none;
         transition: all .2s;
     }
+
     .btn-nav-register:hover {
         background: var(--brand-dk) !important;
-        box-shadow: 0 4px 14px rgba(255,199,0,.35);
+        box-shadow: 0 4px 14px rgba(255, 199, 0, .35);
     }
 
     /* hamburger */
     .navbar-toggler {
-        border: 1.5px solid rgba(255,255,255,.3);
+        border: 1.5px solid rgba(255, 255, 255, .3);
         padding: .3rem .6rem;
     }
+
     .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255%2c199%2c0%2c1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
@@ -127,95 +142,110 @@
     .divider-nav {
         width: 1px;
         height: 22px;
-        background: rgba(255,255,255,.18);
+        background: rgba(255, 255, 255, .18);
         margin: 0 .3rem;
-    }
-    .logoData{
-        max-height: 100px !important;
-    }
-   
-   .navbar-right {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
-    margin-top: -4px;
-}
-
-.btn-hero-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--brand);
-    color: var(--dark) !important;
-    /* padding: 8px 20px; */
-    border-radius: 8px;
-    /* font-size: .85rem; */
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-top: -11px;
-}
-
-.nav-action-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-
-    color: #000 !important;
-    text-decoration: none;
-
-    font-size: .88rem;
-    font-weight: 600;
-
-    padding: 8px 14px;
-    border: 2px solid transparent;
-    border-radius: 8px;
-
-    background: transparent;
-
-    transition: all .2s ease;
-}
-
-.nav-action-link:hover {
-    background: var(--brand-dk);;
-    color: #000 !important;
-    border-radius: 8px;
-    padding: 8px 14px;
-}
-
-.nav-action-link i {
-    font-size: 16px;
-}
-@media (max-width: 576px) {
-    .navbar-right {
-        gap: 3px;
-    }
-
-    .btn-hero-primary {
-        font-size: 11px;
-        padding: 6px 12px;
-    }
-
-    .nav-actions {
-        gap: 10px;
-    }
-
-    .nav-action-link {
-        font-size: 12px;
     }
 
     .logoData {
-        max-height: 50px;
+        max-height: 100px !important;
     }
-}
 
+    .navbar-right {
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+        margin-top: -4px;
+    }
+
+    .btn-hero-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--brand);
+        color: var(--dark) !important;
+        /* padding: 8px 20px; */
+        border-radius: 8px;
+        /* font-size: .85rem; */
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: -11px;
+    }
+
+    .nav-action-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        color: #000 !important;
+        text-decoration: none;
+
+        font-size: .88rem;
+        font-weight: 600;
+
+        padding: 8px 14px;
+        border: 2px solid transparent;
+        border-radius: 8px;
+
+        background: transparent;
+
+        transition: all .2s ease;
+    }
+
+    .nav-action-link:hover {
+        background: var(--brand-dk);
+        ;
+        color: #000 !important;
+        border-radius: 8px;
+        padding: 8px 14px;
+    }
+
+    .nav-action-link i {
+        font-size: 16px;
+    }
+
+    @media (max-width: 576px) {
+        .navbar-right {
+            gap: 3px;
+        }
+
+        .btn-hero-primary {
+            font-size: 11px;
+            padding: 6px 12px;
+        }
+
+        .nav-actions {
+            gap: 10px;
+        }
+
+        .nav-action-link {
+            font-size: 12px;
+        }
+
+        .logoData {
+            max-height: 50px;
+        }
+    }
+
+    .nav-actions-vertical {
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        gap: 8px !important;
+        margin-top: 4px !important;
+    }
+
+    .nav-actions-vertical .nav-action-link {
+        padding: 6px 14px;
+        width: auto;
+        justify-content: flex-start;
+    }
 </style>
 
 
@@ -229,30 +259,32 @@
             <img src="/Logo-3.webp" alt="Light As Air Logo" class="logoData">
         </a>
 
-       
+
 
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
 
-              
+
 
 
             </ul>
         </div>
-                          {{-- Right Side --}}
+        {{-- Right Side --}}
         <div class="navbar-right">
 
             {{-- Top --}}
             <a href="#items" class="btn-hero-primary">
                 LIGHT AS AIR
             </a>
-        <p class="mb-0 fw-semibold text-dark -mt-5" style="font-size:0.92rem;">Official Godox KNOWLED Dealer for Cinematic Lighting</p>
+            <p class="mb-0 fw-semibold text-dark -mt-5" style="font-size:0.92rem;">Official Godox KNOWLED Dealer for
+                Cinematic Lighting</p>
+        </div>
 
-
-            {{-- Bottom --}}
-                <a href="{{ route('front.account-opening') }}" class="nav-action-link" style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
-                    <i class="bi bi-file-earmark-person"></i>
-                    Open Account
+        <div class="nav-actions nav-actions-vertical -mt-5">
+            < {{-- Bottom --}} <a href="{{ route('front.account-opening') }}" class="nav-action-link"
+                style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
+                <i class="bi bi-file-earmark-person"></i>
+                Open Account
                 </a>
 
                 <a href="/equipment-requestnew" class="nav-action-link">
@@ -277,15 +309,21 @@
 
                 @auth
                     <div class="dropdown d-inline-block">
-                        <a href="#" class="nav-action-link dropdown-toggle" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" class="nav-action-link dropdown-toggle" id="userMenuDropdown" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             <i class="bi bi-person-circle"></i>
                             {{ Auth::user()->first_name ?? Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" aria-labelledby="userMenuDropdown">
-                            <li><span class="dropdown-item-text text-muted small"><i class="bi bi-envelope me-1"></i> {{ Auth::user()->email }}</span></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item fw-bold" href="/profile"><i class="bi bi-person me-1"></i> My Profile</a></li>
-                            <li><a class="dropdown-item text-danger fw-bold" href="/logout"><i class="bi bi-box-arrow-right me-1"></i> Logout</a></li>
+                            <li><span class="dropdown-item-text text-muted small"><i class="bi bi-envelope me-1"></i>
+                                    {{ Auth::user()->email }}</span></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item fw-bold" href="/profile"><i class="bi bi-person me-1"></i> My
+                                    Profile</a></li>
+                            <li><a class="dropdown-item text-danger fw-bold" href="/logout"><i
+                                        class="bi bi-box-arrow-right me-1"></i> Logout</a></li>
                         </ul>
                     </div>
                 @else
@@ -295,8 +333,7 @@
                     </a>
                 @endauth
 
-
-            </div>
+        </div>
 
     </div>
 </nav>
