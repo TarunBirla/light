@@ -109,17 +109,16 @@
                             <small class="text-muted">{{ $app->created_at ? $app->created_at->format('d M Y, h:i A') : '-' }}</small>
                         </td>
                         <td>
-                            <span class="status-badge status-{{ $app->status }}">
-                                @if($app->status === 'approved')
-                                    <i class="fa-solid fa-circle-check"></i> Approved
-                                @elseif($app->status === 'under_review')
-                                    <i class="fa-solid fa-clock"></i> Under Review
-                                @elseif($app->status === 'rejected')
-                                    <i class="fa-solid fa-circle-xmark"></i> Rejected
-                                @else
-                                    <i class="fa-solid fa-hourglass-start"></i> Pending
-                                @endif
-                            </span>
+                            <form action="{{ route('admin.account-applications.status', $app->id) }}" method="POST" class="d-inline-block">
+                                @csrf
+                                @method('PATCH')
+                                <select name="status" class="form-select form-select-sm fw-bold border-0 shadow-sm status-badge status-{{ $app->status }}" onchange="this.form.submit()" style="cursor: pointer; min-width: 130px;">
+                                    <option value="pending" class="bg-white text-dark" {{ $app->status === 'pending' ? 'selected' : '' }}> Pending</option>
+                                    <option value="under_review" class="bg-white text-dark" {{ $app->status === 'under_review' ? 'selected' : '' }}> Under Review</option>
+                                    <option value="approved" class="bg-white text-dark" {{ $app->status === 'approved' ? 'selected' : '' }}> Approved</option>
+                                    <option value="rejected" class="bg-white text-dark" {{ $app->status === 'rejected' ? 'selected' : '' }}> Rejected</option>
+                                </select>
+                            </form>
                         </td>
                         <td class="text-end">
                             <a href="{{ route('admin.account-applications.show', $app->id) }}" class="btn btn-sm btn-dark me-1" title="View Full Application">
