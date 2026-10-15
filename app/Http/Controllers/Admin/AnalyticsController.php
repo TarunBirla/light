@@ -21,10 +21,16 @@ class AnalyticsController extends Controller
             '7' => Carbon::now()->subDays(7)->startOfDay(),
             '30' => Carbon::now()->subDays(30)->startOfDay(),
             'this_month' => Carbon::now()->startOfMonth(),
+            'this_year' => Carbon::now()->startOfYear(),
+            'last_year' => Carbon::now()->subYear()->startOfYear(),
             default => Carbon::now()->subDays(30)->startOfDay(),
         };
 
-        $endDate = $range === 'yesterday' ? Carbon::yesterday()->endOfDay() : Carbon::now()->endOfDay();
+        $endDate = match ($range) {
+            'yesterday' => Carbon::yesterday()->endOfDay(),
+            'last_year' => Carbon::now()->subYear()->endOfYear(),
+            default => Carbon::now()->endOfDay(),
+        };
 
         // 1. Top KPI Summary Counters
         $totalUniqueVisitors = Visitor::count();
@@ -44,8 +50,6 @@ class AnalyticsController extends Controller
         $visitorsData = [];
         $pageViewsData = [];
 
-        $days = ($range === 'today' || $range === 'yesterday') ? 1 : ($range === '7' ? 7 : 30);
-        
         if ($range === 'today') {
             // Hour-wise chart for today
             for ($h = 0; $h <= 23; $h++) {
@@ -62,8 +66,23 @@ class AnalyticsController extends Controller
                     ->whereTime('viewed_at', '<=', sprintf('%02d:59:59', $h))
                     ->count();
             }
+        } elseif ($range === 'this_year' || $range === 'last_year') {
+            // Month-wise chart for Year filter
+            $targetYear = $range === 'last_year' ? Carbon::now()->subYear()->year : Carbon::now()->year;
+            $maxMonth = $range === 'last_year' ? 12 : Carbon::now()->month;
+
+            for ($m = 1; $m <= $maxMonth; $m++) {
+                $mStart = Carbon::createFromDate($targetYear, $m, 1)->startOfMonth();
+                $mEnd = Carbon::createFromDate($targetYear, $m, 1)->endOfMonth();
+
+                $dates[] = $mStart->format('M Y');
+                $visitorsData[] = Visitor::whereBetween('created_at', [$mStart, $mEnd])->count();
+                $pageViewsData[] = PageView::whereBetween('viewed_at', [$mStart, $mEnd])->count();
+            }
         } else {
             // Day-wise chart
+            $days = ($range === 'yesterday') ? 1 : ($range === '7' ? 7 : ($range === 'this_month' ? Carbon::now()->day : 30));
+
             for ($i = $days - 1; $i >= 0; $i--) {
                 $curDate = Carbon::now()->subDays($i)->format('Y-m-d');
                 $dates[] = Carbon::now()->subDays($i)->format('d M');

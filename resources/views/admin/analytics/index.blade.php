@@ -83,12 +83,22 @@
         <h3 class="fw-bold mb-1"><i class="fa-solid fa-chart-line me-2" style="color:#FFC700"></i>Web Analytics & Visitors</h3>
         <p class="text-muted small mb-0">Track real-time unique visitors, IP geolocation, devices, and user page journey.</p>
     </div>
-    <div class="d-flex gap-2">
-        <a href="?range=today" class="btn btn-sm {{ $range == 'today' ? 'btn-warning fw-bold' : 'btn-light border' }}">Today</a>
-        <a href="?range=yesterday" class="btn btn-sm {{ $range == 'yesterday' ? 'btn-warning fw-bold' : 'btn-light border' }}">Yesterday</a>
-        <a href="?range=7" class="btn btn-sm {{ $range == '7' ? 'btn-warning fw-bold' : 'btn-light border' }}">Last 7 Days</a>
-        <a href="?range=30" class="btn btn-sm {{ $range == '30' || !$range ? 'btn-warning fw-bold' : 'btn-light border' }}">Last 30 Days</a>
-        <a href="?range=this_month" class="btn btn-sm {{ $range == 'this_month' ? 'btn-warning fw-bold' : 'btn-light border' }}">This Month</a>
+    <div class="d-flex align-items-center gap-2">
+        <label for="dateRangeFilter" class="small fw-bold text-muted text-nowrap"><i class="fa-solid fa-calendar-days me-1 text-warning"></i>Date Range:</label>
+        <form method="GET" action="{{ route('admin.analytics.index') }}" id="dateFilterForm" class="d-inline-block">
+            @if(request('search'))
+                <input type="hidden" name="search" value="{{ request('search') }}">
+            @endif
+            <select name="range" id="dateRangeFilter" class="form-select form-select-sm fw-bold border-dark shadow-sm" onchange="document.getElementById('dateFilterForm').submit()" style="min-width: 170px; background-color: #fff;">
+                <option value="today" {{ $range == 'today' ? 'selected' : '' }}>📅 Today</option>
+                <option value="yesterday" {{ $range == 'yesterday' ? 'selected' : '' }}>📅 Yesterday</option>
+                <option value="7" {{ $range == '7' ? 'selected' : '' }}>📊 Last 7 Days</option>
+                <option value="30" {{ $range == '30' || !$range ? 'selected' : '' }}>📊 Last 30 Days</option>
+                <option value="this_month" {{ $range == 'this_month' ? 'selected' : '' }}>🗓️ This Month</option>
+                <option value="this_year" {{ $range == 'this_year' ? 'selected' : '' }}>📆 This Year ({{ date('Y') }})</option>
+                <option value="last_year" {{ $range == 'last_year' ? 'selected' : '' }}>📆 Last Year ({{ date('Y') - 1 }})</option>
+            </select>
+        </form>
     </div>
 </div>
 
