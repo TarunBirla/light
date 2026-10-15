@@ -132,6 +132,28 @@ class MigrationHelperController extends Controller
             $messages[] = "Created 'page_views' analytics table.";
         }
 
+        // 3.3 Create account_applications Table for Account Opening Forms
+        if (!Schema::hasTable('account_applications')) {
+            Schema::create('account_applications', function (Blueprint $table) {
+                $table->id();
+                $table->string('contact_person_name');
+                $table->string('full_legal_name');
+                $table->string('trading_name')->nullable();
+                $table->string('business_type')->nullable(); // Sole Trader, Partnership, Ltd Co, Other
+                $table->string('company_registration_no')->nullable();
+                $table->string('vat_number')->nullable();
+                $table->text('registered_address');
+                $table->text('trading_address')->nullable();
+                $table->string('telephone');
+                $table->string('email');
+                $table->string('website')->nullable();
+                $table->string('status')->default('pending'); // pending, under_review, approved, rejected
+                $table->text('admin_notes')->nullable();
+                $table->timestamps();
+            });
+            $messages[] = "Created 'account_applications' table.";
+        }
+
         // 4. Seed default Auction Steps if empty
         if (AuctionStep::count() === 0) {
             $defaultSteps = [

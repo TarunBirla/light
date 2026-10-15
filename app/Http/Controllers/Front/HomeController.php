@@ -64,7 +64,7 @@ public function guestRequest(Request $request)
     ];
 
     try {
-        Mail::to('tbirla120@gmail.com')
+        Mail::to('mohammednasar.uk@gmail.com')
             ->send(new RequestLeadMail($mailData));
     } catch (\Exception $e) {
         \Log::error('Mail sending error: ' . $e->getMessage());

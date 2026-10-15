@@ -37,6 +37,9 @@ Route::get('/llms.txt', function () {
     return response()->file(public_path('llms.txt'), ['Content-Type' => 'text/plain; charset=utf-8']);
 });
 
+Route::get('/open-account', [\App\Http\Controllers\Front\AccountOpeningController::class, 'create'])->name('front.account-opening');
+Route::post('/open-account', [\App\Http\Controllers\Front\AccountOpeningController::class, 'store'])->name('front.account-opening.store');
+
 Route::get('/equipment-request', [FrontEquipmentRequestController::class, 'index'])->name('equipment-request.index');
 Route::post('/equipment-request', [FrontEquipmentRequestController::class, 'store'])->name('equipment-request.store');
 
@@ -170,6 +173,7 @@ Route::post(
 
 Route::get('/run-auction-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-auction-migrations');
 Route::get('/run-analytics-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-analytics-migrations');
+Route::get('/run-account-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-account-migrations');
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
@@ -177,6 +181,12 @@ Route::middleware(['auth', 'admin'])
 
     Route::get('/analytics', [\App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.analytics.index');
     Route::get('/analytics/visitor-journey/{id}', [\App\Http\Controllers\Admin\AnalyticsController::class, 'visitorJourney'])->name('admin.analytics.journey');
+
+    // Account Applications
+    Route::get('/account-applications', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'index'])->name('admin.account-applications.index');
+    Route::get('/account-applications/{id}', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'show'])->name('admin.account-applications.show');
+    Route::patch('/account-applications/{id}/status', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'updateStatus'])->name('admin.account-applications.status');
+    Route::delete('/account-applications/{id}', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'destroy'])->name('admin.account-applications.destroy');
 
     Route::resource('steps', \App\Http\Controllers\Admin\AuctionStepController::class)->names('admin.steps');
     Route::resource('auction-faqs', \App\Http\Controllers\Admin\AuctionFaqController::class)->names('admin.auction-faqs');
