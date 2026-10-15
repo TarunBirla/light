@@ -250,10 +250,10 @@
 
 
             {{-- Bottom --}}
-                <a href="{{ route('front.account-opening') }}" class="nav-action-link" style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
+                <!-- <a href="{{ route('front.account-opening') }}" class="nav-action-link" style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
                     <i class="bi bi-file-earmark-person"></i>
                     Open Account
-                </a>
+                </a> -->
 
                 <a href="/equipment-requestnew" class="nav-action-link">
                     <i class="bi bi-file-earmark-text"></i>
