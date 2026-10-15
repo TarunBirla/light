@@ -86,6 +86,52 @@ class MigrationHelperController extends Controller
             $messages[] = "Created 'auction_faqs' table.";
         }
 
+        // 3.1 Create visitors Table for Analytics
+        if (!Schema::hasTable('visitors')) {
+            Schema::create('visitors', function (Blueprint $table) {
+                $table->id();
+                $table->string('ip_address')->unique();
+                $table->string('country')->nullable();
+                $table->string('country_code', 10)->nullable();
+                $table->string('city')->nullable();
+                $table->string('region')->nullable();
+                $table->decimal('latitude', 10, 7)->nullable();
+                $table->decimal('longitude', 10, 7)->nullable();
+                $table->string('isp')->nullable();
+                $table->string('browser')->nullable();
+                $table->string('browser_version')->nullable();
+                $table->string('device')->default('Desktop');
+                $table->string('os')->nullable();
+                $table->text('landing_page')->nullable();
+                $table->text('last_page')->nullable();
+                $table->text('referrer')->nullable();
+                $table->integer('total_visits')->default(1);
+                $table->timestamp('last_visit_at')->nullable();
+                $table->timestamps();
+            });
+            $messages[] = "Created 'visitors' analytics table.";
+        }
+
+        // 3.2 Create page_views Table for Analytics Journey
+        if (!Schema::hasTable('page_views')) {
+            Schema::create('page_views', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('visitor_id')->nullable();
+                $table->string('ip_address')->nullable();
+                $table->text('url');
+                $table->string('page_name')->nullable();
+                $table->text('referrer')->nullable();
+                $table->string('method', 10)->default('GET');
+                $table->timestamp('viewed_at')->useCurrent();
+                $table->timestamps();
+
+                $table->index('visitor_id');
+                $table->index('ip_address');
+                $table->index('viewed_at');
+            });
+            $messages[] = "Created 'page_views' analytics table.";
+        }
+
         // 4. Seed default Auction Steps if empty
         if (AuctionStep::count() === 0) {
             $defaultSteps = [

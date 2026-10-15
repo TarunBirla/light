@@ -312,6 +312,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.analytics.index') }}" class="{{ request()->is('admin/analytics*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Analytics & Visitors
+                </a>
+            </li>
+            <li>
                 <a href="/admin/banner" class="{{ request()->is('admin/banner*') ? 'active' : '' }}">
                     <i class="fa-solid fa-image"></i>
                     Banners

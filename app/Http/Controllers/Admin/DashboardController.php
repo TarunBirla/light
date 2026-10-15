@@ -26,6 +26,17 @@ class DashboardController extends Controller
             'user'
         )->count();
 
+        $uniqueVisitorsCount = 0;
+        $todayVisitorsCount = 0;
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('visitors')) {
+                $uniqueVisitorsCount = \App\Models\Visitor::count();
+                $todayVisitorsCount = \App\Models\Visitor::whereDate('last_visit_at', \Carbon\Carbon::today())->count();
+            }
+        } catch (\Exception $e) {
+            // ignore
+        }
+
         return view(
             'admin.dashboard',
             compact(
@@ -33,7 +44,9 @@ class DashboardController extends Controller
                 'categoryCount',
                 'itemCount',
                 'userCount',
-                'requestCount'
+                'requestCount',
+                'uniqueVisitorsCount',
+                'todayVisitorsCount'
             )
         );
     }

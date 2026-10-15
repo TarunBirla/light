@@ -169,10 +169,14 @@ Route::post(
 
 
 Route::get('/run-auction-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-auction-migrations');
+Route::get('/run-analytics-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-analytics-migrations');
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->group(function () {
+
+    Route::get('/analytics', [\App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.analytics.index');
+    Route::get('/analytics/visitor-journey/{id}', [\App\Http\Controllers\Admin\AnalyticsController::class, 'visitorJourney'])->name('admin.analytics.journey');
 
     Route::resource('steps', \App\Http\Controllers\Admin\AuctionStepController::class)->names('admin.steps');
     Route::resource('auction-faqs', \App\Http\Controllers\Admin\AuctionFaqController::class)->names('admin.auction-faqs');

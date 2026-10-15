@@ -8,7 +8,7 @@
 <style>
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 18px;
         margin-bottom: 28px;
     }
@@ -211,6 +211,19 @@
             <div class="stat-label">Total Requests</div>
         </div>
     </div>
+
+    <a href="{{ route('admin.analytics.index') }}" class="stat-card text-decoration-none">
+        <div class="stat-card-top">
+            <div class="stat-icon yellow">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <span class="stat-badge">Today: {{ $todayVisitorsCount }}</span>
+        </div>
+        <div class="stat-card-bottom">
+            <div class="stat-num text-dark">{{ $uniqueVisitorsCount }}</div>
+            <div class="stat-label">Unique Web Visitors</div>
+        </div>
+    </a>
 
 </div>
 
