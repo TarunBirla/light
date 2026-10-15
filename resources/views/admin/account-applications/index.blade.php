@@ -122,7 +122,7 @@
                         </td>
                         <td class="text-end">
                             <a href="{{ route('admin.account-applications.show', $app->id) }}" class="btn btn-sm btn-dark me-1" title="View Full Application">
-                                <i class="fa-solid fa-eye me-1"></i> View
+                                <i class="fa-solid fa-eye me-1"></i> 
                             </a>
                             <form action="{{ route('admin.account-applications.destroy', $app->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this application?')">
                                 @csrf
