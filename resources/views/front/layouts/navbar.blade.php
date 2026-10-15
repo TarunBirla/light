@@ -267,58 +267,57 @@
                 Cinematic Lighting</p>
 
             <div class="nav-actions nav-actions-vertical -mt-5">
-                < {{-- Bottom --}} <a href="{{ route('front.account-opening') }}" class="nav-action-link"
-                    style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
+                {{-- Bottom --}}
+                <a href="{{ route('front.account-opening') }}" class="nav-action-link">
                     <i class="bi bi-file-earmark-person"></i>
                     Open Account
-                    </a>
+                </a>
 
-                    <a href="/equipment-requestnew" class="nav-action-link">
-                        <i class="bi bi-file-earmark-text"></i>
-                        Equipment Request
-                    </a>
+                <a href="/equipment-requestnew" class="nav-action-link">
+                    <i class="bi bi-file-earmark-text"></i>
+                    Equipment Request
+                </a>
 
-                    <a href="/items?type=sell" class="nav-action-link">
-                        <i class="bi bi-search"></i>
-                        Selling
-                    </a>
+                <a href="/items?type=sell" class="nav-action-link">
+                    <i class="bi bi-search"></i>
+                    Selling
+                </a>
 
-                    <a href="/items?type=rental" class="nav-action-link">
-                        <i class="bi bi-cart"></i>
-                        Rental
-                    </a>
+                <a href="/items?type=rental" class="nav-action-link">
+                    <i class="bi bi-cart"></i>
+                    Rental
+                </a>
 
-                    <a href="/auctions" class="nav-action-link">
-                        <i class="bi bi-gavel"></i>
-                        Auction
-                    </a>
+                <a href="/auctions" class="nav-action-link">
+                    <i class="bi bi-gavel"></i>
+                    Auction
+                </a>
 
-                    @auth
-                        <div class="dropdown d-inline-block">
-                            <a href="#" class="nav-action-link dropdown-toggle" id="userMenuDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i>
-                                {{ Auth::user()->first_name ?? Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1"
-                                aria-labelledby="userMenuDropdown">
-                                <li><span class="dropdown-item-text text-muted small"><i class="bi bi-envelope me-1"></i>
-                                        {{ Auth::user()->email }}</span></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item fw-bold" href="/profile"><i class="bi bi-person me-1"></i> My
-                                        Profile</a></li>
-                                <li><a class="dropdown-item text-danger fw-bold" href="/logout"><i
-                                            class="bi bi-box-arrow-right me-1"></i> Logout</a></li>
-                            </ul>
-                        </div>
-                    @else
-                        <a href="/login" class="nav-action-link">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            Login
+                @auth
+                    <div class="dropdown d-inline-block">
+                        <a href="#" class="nav-action-link dropdown-toggle" id="userMenuDropdown" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-person-circle"></i>
+                            {{ Auth::user()->first_name ?? Auth::user()->name }}
                         </a>
-                    @endauth
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" aria-labelledby="userMenuDropdown">
+                            <li><span class="dropdown-item-text text-muted small"><i class="bi bi-envelope me-1"></i>
+                                    {{ Auth::user()->email }}</span></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item fw-bold" href="/profile"><i class="bi bi-person me-1"></i> My
+                                    Profile</a></li>
+                            <li><a class="dropdown-item text-danger fw-bold" href="/logout"><i
+                                        class="bi bi-box-arrow-right me-1"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="/login" class="nav-action-link">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Login
+                    </a>
+                @endauth
 
             </div>
         </div>
