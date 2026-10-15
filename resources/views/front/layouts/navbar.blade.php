@@ -279,8 +279,7 @@
             <p class="mb-0 fw-semibold text-dark -mt-5" style="font-size:0.92rem;">Official Godox KNOWLED Dealer for
                 Cinematic Lighting</p>
         </div>
-
-        <div class="nav-actions nav-actions-vertical -mt-5">
+   <div class="nav-actions nav-actions-vertical -mt-5">
             < {{-- Bottom --}} <a href="{{ route('front.account-opening') }}" class="nav-action-link"
                 style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
                 <i class="bi bi-file-earmark-person"></i>
@@ -334,6 +333,7 @@
                 @endauth
 
         </div>
+        
 
     </div>
 </nav>
