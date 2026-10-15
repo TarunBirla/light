@@ -163,49 +163,6 @@
     margin-top: -11px;
 }
 
-.nav-actions-vertical {
-    flex-direction: column !important;
-    align-items: flex-end !important;
-    gap: 6px !important;
-    margin-top: 6px !important;
-    width: 100%;
-}
-
-.nav-actions-vertical .nav-action-link {
-    font-size: 1.15rem !important;
-    font-weight: 700 !important;
-    padding: 4px 0 !important;
-    color: #000 !important;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: none;
-    background: transparent;
-}
-
-.nav-actions-vertical .nav-action-link:hover {
-    background: transparent !important;
-    color: #111 !important;
-    opacity: 0.8;
-}
-
-.nav-actions-vertical .btn-open-account {
-    border: 2px solid #000 !important;
-    background: #fff !important;
-    color: #000 !important;
-    border-radius: 10px !important;
-    padding: 6px 18px !important;
-    font-size: 1.15rem !important;
-    font-weight: 800 !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    margin-bottom: 4px;
-}
-
-.nav-actions-vertical .btn-open-account:hover {
-    background: #f7f7f7 !important;
-}
-
 .nav-action-link {
     display: inline-flex;
     align-items: center;
@@ -293,8 +250,7 @@
 
 
             {{-- Bottom --}}
-            <div class="nav-actions nav-actions-vertical -mt-5">
-                <a href="{{ route('front.account-opening') }}" class="btn-open-account text-decoration-none d-inline-flex align-items-center gap-2">
+                <a href="{{ route('front.account-opening') }}" class="nav-action-link" style="border: 1.5px solid #111; background: #fff; color: #111 !important; border-radius: 8px;">
                     <i class="bi bi-file-earmark-person"></i>
                     Open Account
                 </a>
