@@ -50,6 +50,9 @@ Route::get('/auctions', [AuctionController::class, 'index'])->name('front.auctio
 Route::get('/auction/{id}', [AuctionController::class, 'show'])->name('front.auctions.show');
 Route::post('/auction-request', [AuctionController::class, 'storeRequest'])->name('front.auctions.store-request');
 
+Route::get('/blogs', [\App\Http\Controllers\Front\BlogController::class, 'index'])->name('front.blogs.index');
+Route::get('/blog/{slug}', [\App\Http\Controllers\Front\BlogController::class, 'show'])->name('front.blogs.show');
+
 
 
 
@@ -174,6 +177,7 @@ Route::post(
 Route::get('/run-auction-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-auction-migrations');
 Route::get('/run-analytics-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-analytics-migrations');
 Route::get('/run-account-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-account-migrations');
+Route::get('/run-blog-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-blog-migrations');
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
@@ -187,6 +191,10 @@ Route::middleware(['auth', 'admin'])
     Route::get('/account-applications/{id}', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'show'])->name('admin.account-applications.show');
     Route::patch('/account-applications/{id}/status', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'updateStatus'])->name('admin.account-applications.status');
     Route::delete('/account-applications/{id}', [\App\Http\Controllers\Admin\AccountApplicationController::class, 'destroy'])->name('admin.account-applications.destroy');
+
+    // Blogs Management
+    Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class)->names('admin.blogs');
+    Route::patch('/blogs/{id}/status', [\App\Http\Controllers\Admin\BlogController::class, 'updateStatus'])->name('admin.blogs.status');
 
     Route::resource('steps', \App\Http\Controllers\Admin\AuctionStepController::class)->names('admin.steps');
     Route::resource('auction-faqs', \App\Http\Controllers\Admin\AuctionFaqController::class)->names('admin.auction-faqs');

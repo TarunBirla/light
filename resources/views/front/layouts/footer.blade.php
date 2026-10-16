@@ -167,6 +167,8 @@
                         style="font-size:.7rem;"></i>Home</a>
                 <a class="footer-link" href="/about"><i class="bi bi-chevron-right me-1"
                         style="font-size:.7rem;"></i>About Us</a>
+                <a class="footer-link" href="/blogs"><i class="bi bi-chevron-right me-1"
+                        style="font-size:.7rem;"></i>Blogs</a>
                 <a class="footer-link"
                     href="https://static1.squarespace.com/static/6808d7663045f7249c22655f/t/688880c6571c962c399c68f7/1780225841518/Term+and+Condition+of+LAA.pdf"
                     target="_blank"><i class="bi bi-chevron-right me-1" style="font-size:.7rem;"></i>Terms &

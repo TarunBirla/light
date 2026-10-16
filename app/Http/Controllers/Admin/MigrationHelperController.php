@@ -154,6 +154,23 @@ class MigrationHelperController extends Controller
             $messages[] = "Created 'account_applications' table.";
         }
 
+        // 3.4 Create blogs Table for Blog & News
+        if (!Schema::hasTable('blogs')) {
+            Schema::create('blogs', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('image')->nullable();
+                $table->text('short_description')->nullable();
+                $table->longText('description')->nullable();
+                $table->string('author')->default('Light As Air Team');
+                $table->string('status')->default('active'); // active / inactive
+                $table->unsignedBigInteger('views')->default(0);
+                $table->timestamps();
+            });
+            $messages[] = "Created 'blogs' table.";
+        }
+
         // 4. Seed default Auction Steps if empty
         if (AuctionStep::count() === 0) {
             $defaultSteps = [

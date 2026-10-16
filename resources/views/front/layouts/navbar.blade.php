@@ -293,6 +293,11 @@
                     Auction
                 </a>
 
+                <a href="{{ route('front.blogs.index') }}" class="nav-action-link">
+                    <i class="bi bi-newspaper"></i>
+                    Blogs
+                </a>
+
                 @auth
                     <div class="dropdown d-inline-block">
                         <a href="#" class="nav-action-link dropdown-toggle" id="userMenuDropdown" data-bs-toggle="dropdown"

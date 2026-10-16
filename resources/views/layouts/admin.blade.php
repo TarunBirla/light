@@ -349,6 +349,12 @@
                 </a>
             </li> -->
             <li>
+                <a href="{{ route('admin.blogs.index') }}" class="{{ request()->is('admin/blogs*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    Blogs
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.account-applications.index') }}" class="{{ request()->is('admin/account-applications*') ? 'active' : '' }}">
                     <i class="fa-solid fa-file-signature"></i>
                     Account Applications
