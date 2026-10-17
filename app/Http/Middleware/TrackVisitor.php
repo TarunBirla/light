@@ -24,7 +24,7 @@ class TrackVisitor
             try {
                 $this->track($request);
             } catch (\Exception $e) {
-                // Background tracking fail hone par user page load break na ho
+                \Illuminate\Support\Facades\Log::error('TrackVisitor Error: ' . $e->getMessage());
             }
         }
 

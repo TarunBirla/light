@@ -174,10 +174,13 @@ Route::post(
 
 
 
+Route::get('/sync-database', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'syncDatabase'])->name('sync-database');
+Route::get('/run-all-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'syncDatabase'])->name('run-all-migrations');
 Route::get('/run-auction-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-auction-migrations');
 Route::get('/run-analytics-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-analytics-migrations');
 Route::get('/run-account-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-account-migrations');
 Route::get('/run-blog-migrations', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'runMigrations'])->name('run-blog-migrations');
+Route::get('/clear-cache', [\App\Http\Controllers\Admin\MigrationHelperController::class, 'clearCache'])->name('clear-cache');
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
